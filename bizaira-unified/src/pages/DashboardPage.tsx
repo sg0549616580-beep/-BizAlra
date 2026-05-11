@@ -141,32 +141,36 @@ const DashboardPage = () => {
       : "Welcome to your Personal Area."
     : "Welcome to your personal workspace.";
 
-  const MIDNIGHT_NAVY = "#0a0a0a";
-  const SURFACE_NAVY = "#1a1a2e";
-  const OFF_WHITE = "#f5f5f5";
-  const CREAM_BG = "#f5f5f5";
-  const GOLD = "#D4AF37";
+  const MIDNIGHT_NAVY = "#001830";
+  const PEARL_WHITE = "#FAFAFA";
+  const LIGHT_GREY = "#E5E7EB";
 
   return (
-    <div className="min-h-screen pb-16" style={{ backgroundColor: MIDNIGHT_NAVY, fontFamily: "Heebo, Assistant, sans-serif" }}>
+    <div className="min-h-screen pb-16" style={{ backgroundColor: PEARL_WHITE, fontFamily: "Heebo, Assistant, sans-serif" }}>
+      {/* Header with Auth Button */}
+      <div className="flex justify-end p-6">
+        <button className="px-4 py-2 rounded-lg border-2 border-transparent bg-transparent text-gray-700 hover:bg-gray-900 hover:text-white transition-all duration-300" style={{ borderColor: MIDNIGHT_NAVY }}>
+          {isHe ? "התחברות / הרשמה" : "Login / Sign Up"}
+        </button>
+      </div>
       <div className="max-w-7xl mx-auto px-6 py-12">
-        <div className="rounded-[32px] border p-10 shadow-[0_24px_60px_-30px_rgba(26,26,46,0.12)]" style={{ backgroundColor: SURFACE_NAVY, borderColor: OFF_WHITE, color: OFF_WHITE }}>
+        <div className="rounded-[32px] border p-10 shadow-[0_24px_60px_-30px_rgba(0,0,0,0.08)]" style={{ backgroundColor: PEARL_WHITE, borderColor: LIGHT_GREY, color: MIDNIGHT_NAVY }}>
           <div className="grid gap-10 lg:grid-cols-[1.8fr_1fr] items-end">
             <div>
-              <p className="text-xs uppercase tracking-[0.3em] text-[#6B6B6B] mb-4">{isHe ? "האזור האישי" : "Personal Area"}</p>
-              <h1 className="text-4xl sm:text-5xl leading-tight mb-4" style={{ fontWeight: 300, color: OFF_WHITE }}>
-                {greetingTitle}
+              <p className="text-xs uppercase tracking-[0.3em] text-gray-500 mb-4">{isHe ? "האזור האישי" : "Personal Area"}</p>
+              <h1 className="text-4xl sm:text-5xl leading-tight mb-4 font-bold" style={{ color: MIDNIGHT_NAVY }}>
+                {isHe ? "היי, מה תרצה לבנות היום?" : "Hi, what would you like to create today?"}
               </h1>
-              <p className="max-w-2xl text-base leading-8" style={{ fontWeight: 300, color: OFF_WHITE }}>
+              <p className="max-w-2xl text-base leading-8 text-gray-600">
                 {greetingSubtitle}
               </p>
             </div>
-            <div className="rounded-[28px] border p-6 shadow-[0_16px_40px_-24px_rgba(26,26,46,0.18)]" style={{ backgroundColor: SURFACE_NAVY, borderColor: '#2a2a3e', color: OFF_WHITE }}>
-              <p className="text-[11px] uppercase tracking-[0.3em] mb-4" style={{ color: OFF_WHITE }}>{isHe ? "סטטוס" : "Status"}</p>
-              <p className="text-3xl font-semibold" style={{ color: OFF_WHITE, fontWeight: 500 }}>
+            <div className="rounded-[28px] border p-6 shadow-[0_16px_40px_-24px_rgba(0,0,0,0.08)]" style={{ backgroundColor: PEARL_WHITE, borderColor: LIGHT_GREY, color: MIDNIGHT_NAVY }}>
+              <p className="text-[11px] uppercase tracking-[0.3em] mb-4 text-gray-500">{isHe ? "סטטוס" : "Status"}</p>
+              <p className="text-3xl font-semibold text-gray-900">
                 {isHe ? "חלל פרטי" : "Boutique Private"}
               </p>
-              <p className="mt-3 text-sm leading-6" style={{ color: OFF_WHITE, fontWeight: 300 }}>
+              <p className="mt-3 text-sm leading-6 text-gray-600">
                 {isHe ? "חלל עדין וממותג לעבודה עסקית אישית." : "A delicate, branded space for your personal business work."}
               </p>
             </div>
@@ -175,105 +179,102 @@ const DashboardPage = () => {
 
         {/* Stats Cards */}
         <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-          <div className="rounded-[28px] p-6 shadow-[0_18px_45px_-24px_rgba(26,26,46,0.18)] border" style={{ backgroundColor: SURFACE_NAVY, borderColor: '#2a2a3e', color: OFF_WHITE }}>
+          <div className="rounded-[28px] p-6 shadow-[0_18px_45px_-24px_rgba(0,0,0,0.08)] border" style={{ backgroundColor: PEARL_WHITE, borderColor: LIGHT_GREY, color: MIDNIGHT_NAVY }}>
             <div className="flex items-center justify-between mb-4">
               <div className="w-12 h-12 rounded-xl flex items-center justify-center" style={{ backgroundColor: MIDNIGHT_NAVY }}>
-                <TrendingUp size={24} style={{ color: OFF_WHITE }} strokeWidth={1.5} />
+                <TrendingUp size={24} style={{ color: PEARL_WHITE }} strokeWidth={1.5} />
               </div>
-              <span className="text-2xl font-semibold" style={{ color: OFF_WHITE, fontWeight: 500 }}>5</span>
+              <span className="text-2xl font-semibold">5</span>
             </div>
-            <p className="text-sm" style={{ fontWeight: 300, color: OFF_WHITE }}>{isHe ? "פעילויות הושלמו" : "Activities Completed"}</p>
-            <div className="mt-4 w-full rounded-full h-2" style={{ backgroundColor: '#2a2a3e' }}>
-              <div className="h-2 rounded-full" style={{ width: "100%", backgroundColor: OFF_WHITE }}></div>
+            <p className="text-sm font-light">{isHe ? "פעילויות הושלמו" : "Activities Completed"}</p>
+            <div className="mt-4 w-full rounded-full h-2 bg-gray-200">
+              <div className="h-2 rounded-full bg-gray-900"></div>
             </div>
-            <p className="text-xs mt-2" style={{ color: OFF_WHITE }}>5/5</p>
+            <p className="text-xs mt-2 text-gray-500">5/5</p>
           </div>
 
-          <div className="rounded-[28px] p-6 shadow-[0_18px_45px_-24px_rgba(26,26,46,0.18)] border" style={{ backgroundColor: SURFACE_NAVY, borderColor: OFF_WHITE, color: OFF_WHITE }}>
+          <div className="rounded-[28px] p-6 shadow-[0_18px_45px_-24px_rgba(0,0,0,0.08)] border" style={{ backgroundColor: PEARL_WHITE, borderColor: LIGHT_GREY, color: MIDNIGHT_NAVY }}>
             <div className="flex items-center justify-between mb-4">
               <div className="w-12 h-12 rounded-xl flex items-center justify-center" style={{ backgroundColor: MIDNIGHT_NAVY }}>
-                <Sparkles size={24} style={{ color: OFF_WHITE }} strokeWidth={1.5} />
+                <Sparkles size={24} style={{ color: PEARL_WHITE }} strokeWidth={1.5} />
               </div>
-              <span className="text-2xl font-semibold" style={{ color: OFF_WHITE, fontWeight: 500 }}>0</span>
+              <span className="text-2xl font-semibold">0</span>
             </div>
-            <p className="text-sm" style={{ fontWeight: 300, color: OFF_WHITE }}>{isHe ? "יצירות AI" : "AI Generations"}</p>
-            <div className="mt-4 w-full rounded-full h-2" style={{ backgroundColor: '#2a2a3e' }}>
-              <div className="h-2 rounded-full" style={{ width: "0%", backgroundColor: OFF_WHITE }}></div>
+            <p className="text-sm font-light">{isHe ? "יצירות AI" : "AI Generations"}</p>
+            <div className="mt-4 w-full bg-gray-200 rounded-full h-2">
+              <div className="h-2 rounded-full" style={{ width: "0%", backgroundColor: MIDNIGHT_NAVY }}></div>
             </div>
-            <p className="text-xs mt-2" style={{ color: OFF_WHITE }}>0/∞</p>
+            <p className="text-xs mt-2 text-gray-500">0/∞</p>
           </div>
 
-          <div className="rounded-[28px] p-6 shadow-[0_18px_45px_-24px_rgba(26,26,46,0.18)] border" style={{ backgroundColor: SURFACE_NAVY, borderColor: '#2a2a3e', color: OFF_WHITE }}>
+          <div className="rounded-[28px] p-6 shadow-[0_18px_45px_-24px_rgba(0,0,0,0.08)] border" style={{ backgroundColor: PEARL_WHITE, borderColor: LIGHT_GREY, color: MIDNIGHT_NAVY }}>
             <div className="flex items-center justify-between mb-4">
               <div className="w-12 h-12 rounded-xl flex items-center justify-center" style={{ backgroundColor: MIDNIGHT_NAVY }}>
-                <MessageSquare size={24} style={{ color: OFF_WHITE }} strokeWidth={1.5} />
+                <MessageSquare size={24} style={{ color: PEARL_WHITE }} strokeWidth={1.5} />
               </div>
-              <span className="text-2xl font-semibold" style={{ color: OFF_WHITE, fontWeight: 500 }}>0</span>
+              <span className="text-2xl font-semibold">0</span>
             </div>
-            <p className="text-sm" style={{ fontWeight: 300, color: OFF_WHITE }}>{isHe ? "הודעות נשלחו" : "Messages Sent"}</p>
-            <div className="mt-4 w-full bg-gray-600 rounded-full h-2">
-              <div className="h-2 rounded-full" style={{ width: "0%", backgroundColor: OFF_WHITE }}></div>
+            <p className="text-sm font-light">{isHe ? "הודעות נשלחו" : "Messages Sent"}</p>
+            <div className="mt-4 w-full bg-gray-200 rounded-full h-2">
+              <div className="h-2 rounded-full" style={{ width: "0%", backgroundColor: MIDNIGHT_NAVY }}></div>
             </div>
-            <p className="text-xs mt-2" style={{ color: OFF_WHITE }}>0/∞</p>
+            <p className="text-xs mt-2 text-gray-500">0/∞</p>
           </div>
 
-          <div className="rounded-[28px] p-6 shadow-[0_18px_45px_-24px_rgba(26,26,46,0.18)] border" style={{ backgroundColor: SURFACE_NAVY, borderColor: '#2a2a3e', color: OFF_WHITE }}>
+          <div className="rounded-[28px] p-6 shadow-[0_18px_45px_-24px_rgba(0,0,0,0.08)] border" style={{ backgroundColor: PEARL_WHITE, borderColor: LIGHT_GREY, color: MIDNIGHT_NAVY }}>
             <div className="flex items-center justify-between mb-4">
               <div className="w-12 h-12 rounded-xl flex items-center justify-center" style={{ backgroundColor: MIDNIGHT_NAVY }}>
-                <BarChart3 size={24} style={{ color: OFF_WHITE }} strokeWidth={1.5} />
+                <BarChart3 size={24} style={{ color: PEARL_WHITE }} strokeWidth={1.5} />
               </div>
-              <span className="text-2xl font-semibold" style={{ color: OFF_WHITE, fontWeight: 500 }}>0</span>
+              <span className="text-2xl font-semibold">0</span>
             </div>
-            <p className="text-sm" style={{ fontWeight: 300, color: OFF_WHITE }}>{isHe ? "דוחות נוצרו" : "Reports Created"}</p>
-            <div className="mt-4 w-full rounded-full h-2" style={{ backgroundColor: '#2a2a3e' }}>
-              <div className="h-2 rounded-full" style={{ width: "0%", backgroundColor: OFF_WHITE }}></div>
+            <p className="text-sm font-light">{isHe ? "דוחות נוצרו" : "Reports Created"}</p>
+            <div className="mt-4 w-full rounded-full h-2 bg-gray-200">
+              <div className="h-2 rounded-full" style={{ width: "0%", backgroundColor: MIDNIGHT_NAVY }}></div>
             </div>
-            <p className="text-xs mt-2" style={{ color: OFF_WHITE }}>0/∞</p>
+            <p className="text-xs mt-2 text-gray-500">0/∞</p>
           </div>
         </div>
 
         {/* Upgrade to PRO Button */}
         <div className="mt-10 text-center">
-          <button className="px-8 py-4 rounded-[20px] text-white font-light text-lg transition-all duration-300 hover:scale-105 hover:-translate-y-1" style={{ backgroundColor: MIDNIGHT_NAVY, boxShadow: "0 12px 32px -8px rgba(10,10,10,0.24)" }}>
+          <button className="px-8 py-4 rounded-[20px] text-white font-light text-lg transition-all duration-300 hover:scale-105 hover:-translate-y-1" style={{ backgroundColor: MIDNIGHT_NAVY, boxShadow: "0 12px 32px -8px rgba(0, 1, 48, 0.24)" }}>
             {isHe ? "שדרג ל-PRO" : "Upgrade to PRO"}
           </button>
         </div>
+        {/* Cards Grid */}
+        <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
           {dashboardCards.map((card, index) => {
             const IconComponent = card.icon;
             return (
               <Link
                 key={card.title}
                 to={card.href}
-                className={`
-                  group relative overflow-hidden rounded-[28px] transition-all duration-300 hover:scale-105 hover:-translate-y-2
-                  ${card.primary ? 'bg-[#0a0a0a] text-white' : 'bg-[#1a1a2e] text-[#f5f5f5] border'}
-
-                `}
+                className="
+                  group relative overflow-hidden rounded-[20px] transition-all duration-300 hover:scale-105 hover:-translate-y-5 border border-gray-200
+                  bg-white
+                "
                 style={{
-                  borderColor: card.primary ? 'transparent' : '#2a2a3e',
-                  boxShadow: card.primary
-                    ? '0 22px 60px -24px rgba(1, 18, 36, 0.45)'
-                    : '0 18px 45px -24px rgba(1, 18, 36, 0.18)',
+                  boxShadow: '0 8px 32px -8px rgba(0,0,0,0.1)',
                 }}
               >
-                <div className="p-8 h-full flex flex-col">
-                  <div className="inline-flex h-16 w-16 items-center justify-center rounded-3xl border mb-6" style={{ borderColor: card.primary ? "rgba(255,255,255,0.2)" : "rgba(1,18,36,0.14)", backgroundColor: card.primary ? "rgba(255,255,255,0.1)" : "#FCF7EE" }}>
-                    <IconComponent size={26} strokeWidth={1.5} style={{ color: card.primary ? "#FFFFFF" : "#000810" }} />
+                <div className="p-6 h-full flex flex-col">
+                  <div className="inline-flex h-12 w-12 items-center justify-center rounded-xl mb-4" style={{ backgroundColor: MIDNIGHT_NAVY }}>
+                    <IconComponent size={20} strokeWidth={1.5} style={{ color: PEARL_WHITE }} />
                   </div>
-                  <h3 className="text-2xl font-semibold mb-3" style={{ fontWeight: 500, color: card.primary ? "#FFFFFF" : "#000810" }}>
+                  <h3 className="text-lg font-semibold mb-2 text-gray-900">
                     {card.title}
                   </h3>
-                  <p className="text-sm leading-7" style={{ fontWeight: 300, color: card.primary ? "rgba(255,255,255,0.86)" : "#5B5B5B" }}>
+                  <p className="text-sm leading-6 text-gray-600">
                     {card.description}
                   </p>
-                  <div className={`mt-6 h-1 rounded-full ${card.primary ? "bg-white/20" : "bg-[#000810]/30 group-hover:bg-[#000810]/50"}`} />
                 </div>
 
                 {/* Hover glow effect */}
-                <div className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                <div className="absolute inset-0 rounded-[20px] opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                      style={{
-                       background: `linear-gradient(135deg, rgba(0, 8, 16, 0.1) 0%, transparent 50%)`,
-                       filter: 'blur(20px)',
+                       background: `linear-gradient(135deg, rgba(0, 8, 16, 0.05) 0%, transparent 50%)`,
+                       filter: 'blur(10px)',
                      }} />
               </Link>
             );

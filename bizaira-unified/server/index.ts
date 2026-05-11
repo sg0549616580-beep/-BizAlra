@@ -334,10 +334,19 @@ app.post("/api/generate", (req, res) => {
 });
 
 const distPath = path.resolve(__dirname, "../dist");
-app.use(express.static(distPath));
-app.use((_req, res) => {
-  res.sendFile(path.join(distPath, "index.html"));
-});
+// In development, redirect root to Vite dev server
+if (process.env.NODE_ENV !== 'production') {
+  app.get('/', (req, res) => {
+    res.redirect('http://localhost:5000');
+  });
+}
+// Only serve static files in production
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(distPath));
+  app.use((_req, res) => {
+    res.sendFile(path.join(distPath, "index.html"));
+  });
+}
 
 app.listen(PORT, () => {
   console.log(`[server] running on port ${PORT}`);

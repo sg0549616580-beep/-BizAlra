@@ -15,7 +15,7 @@ import { useI18n } from "@/lib/i18n";
 import { useAuth } from "@/hooks/useAuth";
 import { getActivityStats } from "@/lib/activity-tracker";
 
-const DEEP_MIDNIGHT_BLUE = "#000810";
+const DEEP_MIDNIGHT_BLUE = "#001830";
 const CLEAN_WHITE = "#FFFFFF";
 const COOL_GRAY = "#6B7280";
 const SOFT_BORDER = "#E5E7EB";
@@ -43,8 +43,8 @@ const ProfilePage = () => {
 
   useEffect(() => {
     if (!user) {
-      navigate("/");
-      return;
+      // navigate("/");
+      // return;
     }
     setStats(getActivityStats());
   }, [user, navigate]);
@@ -85,7 +85,8 @@ const ProfilePage = () => {
           <button
             type="button"
             onClick={() => navigate("/pricing")}
-            className="rounded-lg bg-[#000810] px-4 py-2 text-sm font-medium text-white hover:bg-[#000a1a]"
+            className="rounded-lg px-4 py-2 text-sm font-medium text-white"
+            style={{ backgroundColor: DEEP_MIDNIGHT_BLUE }}
           >
             {isHe ? "שדרג ל-PRO" : "Upgrade to PRO"}
           </button>
@@ -103,7 +104,7 @@ const ProfilePage = () => {
           <p className="text-2xl font-bold mb-3" style={{ color: DEEP_MIDNIGHT_BLUE }}>
             {remainingCredits} / {limit}
           </p>
-          <div className="h-1 overflow-hidden rounded-full bg-[#E5E7EB]">
+          <div className="h-1 overflow-hidden rounded-full bg-white border border-gray-200">
             <div className="h-full transition-all duration-500" style={progressStyle} />
           </div>
         </div>
@@ -174,17 +175,17 @@ const ProfilePage = () => {
             return (
               <div
                 key={card.id}
-                className="rounded-lg border border-[#DFE3EA] bg-white p-4 text-center"
+                className="aspect-square rounded-lg bg-white p-4 text-center border border-gray-200"
               >
-                <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full border border-[#E5E7EB]">
-                  <Icon size={20} style={{ color: DEEP_MIDNIGHT_BLUE }} />
+                <div className="flex items-center justify-center h-full flex-col">
+                  <Icon size={24} style={{ color: DEEP_MIDNIGHT_BLUE }} className="mb-2" />
+                  <p className="text-xl font-bold" style={{ color: DEEP_MIDNIGHT_BLUE }}>
+                    {value ?? 0}
+                  </p>
+                  <p className="mt-1 text-xs" style={{ color: COOL_GRAY }}>
+                    {isHe ? card.labelHe : card.labelEn}
+                  </p>
                 </div>
-                <p className="text-2xl font-bold" style={{ color: DEEP_MIDNIGHT_BLUE }}>
-                  {value ?? 0}
-                </p>
-                <p className="mt-1 text-xs" style={{ color: COOL_GRAY }}>
-                  {isHe ? card.labelHe : card.labelEn}
-                </p>
               </div>
             );
           })}

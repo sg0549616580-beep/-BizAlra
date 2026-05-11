@@ -8,8 +8,8 @@ import { getSavedGuestAnswers, createGuestSession } from "@/lib/guest-session";
 import { safeSetSessionItem } from "@/lib/safe-storage";
 
 const DEEP_MIDNIGHT_BLUE = "#000810";
-const PEARL_WHITE = "#F9FAFB";
-const INPUT_BG = "#F9F9FB";
+const PEARL_WHITE = "#FAFAFA";
+const INPUT_BG = "#F9FAFB";
 
 const AuthPage = () => {
   const { lang } = useI18n();
@@ -72,9 +72,9 @@ const AuthPage = () => {
 
   return (
     <div
-      className="flex justify-center px-5 py-10"
+      className="flex justify-center items-center min-h-screen px-5 py-10"
       dir={isHe ? "rtl" : "ltr"}
-      style={{ backgroundColor: PEARL_WHITE, height: "100vh", overflowY: "scroll" }}
+      style={{ backgroundColor: PEARL_WHITE, backgroundImage: "radial-gradient(circle at 25% 25%, rgba(0,8,16,0.02) 0%, transparent 50%), radial-gradient(circle at 75% 75%, rgba(0,8,16,0.02) 0%, transparent 50%)" }}
     >
       <div className="w-full max-w-sm">
         {/* Logo */}
@@ -93,15 +93,15 @@ const AuthPage = () => {
         {/* Form card */}
         <form
           onSubmit={handleSubmit}
-          className={`rounded-2xl p-7 space-y-5 transition-opacity duration-300 ${fade ? 'opacity-100' : 'opacity-0'}`}
-          style={{ backgroundColor: "#FFFFFF", boxShadow: "0 8px 40px -8px rgba(13, 35, 68, 0.1)", height: "auto", maxHeight: "none", paddingBottom: "80px" }}
+          className={`rounded-[32px] p-10 space-y-6 transition-opacity duration-300 ${fade ? 'opacity-100' : 'opacity-0'}`}
+          style={{ backgroundColor: "#FFFFFF", boxShadow: "0 20px 60px -12px rgba(0,0,0,0.08)", border: "1px solid #E5E7EB" }}
         >
           {/* Name field */}
           {!isLogin && (
             <FieldWrapper label={isHe ? "שם מלא" : "Full Name"}>
               <div className="relative">
                 <User
-                  size={15}
+                  size={16}
                   strokeWidth={1.5}
                   className="absolute top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none"
                   style={{ [isHe ? "right" : "left"]: "14px" }}
@@ -111,15 +111,12 @@ const AuthPage = () => {
                   value={name}
                   onChange={e => setName(e.target.value)}
                   placeholder={isHe ? "שם מלא" : "Full Name"}
-                  className="w-full rounded-2xl py-3 text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none transition-all"
+                  className="w-full rounded-2xl py-3 text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none transition-all border border-gray-200 focus:border-blue-500"
                   style={{ 
                     backgroundColor: INPUT_BG, 
-                    border: "none",
                     [isHe ? "paddingRight" : "paddingLeft"]: "40px", 
                     [isHe ? "paddingLeft" : "paddingRight"]: "16px" 
                   }}
-                  onFocus={(e) => e.target.style.border = "1px solid #000"}
-                  onBlur={(e) => e.target.style.border = "none"}
                 />
               </div>
             </FieldWrapper>
@@ -130,7 +127,7 @@ const AuthPage = () => {
             <FieldWrapper label={isHe ? "מספר טלפון" : "Phone Number"}>
               <div className="relative">
                 <Phone
-                  size={15}
+                  size={16}
                   strokeWidth={1.5}
                   className="absolute top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none"
                   style={{ [isHe ? "right" : "left"]: "14px" }}
@@ -141,15 +138,12 @@ const AuthPage = () => {
                   onChange={e => setPhone(e.target.value)}
                   placeholder={isHe ? "050-1234567" : "+972-50-1234567"}
                   dir="ltr"
-                  className="w-full rounded-2xl py-3 text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none transition-all"
+                  className="w-full rounded-2xl py-3 text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none transition-all border border-gray-200 focus:border-blue-500"
                   style={{ 
                     backgroundColor: INPUT_BG, 
-                    border: "none",
                     [isHe ? "paddingRight" : "paddingLeft"]: "40px", 
                     [isHe ? "paddingLeft" : "paddingRight"]: "16px" 
                   }}
-                  onFocus={(e) => e.target.style.border = "1px solid #000"}
-                  onBlur={(e) => e.target.style.border = "none"}
                 />
               </div>
             </FieldWrapper>
@@ -159,7 +153,7 @@ const AuthPage = () => {
           <FieldWrapper label={isHe ? "אימייל" : "Email"}>
             <div className="relative">
               <Mail
-                size={15}
+                size={16}
                 strokeWidth={1.5}
                 className="absolute top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none"
                 style={{ [isHe ? "right" : "left"]: "14px" }}
@@ -170,15 +164,12 @@ const AuthPage = () => {
                 onChange={e => setEmail(e.target.value)}
                 placeholder="your@email.com"
                 dir="ltr"
-                className="w-full rounded-2xl py-3 text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none transition-all"
+                className="w-full rounded-2xl py-3 text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none transition-all border border-gray-200 focus:border-blue-500"
                 style={{ 
                   backgroundColor: INPUT_BG, 
-                  border: "none",
                   [isHe ? "paddingRight" : "paddingLeft"]: "40px", 
                   [isHe ? "paddingLeft" : "paddingRight"]: "16px" 
                 }}
-                onFocus={(e) => e.target.style.border = "1px solid #000"}
-                onBlur={(e) => e.target.style.border = "none"}
               />
             </div>
           </FieldWrapper>
@@ -187,7 +178,7 @@ const AuthPage = () => {
           <FieldWrapper label={isHe ? "סיסמה" : "Password"}>
             <div className="relative">
               <Lock
-                size={15}
+                size={16}
                 strokeWidth={1.5}
                 className="absolute top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none"
                 style={{ [isHe ? "right" : "left"]: "14px" }}
@@ -198,15 +189,12 @@ const AuthPage = () => {
                 onChange={e => setPassword(e.target.value)}
                 placeholder="••••••••"
                 dir="ltr"
-                className="w-full rounded-2xl py-3 text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none transition-all"
+                className="w-full rounded-2xl py-3 text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none transition-all border border-gray-200 focus:border-blue-500"
                 style={{ 
                   backgroundColor: INPUT_BG, 
-                  border: "none",
                   [isHe ? "paddingRight" : "paddingLeft"]: "40px", 
                   [isHe ? "paddingLeft" : "paddingRight"]: "40px" 
                 }}
-                onFocus={(e) => e.target.style.border = "1px solid #000"}
-                onBlur={(e) => e.target.style.border = "none"}
               />
               <button
                 type="button"
@@ -240,7 +228,7 @@ const AuthPage = () => {
             type="submit"
             disabled={loading || (!isLogin && !agreePolicy)}
             className="w-full py-3.5 rounded-2xl font-bold text-white flex items-center justify-center gap-2 hover:scale-[1.02] transition-all disabled:opacity-60 disabled:cursor-not-allowed mt-2"
-            style={{ backgroundColor: DEEP_MIDNIGHT_BLUE }}
+            style={{ background: `linear-gradient(135deg, ${DEEP_MIDNIGHT_BLUE} 0%, ${DEEP_MIDNIGHT_BLUE} 100%)`, boxShadow: "0 8px 24px -4px rgba(0, 8, 16, 0.35)" }}
           >
             {loading
               ? <Loader2 size={18} className="animate-spin" />
