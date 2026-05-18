@@ -50,14 +50,14 @@ const HomePage = () => {
       icon: BarChart3,
       title: isHe ? "מעקב פעילות" : "Activity Tracking",
       desc: isHe ? "צפה בסטטיסטיקות השימוש" : "View usage statistics",
-      path: "/analytics",
+      path: "/create/analytics",
     },
     {
       id: 4,
       icon: Crown,
       title: isHe ? "ניהול מנוי" : "Subscription Management",
       desc: isHe ? "שדרג את התוכנית שלך" : "Upgrade your plan",
-      path: "/subscription",
+      path: "/pricing",
     },
     {
       id: 5,
