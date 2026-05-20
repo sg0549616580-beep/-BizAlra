@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import SparkleIcon from "@/components/SparkleIcon";
 import { useI18n } from "@/lib/i18n";
+import { useAuth } from "@/hooks/useAuth";
 import { useSmartMemory } from "@/hooks/useSmartMemory";
 import { generateAnalytics } from "@/lib/ai-service";
 import { saveCreation, trackDownload } from "@/lib/creations-store";
@@ -16,10 +17,12 @@ const MONTHS_EN = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep"
 
 const BusinessAnalyticsPage = () => {
   const { t, lang } = useI18n();
+  const { profile } = useAuth();
   const isHe = lang === "he";
   const BackArrow = isHe ? ArrowRight : ArrowLeft;
   const currency = "₪";
-  const { saveEntry, getProgressMessages, history } = useSmartMemory("analytics");
+  const isPremium = Boolean(profile?.plan?.toLowerCase().includes("pro") || profile?.plan?.toLowerCase().includes("premium"));
+  const { saveEntry, getProgressMessages, history, lastEntry } = useSmartMemory("analytics", isPremium);
 
   const [monthlyRevenue, setMonthlyRevenue] = useState("");
   const [monthlyExpenses, setMonthlyExpenses] = useState("");
@@ -58,6 +61,10 @@ const BusinessAnalyticsPage = () => {
       }))
     : [];
 
+  const previousSummary = isPremium && lastEntry?.data
+    ? `Previous session: revenue ₪${lastEntry.data.revenue || 0}, clients ${lastEntry.data.clients || 0}, profit margin ${lastEntry.data.profitMargin || 0}%.`
+    : "";
+
   const handleStartAnalysis = async () => {
     if (revenue <= 0) return;
     setIsAnalyzing(true);
@@ -73,12 +80,14 @@ const BusinessAnalyticsPage = () => {
         question: "",
         language: isHe ? "hebrew" : "english",
         quality: "executive",
+        premium: isPremium,
+        previousSummary,
         systemPrompt: isHe
-          ? "נתח את העסק באופן מקצועי ויוקרתי. הצג תובנות ניהוליות, אסטרטגיות צמיחה והמלצות ברורות לשיפור הרווחיות והיעילות."
-          : "Analyze the business with an executive-level perspective. Provide strategic insights, growth recommendations, and clear guidance for improving profitability and efficiency.",
+          ? "נתח את העסק בקצרה ובדיוק. ספק שלושה צירים ברורים: רווחיות, היקף לקוחות והמלצה אסטרטגית מעשית."
+          : "Analyze the business concisely and precisely. Provide three clear points: profitability, client volume, and a practical strategy recommendation.",
       });
       setAnalysisResult(answer);
-      saveEntry({ revenue, profit, clients, profitMargin });
+      if (isPremium) saveEntry({ revenue, profit, clients, profitMargin });
       if (answer && !answer.startsWith("לא הצלחתי")) {
         saveCreation({
           type: "analytics",
@@ -114,9 +123,11 @@ const BusinessAnalyticsPage = () => {
         question,
         language: isHe ? "hebrew" : "english",
         quality: "executive",
+        premium: isPremium,
+        previousSummary,
         systemPrompt: isHe
-          ? "ענה על השאלה באופן אסטרטגי, ממוקד ופרקטי. התמקד בתובנות לניהול עסק בטוח, צמיחה רווחית ושיפורים תפעוליים."
-          : "Answer the question with strategic, practical guidance. Focus on confident business decisions, profitable growth, and operational improvements.",
+          ? "ענה על השאלה באופן ברור, תכליתי וקצר. ספק המלצה עסקית אחת או שניים בלבד."
+          : "Answer the question clearly, directly, and briefly. Provide one or two practical recommendations only.",
       });
       setAiAnswer(answer);
       if (answer && !answer.startsWith("לא הצלחתי")) {

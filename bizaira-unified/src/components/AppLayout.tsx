@@ -3,7 +3,7 @@ import BottomNav from "./BottomNav";
 import CookieSettings from "./CookieSettings";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X, Home, Wand2, HelpCircle, User, Clock } from "lucide-react";
-import { useI18n, LanguageToggle } from "@/lib/i18n";
+import { useI18n } from "@/lib/i18n";
 import { useAuth } from "@/hooks/useAuth";
 import { getActivityStats } from "@/lib/activity-tracker";
 
@@ -37,7 +37,7 @@ const Layout = ({ children }: LayoutProps) => {
   const closeMenu = () => setMenuOpen(false);
 
   return (
-    <div dir={isHe ? "rtl" : "ltr"} className={`min-h-screen flex flex-col bg-background ${isHe ? "text-right" : "text-left"}`}>
+    <div dir={isHe ? "rtl" : "ltr"} className={`min-h-screen flex flex-col bg-white ${isHe ? "text-right" : "text-left"}`}>
       {/* Skip to main content link */}
       <a
         href="#main-content"
@@ -55,10 +55,6 @@ const Layout = ({ children }: LayoutProps) => {
         >
           {menuOpen ? <X size={20} /> : <Menu size={20} />}
         </button>
-      </div>
-
-      <div className={`fixed top-3 z-50 ${isHe ? "left-3" : "right-3"}`}>
-        <LanguageToggle />
       </div>
 
       {/* Mobile side menu */}

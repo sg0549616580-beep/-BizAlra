@@ -11,18 +11,16 @@ const PricingPage = () => {
       priceLabel: t("pricing.startFree"),
       highlight: false,
       features: [
-        "2 AI creations / month",
-        "Standard quality",
-        "Watermark",
-        "Basic controls",
-        "Selected tools",
+        "5 AI creations / month",
+        "Basic access to selected tools",
+        "No watermark on print-ready content",
+        "Fast onboarding support",
       ],
       featuresHe: [
-        "2 יצירות AI בחודש",
-        "איכות סטנדרטית",
-        "סימן מים",
-        "שליטה בסיסית",
-        "כלים נבחרים",
+        "5 יצירות AI בחודש",
+        "גישה בסיסית לכלים הנבחרים",
+        "ללא סימני מים בתוכן להורדה",
+        "תמיכה מהירה בהטמעה",
       ],
     },
     {
@@ -32,20 +30,18 @@ const PricingPage = () => {
       priceLabel: t("pricing.upgradeNow"),
       highlight: true,
       features: [
-        "Unlimited creations",
-        "Presentations, product photos",
-        "AI Messages",
-        "High quality",
-        "No watermarks",
-        "Full control of all tools",
+        "Unlimited AI creations",
+        "Premium output quality",
+        "No watermark",
+        "Full AI studio access",
+        "Priority support",
       ],
       featuresHe: [
-        "יצירות ללא הגבלה",
-        "תמונות מוצר, תוכן שיווקי",
-        "הודעות AI",
-        "איכות גבוהה",
+        "יצירות AI ללא הגבלה",
+        "איכות פלט פרימיום",
         "ללא סימני מים",
-        "שליטה מלאה בכל הכלים",
+        "גישה מלאה לסטודיו AI",
+        "תמיכה בעדיפות גבוהה",
       ],
     },
     {
@@ -56,29 +52,23 @@ const PricingPage = () => {
       highlight: false,
       features: [
         "Everything in Pro",
-        "Maximum file quality",
-        "Advanced business analytics",
-        "Smart pricing system",
-        "Smart time management",
+        "Executive business analytics",
+        "Smart pricing and time planning",
+        "Priority AI processing",
         "Multiple versions per creation",
-        "AI processing priority",
-        "Large image packs",
       ],
       featuresHe: [
         "הכל ב-Pro",
-        "איכות קבצים מקסימלית",
-        "ניתוח עסקי מתקדם",
-        "מערכת תמחור חכמה",
-        "ניהול זמן חכם",
-        "יצירת גרסאות מרובות",
+        "ניתוח עסקי ברמה ניהולית",
+        "תמחור וניהול זמן חכמים",
         "עדיפות בעיבוד AI",
-        "חבילות תמונות גדולות",
+        "גרסאות מרובות לכל יצירה",
       ],
     },
   ];
 
   return (
-    <div className="min-h-screen bg-[#F8F9FA] text-[#001830]" dir={lang === "he" ? "rtl" : "ltr"} style={{ fontFamily: "'Inter', sans-serif" }}>
+    <div className="min-h-screen bg-white text-[#001830]" dir={lang === "he" ? "rtl" : "ltr"} style={{ fontFamily: "'Inter', sans-serif" }}>
       <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
         <div className="mb-12 max-w-3xl">
           <h1 className="text-3xl font-semibold tracking-tight text-[#001830] sm:text-4xl">

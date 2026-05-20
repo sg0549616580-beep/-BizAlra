@@ -78,28 +78,46 @@ function generateDynamicText(template: string, context: TemplateContext): string
   return result;
 }
 
-function generateMarketingCopy(product: string, audience: string, style: string): string {
-  // NATURAL HEBREW MARKETING MESSAGES - BASED ONLY ON USER INPUT
-  // No fabrication, no fake data, no templates - just natural persuasive content
+function generateMarketingCopy(product: string, audience: string, style: string, language: string = "hebrew", premium: boolean = false, previousSummary: string = "", modifier: string = ""): string {
+  const isHe = language === "hebrew";
 
   if (!product || product.trim() === '') {
-    return 'אנא הזן את שם המוצר או השירות שלך כדי לקבל הודעת שיווק מותאמת אישית.';
+    return isHe
+      ? 'אנא הזן את שם המוצר או השירות שלך כדי לקבל הודעת שיווק מותאמת אישית.'
+      : 'Please enter your product or service name to receive a tailored business message.';
   }
 
-  if (!audience || audience.trim() === '') {
-    audience = 'לקוחותיך';
-  }
+  const target = audience && audience.trim() !== ''
+    ? audience
+    : isHe
+      ? 'לקוחותיך'
+      : 'your clients';
 
-  // Create natural, flowing Hebrew marketing message
-  return `בהתבסס על ${product} שהזנת, הנה הודעת שיווק משכנעת שתעזור לך להגיע ל${audience} שלך בצורה יעילה:
+  const intro = premium
+    ? isHe
+      ? 'עדכון פרימיום: מסר חד, ברור וממוקד.'
+      : 'Premium update: a sharp, clear, and focused message.'
+    : '';
 
-"${product} הוא הפתרון המושלם עבור ${audience} שמחפשים איכות וביצועים ברמה הגבוהה ביותר. עם ${product}, ${audience} יכולים ליהנות מחוויית שימוש יוצאת דופן שמשלבת טכנולוגיה מתקדמת עם עיצוב אינטואיטיבי.
+  const previous = previousSummary ? (isHe ? `בהתחשב בעדכון הקודם: ${previousSummary}` : `Based on the previous update: ${previousSummary}`) : '';
+  const customModifier = modifier ? modifier : '';
 
-מה שהופך את ${product} למיוחד הוא ההתמקדות במה ש${audience} באמת צריכים - פתרונות שפשוט עובדים, ללא סיבוכים מיותרים. ${audience} שבוחרים ב${product} מגלים שזה לא רק מוצר - זו השקעה בחוויית שימוש משופרת שמחזירה את עצמה שוב ושוב.
+  const base = isHe
+    ? `${product} מציע ל${target} פתרון מקצועי שמדגיש תוצאות אמיתיות.`
+    : `${product} offers ${target} a professional solution that highlights real results.`;
 
-אל תיתן ל${audience} שלך להסתפק בפחות. בחר ב${product} ותן להם את החוויה שהם ראויים לה. ההבדל ניכר מהיום הראשון, והתוצאות מדברות בעד עצמן.
+  const benefit = isHe
+    ? 'המסר קצר, עסקי ומכוון לתוצאה.'
+    : 'The message is short, business-focused, and outcome-driven.';
 
-צור קשר עוד היום וגלה איך ${product} יכול לשנות את האופן שבו ${audience} חווים את השירותים שלך."`;
+  const cta = isHe
+    ? 'הוסף קריאה פשוטה לפעולה אחת בלבד.'
+    : 'Include one simple call-to-action only.';
+
+  return [intro, previous, base, benefit, customModifier, cta]
+    .filter(Boolean)
+    .join(' ')
+    .trim();
 }
 
 function generateImageMockUrl(description: string, style: string): string {
@@ -120,150 +138,173 @@ function generateImageMockUrl(description: string, style: string): string {
   return `https://via.placeholder.com/1024x1024/${color}/FFFFFF.png?text=${encodeURIComponent(cleanDesc)}`;
 }
 
-function generateAnalysisReport(revenue: number, expenses: number, clients: number, feeling: string, tooMuchTime: string, wantToImprove: string): string {
-  // NATURAL HEBREW BUSINESS ANALYSIS - BASED ONLY ON USER INPUT
-  // No fabrication, no fake data, no robotic reports - just natural strategic advice
+function generateAnalysisReport(
+  revenue: number,
+  expenses: number,
+  clients: number,
+  feeling: string,
+  tooMuchTime: string,
+  wantToImprove: string,
+  language: string = "hebrew",
+  premium: boolean = false,
+  previousSummary: string = ""
+): string {
+  const isHe = language === "hebrew";
 
   if (!revenue && !expenses && !clients && !feeling && !tooMuchTime && !wantToImprove) {
-    return 'אנא הזן את הפרטים העסקיים שלך (הכנסות, הוצאות, מספר לקוחות, תחושות) כדי לקבל ניתוח עסקי מותאם אישית.';
+    return isHe
+      ? 'אנא הזן את הפרטים העסקיים שלך (הכנסות, הוצאות, מספר לקוחות, תחושות) כדי לקבל ניתוח עסקי מותאם אישית.'
+      : 'Please enter your business details (revenue, expenses, clients, feelings) to receive a tailored analysis.';
   }
 
-  let analysis = 'בהתבסס על הפרטים שהזנת, הנה ניתוח עסקי ממוקד שיעזור לך להבין את המצב ולהתקדם:\n\n';
+  const profit = revenue - expenses;
+  const profitMargin = revenue > 0 ? Math.round((profit / revenue) * 100) : 0;
+  const intro = premium
+    ? isHe
+      ? 'עדכון פרימיום: ניתוח עסקי תמציתי ומעשי.'
+      : 'Premium update: concise, practical business analysis.'
+    : isHe
+      ? 'ניתוח עסקי תמציתי וממוקד על בסיס הנתונים שלך.'
+      : 'A concise, focused business analysis based on your data.';
 
+  const previous = previousSummary ? (isHe ? `בהתחשב בעדכון הקודם: ${previousSummary}` : `Based on previous update: ${previousSummary}`) : '';
+
+  const summaryLines = [];
   if (revenue > 0) {
-    const profit = revenue - expenses;
-    const profitMargin = revenue > 0 ? Math.round((profit / revenue) * 100) : 0;
-    analysis += `הכנסות של ₪${revenue.toLocaleString()} בחודש `;
-
-    if (expenses > 0) {
-      analysis += `עם הוצאות של ₪${expenses.toLocaleString()} `;
-      if (profit > 0) {
-        analysis += `יוצרות רווח נקי של ₪${profit.toLocaleString()} (${profitMargin}% רווחיות). זה מצב טוב שמאפשר צמיחה והשקעה. `;
-      } else {
-        analysis += `יוצרות הפסד של ₪${Math.abs(profit).toLocaleString()}. זה מצב שדורש התייחסות מיידית. `;
-      }
-    }
-
-    analysis += '\n\n';
+    summaryLines.push(isHe
+      ? `הכנסות ₪${revenue.toLocaleString()}, רווח נקי ₪${profit.toLocaleString()} (${profitMargin}%).`
+      : `Revenue ${revenue.toLocaleString()}, net profit ${profit.toLocaleString()} (${profitMargin}%).`
+    );
   }
-
   if (clients > 0) {
-    analysis += `רכשת ${clients} לקוחות חדשים החודש - זה הישג משמעותי שמראה על משיכה שוקית טובה. `;
-    if (clients > 20) {
-      analysis += 'הקצב הזה מצביע על מודל עסקי חזק ויכולת שיווקית מוצלחת. ';
-    }
-    analysis += '\n\n';
+    summaryLines.push(isHe
+      ? `לקוחות חדשים: ${clients}.`
+      : `New clients: ${clients}.`
+    );
+  }
+  if (feeling.trim()) {
+    summaryLines.push(isHe
+      ? `תחושה עיקרית: ${feeling}.`
+      : `Key feeling: ${feeling}.`
+    );
+  }
+  if (tooMuchTime.trim()) {
+    summaryLines.push(isHe
+      ? `זמן מושקע ב: ${tooMuchTime}.`
+      : `Time is spent on: ${tooMuchTime}.`
+    );
+  }
+  if (wantToImprove.trim()) {
+    summaryLines.push(isHe
+      ? `יעד לשיפור: ${wantToImprove}.`
+      : `Improvement goal: ${wantToImprove}.`
+    );
   }
 
-  if (feeling && feeling.trim() !== '') {
-    analysis += `אתה מרגיש "${feeling}" - זה תובנה חשובה על המצב הנפשי שלך בעסק. `;
-  }
+  const recommendations = isHe
+    ? [
+      'צמצם הוצאות לא חיוניות כדי לשפר רווחיות.',
+      'הגבר שימור לקוחות כדי למקסם ערך קיים.',
+      'קבע פעולה ספציפית להרחבת הכיסוי השיווקי.',
+    ]
+    : [
+      'Reduce non-essential costs to improve profitability.',
+      'Increase client retention to maximize existing value.',
+      'Set one specific action to expand market coverage.',
+    ];
 
-  if (tooMuchTime && tooMuchTime.trim() !== '') {
-    analysis += `אתה מזכיר שהזמן שלך מושקע ב"${tooMuchTime}" - זה אזור שבהחלט ניתן לשפר עם אוטומציה או העברת משימות. `;
-  }
-
-  if (wantToImprove && wantToImprove.trim() !== '') {
-    analysis += `הרצון שלך לשפר את "${wantToImprove}" הוא צעד חכם בכיוון הנכון. `;
-  }
-
-  analysis += '\n\nהמלצות מעשיות להתקדמות:\n\n';
-  analysis += '• התמקד באוטומציה של המשימות החוזרות כדי לחסוך זמן יקר\n';
-  analysis += '• פתח תוכנית שימור לקוחות כדי להגדיל את ערך החיים של כל לקוח\n';
-  analysis += '• חשוב על אריזת השירותים שלך בצורה שתגדיל את הרווחיות\n';
-  analysis += '• השקע בבניית צוות או קבלני משנה כדי להרחיב את הפעילות\n\n';
-
-  analysis += 'העסק שלך מראה פוטנציאל טוב. עם התאמות קטנות באסטרטגיה, תוכל להגיע לרמה הבאה של הצלחה.';
-
-  return analysis;
+  return [intro, previous, ...summaryLines, ...recommendations].filter(Boolean).join('\n');
 }
 
-function generateTimePlan(weeklyHours: number, monthlyIncome: number, services: string): string {
-  // NATURAL HEBREW TIME MANAGEMENT - BASED ONLY ON USER INPUT
-  // No fabrication, no fake schedules, no robotic reports - just natural advice
+function generateTimePlan(
+  weeklyHours: number,
+  monthlyIncome: number,
+  services: string,
+  language: string = "hebrew",
+  premium: boolean = false,
+  previousSummary: string = ""
+): string {
+  const isHe = language === "hebrew";
 
   if (!weeklyHours && !monthlyIncome && !services) {
-    return 'אנא הזן את פרטי הזמן השבועי, ההכנסה החודשית והשירותים שלך כדי לקבל תוכנית ניהול זמן מותאמת אישית.';
+    return isHe
+      ? 'אנא הזן את פרטי הזמן השבועי, ההכנסה החודשית והשירותים שלך כדי לקבל תוכנית ניהול זמן מותאמת אישית.'
+      : 'Please enter weekly hours, monthly income, and services to receive a personalized time plan.';
   }
 
-  let plan = 'בהתבסס על הפרטים שהזנת, הנה תוכנית ניהול זמן מעשית שתעזור לך לייעל את העבודה:\n\n';
+  const hourlyRate = weeklyHours > 0 ? Math.round(monthlyIncome / (weeklyHours * 4)) : 0;
+  const intro = premium
+    ? isHe
+      ? 'עדכון פרימיום: תוכנית זמן תמציתית למיקוד ותוצאה.'
+      : 'Premium update: a concise time plan for focus and results.'
+    : isHe
+      ? 'תוכנית זמן תמציתית למטרות שלך.'
+      : 'A concise time plan for your priorities.';
 
-  if (weeklyHours > 0) {
-    plan += `${weeklyHours} שעות עבודה שבועיות `;
+  const previous = previousSummary ? (isHe ? `בהתחשב בעדכון הקודם: ${previousSummary}` : `Based on previous update: ${previousSummary}`) : '';
+  const loadText = isHe
+    ? weeklyHours > 40 ? 'עומס גבוה.' : weeklyHours > 35 ? 'עומס משמעותי.' : 'עומס מאוזן.'
+    : weeklyHours > 40 ? 'High load.' : weeklyHours > 35 ? 'Significant load.' : 'Balanced load.';
 
-    if (monthlyIncome > 0) {
-      const hourlyRate = Math.round(monthlyIncome / (weeklyHours * 4));
-      plan += `מביאות להכנסה של ₪${monthlyIncome.toLocaleString()} בחודש, כלומר ₪${hourlyRate} לשעה. `;
-    }
+  const recommendations = isHe
+    ? [
+      `קבע בלוקים של עבודה מרוכזת וביטול הפרעות במשך ${Math.min(4, weeklyHours)} שעות ביום.`,
+      'הפרד זמן תקשורת מיום עבודה עמוק.',
+      'העבר משימות שגרתיות לכלים או לשותפים כדי לחסוך זמן.',
+    ]
+    : [
+      `Block focused work and avoid distractions for ${Math.min(4, weeklyHours)} hours per day.`,
+      'Separate communication time from deep work.',
+      'Shift routine tasks to tools or partners to save time.',
+    ];
 
-    if (weeklyHours > 45) {
-      plan += 'זה עומס כבד שיכול להוביל לשריפה. ';
-    } else if (weeklyHours > 35) {
-      plan += 'זה עומס משמעותי שדורש ניהול טוב. ';
-    } else {
-      plan += 'זה עומס ניהולי שמאפשר איזון טוב. ';
-    }
-
-    plan += '\n\n';
-  }
-
-  if (services && services.trim() !== '') {
-    plan += `השירותים שאתה מציע: ${services}\n\n`;
-  }
-
-  plan += 'המלצות לייעול הזמן:\n\n';
-  plan += '• צור לוח זמנים קבוע עם בלוקים מוגדרים לפעילויות שונות\n';
-  plan += '• השתמש בכלים לאוטומציה של משימות חוזרות\n';
-  plan += '• הגדר "שעות משרד" קבועות לתקשורת עם לקוחות\n';
-  plan += '• אסוף משימות דומות ליום מסוים בשבוע\n';
-  plan += '• הגדר זמן מוגן לעבודה עמוקה ללא הפרעות\n\n';
-
-  if (weeklyHours > 40) {
-    plan += 'חשוב לצמצם את השעות בהדרגה כדי למנוע שריפה ולייעל את הפריון. ';
-  }
-
-  plan += 'זכור שהשקעה בארגון הזמן תחזיר את עצמה ברווחיות ובאיכות חיים טובה יותר.';
-
-  return plan;
+  return [intro, previous, isHe ? `שעות שבועיות: ${weeklyHours}, הכנסה: ₪${monthlyIncome}, ערך שעתי: ₪${hourlyRate}.` : `Weekly hours: ${weeklyHours}, income: ₪${monthlyIncome}, hourly value: ₪${hourlyRate}.`, loadText, ...recommendations].filter(Boolean).join('\n');
 }
 
-function generatePricingStrategy(businessType: string, currentPrice: string, audience: string, goals: string): string {
-  // NATURAL HEBREW PRICING STRATEGY - BASED ONLY ON USER INPUT
-  // No fabrication, no fake tiers, no robotic reports - just natural advice
+function generatePricingStrategy(
+  businessType: string,
+  currentPrice: string,
+  audience: string,
+  goals: string,
+  language: string = "hebrew",
+  premium: boolean = false,
+  previousSummary: string = ""
+): string {
+  const isHe = language === "hebrew";
 
   if (!businessType && !currentPrice && !audience && !goals) {
-    return 'אנא הזן את סוג העסק, המחיר הנוכחי, קהל היעד והמטרות שלך כדי לקבל אסטרטגיית תמחור מותאמת אישית.';
+    return isHe
+      ? 'אנא הזן את סוג העסק, המחיר הנוכחי, קהל היעד והמטרות שלך כדי לקבל אסטרטגיית תמחור מותאמת אישית.'
+      : 'Please enter your business type, current price, audience, and goals to receive a tailored pricing strategy.';
   }
 
-  let strategy = 'בהתבסס על הפרטים שהזנת, הנה אסטרטגיית תמחור ממוקדת:\n\n';
+  const intro = premium
+    ? isHe
+      ? 'עדכון פרימיום: אסטרטגיית תמחור קצרה וחדה.'
+      : 'Premium update: a sharp, concise pricing strategy.'
+    : isHe
+      ? 'אסטרטגיית תמחור תמציתית ומקצועית.'
+      : 'A concise, professional pricing strategy.';
 
-  if (businessType && businessType.trim() !== '') {
-    strategy += `${businessType} שלך `;
-  }
+  const previous = previousSummary ? (isHe ? `בהתחשב בעדכון הקודם: ${previousSummary}` : `Based on previous update: ${previousSummary}`) : '';
+  const overview = isHe
+    ? `${businessType} עם מחיר נוכחי של ${currentPrice} המכוון ל${audience}. מטרות: ${goals}.`
+    : `${businessType} priced at ${currentPrice} for ${audience}. Goals: ${goals}.`;
 
-  if (currentPrice && currentPrice.trim() !== '') {
-    strategy += `עם מחיר נוכחי של ${currentPrice} `;
-  }
+  const recommendations = isHe
+    ? [
+      'הצג חבילת ערך ברורה עם נקודת מחיר אחת מובחנת.',
+      'הגבר את ההצעה עם ערך תוצאה מוחשית במקום פונקציות.',
+      'בדוק העלאה מתונה של 10-15% לקהל קיים עם תקשורת תוצאות מוצקה.',
+    ]
+    : [
+      'Present a clear value package with one differentiated price point.',
+      'Strengthen the offer with tangible outcome value instead of features.',
+      'Test a moderate 10-15% increase for existing buyers with strong outcome messaging.',
+    ];
 
-  if (audience && audience.trim() !== '') {
-    strategy += `משרת ${audience} `;
-  }
-
-  if (goals && goals.trim() !== '') {
-    strategy += `עם מטרה של ${goals}. `;
-  }
-
-  strategy += '\n\nהמלצות לתמחור אפקטיבי:\n\n';
-  strategy += '• הצג תמיד את האפשרות היקרה ביותר קודם כדי שיתר האפשרויות ייראו משתלמות יותר\n';
-  strategy += '• צור חבילות שירותים שמשלבות את השירות העיקרי עם ייעוץ או תמיכה\n';
-  strategy += '• הדגש את התוצאות והערך שהלקוחות מקבלים, לא רק את המחיר\n';
-  strategy += '• התחל בבדיקה עם לקוחות קיימים - העלה את המחיר ב-15-20% וראה את התגובה\n\n';
-
-  strategy += 'תמחור הוא אומנות של איזון בין ערך לנגישות. התחל בהדרגה ובדוק את השוק.';
-
-  return strategy;
+  return [intro, previous, overview, ...recommendations].filter(Boolean).join('\n');
 }
-
 app.post("/api/generate-image", (req, res) => {
   const { prompt, editImage } = req.body;
   // Internal logic only - generate mock image URL based on description
@@ -297,30 +338,82 @@ app.post("/api/generate-text", (req, res) => {
 });
 
 app.post("/api/generate-analytics", (req, res) => {
-  const { revenue = 0, expenses = 0, clients = 0, feeling = "", tooMuchTime = "", wantToImprove = "" } = req.body;
-  // Internal logic only - generate comprehensive analysis
-  const analysis = generateAnalysisReport(revenue, expenses, clients, feeling, tooMuchTime, wantToImprove);
+  const {
+    revenue = 0,
+    expenses = 0,
+    clients = 0,
+    feeling = "",
+    tooMuchTime = "",
+    wantToImprove = "",
+    language = "english",
+    premium = false,
+    previousSummary = "",
+  } = req.body;
+
+  const analysis = generateAnalysisReport(
+    revenue,
+    expenses,
+    clients,
+    feeling,
+    tooMuchTime,
+    wantToImprove,
+    language,
+    premium,
+    previousSummary
+  );
   return res.json({ text: analysis });
 });
 
 app.post("/api/generate-time", (req, res) => {
-  const { weeklyHours = 0, monthlyIncome = 0, services = "" } = req.body;
-  // Internal logic only - generate personalized time optimization plan
-  const plan = generateTimePlan(weeklyHours, monthlyIncome, services);
+  const {
+    weeklyHours = 0,
+    monthlyIncome = 0,
+    services = "",
+    language = "english",
+    premium = false,
+    previousSummary = "",
+  } = req.body;
+
+  const plan = generateTimePlan(weeklyHours, monthlyIncome, services, language, premium, previousSummary);
   return res.json({ text: plan });
 });
 
 app.post("/api/generate-pricing", (req, res) => {
-  const { businessType = "small business", currentPrice = "", audience = "", goals = "" } = req.body;
-  // Internal logic only - generate pricing strategy
-  const strategy = generatePricingStrategy(businessType, currentPrice, audience, goals);
+  const {
+    businessType = "small business",
+    currentPrice = "",
+    audience = "",
+    goals = "",
+    language = "english",
+    premium = false,
+    previousSummary = "",
+  } = req.body;
+
+  const strategy = generatePricingStrategy(businessType, currentPrice, audience, goals, language, premium, previousSummary);
   return res.json({ text: strategy });
 });
 
 app.post("/api/generate-message", (req, res) => {
-  const { messageType, tone, audience, details } = req.body;
-  // Internal logic only - generate marketing message
-  const text = generateMarketingCopy(details || "Our Solution", audience || "Clients", tone || "marketing");
+  const {
+    messageType,
+    tone,
+    audience,
+    details,
+    language = "english",
+    premium = false,
+    previousSummary = "",
+    modifier = "",
+  } = req.body;
+
+  const text = generateMarketingCopy(
+    details || messageType || "Our Solution",
+    audience || "Clients",
+    tone || "marketing",
+    language,
+    premium,
+    previousSummary,
+    modifier
+  );
   const filledText = generateDynamicText(text, { product: details || "Product", audience: audience || "customers" });
   return res.json({ text: filledText, message: filledText });
 });

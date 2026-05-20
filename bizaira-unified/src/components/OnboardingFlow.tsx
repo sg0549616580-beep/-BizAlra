@@ -168,7 +168,7 @@ const OnboardingFlow = ({ onComplete }: OnboardingFlowProps) => {
                         "flex min-h-[96px] items-center justify-center rounded-xl border px-4 py-3 text-center text-lg font-semibold transition-colors duration-200 ease-in-out",
                         selected
                           ? "border-transparent bg-[#001830] text-white"
-                          : "border-slate-200 bg-[#F8F9FA] text-slate-950"
+                          : "border-slate-200 bg-white text-slate-950"
                       )}
                     >
                       {t(option.labelKey)}
@@ -192,7 +192,7 @@ const OnboardingFlow = ({ onComplete }: OnboardingFlowProps) => {
                           "flex min-h-[96px] items-center gap-3 rounded-xl border px-4 py-3 text-left text-sm font-semibold transition-colors duration-200 ease-in-out",
                           selected
                             ? "border-transparent bg-[#001830] text-white"
-                            : "border-slate-200 bg-[#F8F9FA] text-slate-950"
+                            : "border-slate-200 bg-white text-slate-950"
                         )}
                       >
                         <div
@@ -241,7 +241,7 @@ const OnboardingFlow = ({ onComplete }: OnboardingFlowProps) => {
                           "flex min-h-[96px] items-center gap-3 rounded-xl border px-4 py-3 text-base font-semibold transition-colors duration-200 ease-in-out",
                           selected
                             ? "border-transparent bg-[#001830] text-white"
-                            : "border-slate-200 bg-[#F8F9FA] text-slate-950"
+                            : "border-slate-200 bg-white text-slate-950"
                         )}
                         style={{ justifyContent: isHe ? "flex-end" : "flex-start" }}
                       >
@@ -291,7 +291,7 @@ const OnboardingFlow = ({ onComplete }: OnboardingFlowProps) => {
                           "flex min-h-[96px] items-center gap-3 rounded-xl border px-4 py-3 text-base font-semibold transition-colors duration-200 ease-in-out",
                           selected
                             ? "border-transparent bg-[#001830] text-white"
-                            : "border-slate-200 bg-[#F8F9FA] text-slate-950"
+                            : "border-slate-200 bg-white text-slate-950"
                         )}
                         style={{ justifyContent: isHe ? "flex-end" : "flex-start" }}
                       >

@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useI18n } from "@/lib/i18n";
+import { useAuth } from "@/hooks/useAuth";
+import { useSmartMemory } from "@/hooks/useSmartMemory";
 import { generateMessage } from "@/lib/ai-service";
 import SparkleIcon from "@/components/SparkleIcon";
 import { saveCreation, trackDownload } from "@/lib/creations-store";
@@ -32,8 +34,11 @@ const TONES: { id: Tone; he: string; en: string }[] = [
 
 const AIMessagesPage = () => {
   const { t, lang } = useI18n();
+  const { profile } = useAuth();
   const isHe = lang === "he";
   const BackArrow = isHe ? ArrowRight : ArrowLeft;
+  const isPremium = Boolean(profile?.plan?.toLowerCase().includes("pro") || profile?.plan?.toLowerCase().includes("premium"));
+  const { saveEntry, lastEntry } = useSmartMemory("messages", isPremium);
 
   const [purpose, setPurpose] = useState<Purpose>("sale");
   const [tone, setTone] = useState<Tone>("warm");
@@ -42,6 +47,10 @@ const AIMessagesPage = () => {
   const [result, setResult] = useState("");
   const [isGenerating, setIsGenerating] = useState(false);
   const [copied, setCopied] = useState(false);
+
+  const previousMessageSummary = isPremium && lastEntry && lastEntry.data.audience
+    ? `Previous message: audience=${lastEntry.data.audience}, tone=${lastEntry.data.tone}.`
+    : "";
 
   const buildMessagePayload = (modifier?: string) => {
     const purposeLabels: Record<string, string> = {
@@ -63,10 +72,12 @@ const AIMessagesPage = () => {
       details,
       language: isHe ? "hebrew" : "english",
       modifier: modifier || "",
-      quality: "premium",
+      quality: isPremium ? "premium" : "standard",
+      premium: isPremium,
+      previousSummary: previousMessageSummary,
       systemPrompt: isHe
-        ? "כתוב הודעה עסקית יוקרתית, מקצועית וממוקדת לקהל הישראלי. השתמש בשפה עשירה ובמסר ברור עם קריאה לפעולה ממוקדת."
-        : "Write a premium business message in polished professional language. Use a clear value proposition, emotional appeal, and a strong call to action tailored for a modern audience.",
+        ? "כתוב הודעה עסקית מקצועית, קצרה ותכליתית. אל תשתמש בפתיחים ארוכים או ניסוחים רגשיים מיותרים."
+        : "Write a short, professional business message. Avoid long greetings, filler, or repetitive phrasing.",
     };
   };
 
@@ -76,6 +87,9 @@ const AIMessagesPage = () => {
       const payload = buildMessagePayload(modifier);
       const text = await generateMessage(payload);
       setResult(text);
+      if (isPremium && text && !text.startsWith("שגיאה") && !text.startsWith("Failed")) {
+        saveEntry({ purpose, tone, audience, details });
+      }
       // Auto-save to personal archive
       if (text && !text.startsWith("שגיאה") && !text.startsWith("Failed")) {
         const purposeHe: Record<string, string> = {

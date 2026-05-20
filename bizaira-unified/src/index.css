@@ -59,14 +59,14 @@
   --radius-xl: 16px;
 
   /* ── Base ── */
-  --background:    210 10% 98%;
-  --foreground:    224 90% 5%;
+  --background:    0 0% 100%;
+  --foreground:    224 10% 10%;
 
   /* ── Cards / Surfaces ── */
-  --card:             210 10% 98%;
-  --card-foreground:  224 90% 5%;
-  --popover:          210 10% 98%;
-  --popover-foreground: 224 90% 5%;
+  --card:             0 0% 100%;
+  --card-foreground:  224 10% 10%;
+  --popover:          0 0% 100%;
+  --popover-foreground: 224 10% 10%;
 
   /* ── Primary = Midnight Blue / Almost Black ── */
   --primary:            224 90% 5%;
@@ -192,6 +192,12 @@
 .luxury-text-muted {
   color: hsl(var(--luxury-gray-500));
   font-weight: 400;
+}
+
+html, body, #root {
+  min-height: 100%;
+  background-color: #FFFFFF;
+  color: #111827;
 }
 
 /* ── Typography Hierarchy ── */

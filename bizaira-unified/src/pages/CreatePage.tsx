@@ -10,7 +10,7 @@ import {
   Calendar,
 } from "lucide-react";
 
-const PEARL_WHITE = "#F9FAFB";
+const PEARL_WHITE = "#FFFFFF";
 const NAVY = "#000810";
 const GRAY_TEXT = "#6B7280";
 const ICON_BG = "#E9EEF5";
@@ -67,7 +67,7 @@ const CreatePage = () => {
   ];
 
   return (
-    <div className="min-h-screen pb-32" dir={isHe ? "rtl" : "ltr"} style={{ backgroundColor: PEARL_WHITE }}>
+    <div className="min-h-screen pb-32 bg-white" dir={isHe ? "rtl" : "ltr"}>
       <div className="px-6 pt-8 pb-6">
         <p className="text-[10px] font-semibold uppercase tracking-widest mb-3" style={{ color: GRAY_TEXT, letterSpacing: "0.1em" }}>
           {t("create.heading")}

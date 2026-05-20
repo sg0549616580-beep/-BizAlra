@@ -33,63 +33,80 @@ const HomePage = () => {
     {
       id: 1,
       icon: Wand2,
-      title: isHe ? "התחל ליצור" : "Start Creating",
-      desc: isHe ? "צור ונהל תוכן מותאם אישית למותג שלך" : "Create and manage custom branded content",
+      title: isHe ? "התחל ליצור" : "Start creating",
+      desc: isHe ? "צור תוכן שיווקי וניהולי בזמן אמת" : "Create marketing and business content in real time",
       path: "/create",
     },
     {
       id: 2,
       icon: User,
-      title: isHe ? "אזור אישי" : "Personal Area",
-      desc: isHe ? "עדכון פרטים וניהול הגדרות המערכת" : "Update details and manage system settings",
+      title: isHe ? "אזור אישי" : "Profile area",
+      desc: isHe ? "עדכן שם, אימייל והעדפות באופן מהיר" : "Update name, email and preferences quickly",
       path: "/profile",
     },
     {
       id: 3,
       icon: BarChart3,
-      title: isHe ? "מעקב פעילות" : "Activity Tracking",
-      desc: isHe ? "צפה בדוחות שימוש, מגמות ונתוני ביצועים" : "View usage reports, trends and performance data",
+      title: isHe ? "ניתוח עסקי" : "Business analytics",
+      desc: isHe ? "קבל תמונת מצב ודוח ביצועים ממוקד" : "Get a clear status and performance report",
       path: "/create/analytics",
     },
     {
       id: 4,
       icon: Crown,
-      title: isHe ? "ניהול מנוי" : "Subscription Management",
-      desc: isHe ? "שדרוג התוכנית וניהול אפשרויות תשלום" : "Upgrade your plan and manage payment options",
+      title: isHe ? "שדרוג לחבילה" : "Upgrade plan",
+      desc: isHe ? "פתח גישה לכל הכלים והיצירות ללא הגבלה" : "Unlock all tools and unlimited creations",
       path: "/pricing",
     },
     {
       id: 5,
       icon: HelpCircle,
-      title: isHe ? "תמיכה" : "Support",
-      desc: isHe ? "קבלת מענה מהיר וסיוע טכני" : "Receive fast response and technical assistance",
+      title: isHe ? "תמיכה מהירה" : "Fast support",
+      desc: isHe ? "מצא תשובות ותגל את הכלים הנכונים" : "Find answers and discover the right tools",
       path: "/support",
+    },
+    {
+      id: 6,
+      icon: BarChart3,
+      title: isHe ? "סטודיו תמונות" : "Image studio",
+      desc: isHe ? "צור תמונות מוצר ותכנים חזותיים בקלות" : "Create product images and visual content with ease",
+      path: "/create/image-studio",
     },
   ];
 
   return (
     <div
-      className="min-h-screen pb-24 px-4 sm:px-6 md:px-8"
+      className="min-h-screen pb-24 px-4 sm:px-6 md:px-8 bg-white"
       dir={isHe ? "rtl" : "ltr"}
-      style={{ backgroundColor: "#F8F9FA" }}
     >
       {/* Clean Header with Login Button */}
-      <div className="pt-12 pb-12 max-w-5xl mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-        <div className="flex-1">
+      <div className="pt-12 pb-12 max-w-5xl mx-auto flex flex-col gap-4 items-center text-center">
+        <div className="w-full">
           <h1
-            className={`text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight leading-tight mb-3 ${isHe ? "text-right" : "text-left"}`}
+            className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight leading-tight mb-4"
             style={{ color: DEEP_MIDNIGHT_BLUE, fontFamily: "Inter, system-ui, sans-serif", fontWeight: 700, letterSpacing: "-0.03em" }}
           >
             {isHe ? "ברוכים הבאים למרכז הניהול העסקי שלך" : "Welcome to your business management hub"}
           </h1>
+          <div className="mx-auto max-w-2xl text-sm text-[#334155]">
+            {isHe ? "בחר מסלול חכם, התחבר או צור חשבון כדי להתחיל לנהל את העסק שלך בקלות ובסטייל." : "Choose a smart path, log in or sign up to start managing your business easily and elegantly."}
+          </div>
         </div>
-        <button
-          onClick={() => navigate("/auth")}
-          className="px-6 sm:px-8 py-3 rounded-2xl font-semibold text-white text-sm sm:text-base transition-all duration-300 active:scale-95 shrink-0"
-          style={{ backgroundColor: DEEP_MIDNIGHT_BLUE, fontFamily: "Inter, system-ui, sans-serif" }}
-        >
-          {isHe ? "התחברות / הרשמה" : "Login / Sign Up"}
-        </button>
+
+        <div className="flex flex-col sm:flex-row gap-3 mt-4">
+          <button
+            onClick={() => navigate("/auth?mode=login")}
+            className="rounded-2xl border border-[#000B18] bg-[#000B18] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#001830]"
+          >
+            {isHe ? "התחברות" : "Login"}
+          </button>
+          <button
+            onClick={() => navigate("/auth?mode=register")}
+            className="rounded-2xl border border-[#000B18] bg-white px-6 py-3 text-sm font-semibold text-[#000B18] transition hover:bg-[#F8FAFF]"
+          >
+            {isHe ? "הרשמה" : "Register"}
+          </button>
+        </div>
       </div>
 
       {/* Executive feature rows */}
@@ -103,22 +120,22 @@ const HomePage = () => {
                 key={feature.id}
                 type="button"
                 onClick={() => navigate(feature.path)}
-                className="group flex h-full w-full flex-col justify-between overflow-hidden rounded-2xl border border-[#DEE2E6] bg-transparent p-6 text-left transition-colors duration-300 ease-in-out hover:bg-[#001830]"
+                className="group flex h-[28rem] w-full flex-col justify-between overflow-hidden rounded-2xl border border-[#DEE2E6] bg-transparent p-6 text-left transition-all duration-300 ease-in-out hover:bg-[#000B18]"
               >
                 <div className="flex items-start gap-4">
                   <div className="flex h-14 w-14 items-center justify-center rounded-xl border border-[#DEE2E6] bg-transparent text-[#001830] transition-colors duration-300 group-hover:border-transparent group-hover:bg-white/5 group-hover:text-white">
-                    <IconComponent size={28} className="text-[#001830] transition-colors duration-300 group-hover:text-white" />
+                    <IconComponent size={28} className="text-[#001830] transition-all duration-300 group-hover:text-white" />
                   </div>
                   <div className="space-y-2">
-                    <h3 className="text-xl font-semibold tracking-tight text-[#001830] transition-colors duration-300 group-hover:text-white">
+                    <h3 className="text-xl font-semibold tracking-tight text-[#001830] transition-all duration-300 group-hover:text-white">
                       {feature.title}
                     </h3>
-                    <p className="max-w-2xl text-sm leading-6 text-slate-600 transition-colors duration-300 group-hover:text-white/90">
+                    <p className="max-w-2xl text-sm leading-6 text-slate-600 transition-all duration-300 group-hover:text-white/90">
                       {feature.desc}
                     </p>
                   </div>
                 </div>
-                <div className="mt-6 text-sm font-semibold text-slate-500 transition-colors duration-300 group-hover:text-white/90">
+                <div className="mt-6 text-sm font-semibold text-slate-500 transition-all duration-300 group-hover:text-white/90">
                   {isHe ? "פתח" : "Open"}
                 </div>
               </button>

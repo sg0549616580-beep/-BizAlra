@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import SparkleIcon from "@/components/SparkleIcon";
 import { useI18n } from "@/lib/i18n";
+import { useAuth } from "@/hooks/useAuth";
 import { useSmartMemory } from "@/hooks/useSmartMemory";
 import { generateTimePlan } from "@/lib/ai-service";
 import { saveCreation, trackDownload } from "@/lib/creations-store";
@@ -12,9 +13,11 @@ import {
 
 const TimeOptimizerPage = () => {
   const { t, lang } = useI18n();
+  const { profile } = useAuth();
   const isHe = lang === "he";
   const BackArrow = isHe ? ArrowRight : ArrowLeft;
-  const { saveEntry, getProgressMessages } = useSmartMemory("time");
+  const isPremium = Boolean(profile?.plan?.toLowerCase().includes("pro") || profile?.plan?.toLowerCase().includes("premium"));
+  const { saveEntry, getProgressMessages, lastEntry } = useSmartMemory("time", isPremium);
 
   const [weeklyHours, setWeeklyHours] = useState("");
   const [salary, setSalary] = useState("");
@@ -35,11 +38,15 @@ const TimeOptimizerPage = () => {
 
   const calculateBurnout = (hoursValue: number) => Math.min(100, Math.max(10, Math.round((hoursValue / 40) * 100)));
 
+  const previousSummary = isPremium && lastEntry?.data
+    ? `Previous session: ${lastEntry.data.hours || 0}h/week, ₹${lastEntry.data.hourlyValue || 0}/hr, burnout ${lastEntry.data.burnout || 0}%.`
+    : "";
+
   const handleStartAnalysis = () => {
     if (hours > 0 && salaryNum > 0) {
       const calculatedBurnout = calculateBurnout(hours);
       setBurnout(calculatedBurnout);
-      saveEntry({ hours, hourlyValue, burnout: calculatedBurnout, monthlyIncome: salaryNum });
+      if (isPremium) saveEntry({ hours, hourlyValue, burnout: calculatedBurnout, monthlyIncome: salaryNum });
       setDataEntered(true);
     }
   };
@@ -54,6 +61,8 @@ const TimeOptimizerPage = () => {
         monthlyIncome: salaryNum,
         services: servicesText,
         language: isHe ? "hebrew" : "english",
+        premium: isPremium,
+        previousSummary,
       });
       setOptimizeResult(result);
       if (result) {

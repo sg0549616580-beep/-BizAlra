@@ -94,12 +94,14 @@ export interface GenerateMessagePayload {
   language?: string;
   modifier?: string;
   quality?: string;
+  premium?: boolean;
+  previousSummary?: string;
   systemPrompt?: string;
 }
 
 export async function generateMessage(payload: GenerateMessagePayload): Promise<string> {
   try {
-    const response = await fetch("/api/chat", {
+    const response = await fetch("/api/generate-message", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),

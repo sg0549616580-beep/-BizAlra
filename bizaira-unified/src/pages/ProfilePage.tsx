@@ -1,9 +1,10 @@
-import { useMemo } from "react";
+import { useMemo, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
 import { useI18n } from "@/lib/i18n";
 import { getActivityStats } from "@/lib/activity-tracker";
-import { UserCircle2, Headphones, CreditCard, Settings, Lock } from "lucide-react";
+import { UserCircle2, Headphones, CreditCard, Settings, Lock, X } from "lucide-react";
 
 const ProfilePage = () => {
   const { lang, t } = useI18n();
@@ -18,6 +19,19 @@ const ProfilePage = () => {
   const isPro = profile?.plan === "pro";
   const isBlocked = !isPro && remainingCredits <= 0;
 
+  const [showSettings, setShowSettings] = useState(false);
+  const [editName, setEditName] = useState(profile?.full_name ?? "");
+  const [editAudience, setEditAudience] = useState(profile?.target_audience ?? "");
+  const [editBusinessGoals, setEditBusinessGoals] = useState(profile?.business_goals ?? "");
+  const [savingSettings, setSavingSettings] = useState(false);
+  const [settingsMessage, setSettingsMessage] = useState<string | null>(null);
+
+  useEffect(() => {
+    setEditName(profile?.full_name ?? "");
+    setEditAudience(profile?.target_audience ?? "");
+    setEditBusinessGoals(profile?.business_goals ?? "");
+  }, [profile]);
+
   const resetDate = useMemo(() => {
     if (profile?.last_renewal_at) {
       const date = new Date(profile.last_renewal_at);
@@ -31,6 +45,32 @@ const ProfilePage = () => {
     : isHe
     ? "תאריך לא זמין"
     : "Date unavailable";
+
+  const handleSaveSettings = async () => {
+    if (!profile) return;
+    setSavingSettings(true);
+    setSettingsMessage(null);
+
+    try {
+      const { error } = await supabase
+        .from("profiles")
+        .update({
+          full_name: editName,
+          target_audience: editAudience,
+          business_goals: editBusinessGoals,
+        })
+        .eq("user_id", profile.user_id);
+
+      if (error) throw error;
+      setSettingsMessage(isHe ? "השינויים נשמרו בהצלחה." : "Settings saved successfully.");
+      setShowSettings(false);
+    } catch (err: any) {
+      console.error("Profile update failed:", err);
+      setSettingsMessage(isHe ? "שמירת השינויים נכשלה. נסה שוב." : "Saving settings failed. Please try again.");
+    } finally {
+      setSavingSettings(false);
+    }
+  };
 
   const planLabel = isPro ? "PRO" : isHe ? "תוכנית חינם" : "Free Plan";
   const studioStatus = isPro
@@ -87,17 +127,29 @@ const ProfilePage = () => {
       <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 lg:px-8">
         <header className="mb-8">
           <div className="max-w-4xl">
-            <h1
-              className="text-4xl sm:text-5xl font-semibold tracking-tight text-[#001830] text-right"
-              style={{ fontFamily: "Inter, system-ui, sans-serif", letterSpacing: "-0.03em" }}
-            >
-              {isHe ? "היי, מה תרצה לבנות היום?" : "Hey, what would you like to build today?"}
-            </h1>
-            <p className="mt-3 max-w-2xl text-base text-slate-600">
-              {isHe
-                ? "כל המידע החשוב שלך במקום אחד: חשבון, קרדיטים ותאריך חידוש."
-                : "Everything important is in one place: account, credits, and renewal date."}
-            </p>
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+              <div>
+                <h1
+                  className="text-4xl sm:text-5xl font-semibold tracking-tight text-[#001830] text-right"
+                  style={{ fontFamily: "Inter, system-ui, sans-serif", letterSpacing: "-0.03em" }}
+                >
+                  {isHe ? "היי, מה תרצה לבנות היום?" : "Hey, what would you like to build today?"}
+                </h1>
+                <p className="mt-3 max-w-2xl text-base text-slate-600">
+                  {isHe
+                    ? "כל המידע החשוב שלך במקום אחד: חשבון, קרדיטים ותאריך חידוש."
+                    : "Everything important is in one place: account, credits, and renewal date."}
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={() => setShowSettings(true)}
+                className="inline-flex items-center gap-2 rounded-3xl border border-[#E0E0E0] bg-white px-4 py-3 text-sm font-semibold text-[#001830] shadow-sm transition hover:border-[#000B18] hover:text-[#000B18]"
+              >
+                <Settings size={18} />
+                {isHe ? "ערוך פרופיל" : "Edit profile"}
+              </button>
+            </div>
           </div>
         </header>
 

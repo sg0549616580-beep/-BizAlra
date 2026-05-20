@@ -8,7 +8,7 @@ import { createGuestSession, updateGuestSession, getSavedGuestAnswers } from "@/
 
 const MIDNIGHT_BLACK = "#000810";
 const INPUT_BG = "#F9F9FB";
-const PEARL_WHITE = "#F9FAFB";
+const PEARL_WHITE = "#FFFFFF";
 
 interface AuthGatewayProps {
   onComplete: (mode: "guest" | "auth") => void;
@@ -85,9 +85,8 @@ const AuthGateway = ({ onComplete, onboardingData }: AuthGatewayProps) => {
 
   return (
     <div
-      className="min-h-screen flex items-center justify-center px-5 py-10 overflow-y-auto"
+      className="min-h-screen flex items-center justify-center px-5 py-10 overflow-y-auto bg-white"
       dir={isHe ? "rtl" : "ltr"}
-      style={{ backgroundColor: PEARL_WHITE }}
     >
       <div className="w-full max-w-sm mx-auto">
 

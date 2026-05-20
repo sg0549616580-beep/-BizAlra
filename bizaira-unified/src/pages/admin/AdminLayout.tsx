@@ -31,7 +31,7 @@ const AdminLayout = ({ children }: { children: ReactNode }) => {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-background">
+      <div className="min-h-screen flex items-center justify-center bg-white">
         <div className="animate-spin w-8 h-8 border-4 border-primary border-t-transparent rounded-full" />
       </div>
     );
@@ -39,7 +39,7 @@ const AdminLayout = ({ children }: { children: ReactNode }) => {
 
   if (!isAdmin) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-background px-4" dir="rtl">
+      <div className="min-h-screen flex items-center justify-center bg-white px-4" dir="rtl">
         <div className="text-center space-y-4">
           <Shield size={48} className="mx-auto text-destructive" />
           <h1 className="text-2xl font-bold">אין הרשאה</h1>
@@ -58,7 +58,7 @@ const AdminLayout = ({ children }: { children: ReactNode }) => {
   };
 
   return (
-    <div className="min-h-screen flex bg-background" dir="rtl">
+    <div className="min-h-screen flex bg-white" dir="rtl">
       {/* Mobile overlay */}
       {sidebarOpen && (
         <div className="fixed inset-0 bg-black/40 z-40 md:hidden" onClick={() => setSidebarOpen(false)} />

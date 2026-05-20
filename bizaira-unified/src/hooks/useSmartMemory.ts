@@ -13,30 +13,32 @@ interface SmartMemoryResult {
   lastEntry: HistoryEntry | null;
 }
 
-export function useSmartMemory(featureKey: string): SmartMemoryResult {
+export function useSmartMemory(featureKey: string, enabled: boolean = true): SmartMemoryResult {
   const storageKey = `bizaira_memory_${featureKey}`;
   const [history, setHistory] = useState<HistoryEntry[]>([]);
 
   useEffect(() => {
+    if (!enabled) return;
     try {
       const stored = safeGetItem(storageKey);
       if (stored) setHistory(JSON.parse(stored));
     } catch { /* ignore */ }
-  }, [storageKey]);
+  }, [storageKey, enabled]);
 
   const saveEntry = useCallback((data: Record<string, number | string>) => {
+    if (!enabled) return;
     const entry: HistoryEntry = { date: new Date().toISOString(), data };
     setHistory(prev => {
       const updated = [...prev, entry].slice(-20); // keep last 20
       safeSetItem(storageKey, JSON.stringify(updated));
       return updated;
     });
-  }, [storageKey]);
+  }, [storageKey, enabled]);
 
   const lastEntry = history.length > 0 ? history[history.length - 1] : null;
 
   const getProgressMessages = useCallback((currentData: Record<string, number>, lang: "he" | "en"): string[] => {
-    if (history.length === 0) return [];
+    if (!enabled || history.length === 0) return [];
     const prev = history[history.length - 1];
     const messages: string[] = [];
     const isHe = lang === "he";
@@ -78,7 +80,7 @@ export function useSmartMemory(featureKey: string): SmartMemoryResult {
     }
 
     return messages.slice(0, 3);
-  }, [history]);
+  }, [enabled, history]);
 
   return { history, saveEntry, getProgressMessages, lastEntry };
 }

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import SparkleIcon from "@/components/SparkleIcon";
 import { useI18n } from "@/lib/i18n";
+import { useAuth } from "@/hooks/useAuth";
 import { useSmartMemory } from "@/hooks/useSmartMemory";
 import { generatePricing } from "@/lib/ai-service";
 import { saveCreation, trackDownload } from "@/lib/creations-store";
@@ -12,9 +13,11 @@ import {
 
 const PricingStrategistPage = () => {
   const { t, lang } = useI18n();
+  const { profile } = useAuth();
   const isHe = lang === "he";
   const BackArrow = isHe ? ArrowRight : ArrowLeft;
-  const { saveEntry, getProgressMessages } = useSmartMemory("pricing");
+  const isPremium = Boolean(profile?.plan?.toLowerCase().includes("pro") || profile?.plan?.toLowerCase().includes("premium"));
+  const { saveEntry, getProgressMessages, lastEntry } = useSmartMemory("pricing", isPremium);
 
   const [serviceDuration, setServiceDuration] = useState("");
   const [materialCost, setMaterialCost] = useState("");
@@ -41,6 +44,10 @@ const PricingStrategistPage = () => {
 
   const proFeatures = [t("pricing.proCompetitors"), t("pricing.proSimulations"), t("pricing.proPsychology"), t("pricing.proPositioning")];
 
+  const previousSummary = isPremium && lastEntry?.data
+    ? `Previous session: recommended ₪${lastEntry.data.recommendedPrice || 0}, hourly value ₪${lastEntry.data.hourlyValue || 0}.`
+    : "";
+
   const handleSimulate = async () => {
     setIsSimulating(true);
     try {
@@ -50,6 +57,8 @@ const PricingStrategistPage = () => {
         audience: isHe ? "לקוחות פוטנציאליים" : "potential clients",
         goals: isHe ? "הגדלת רווחיות ושימור לקוחות" : "increase profitability and customer retention",
         language: isHe ? "hebrew" : "english",
+        premium: isPremium,
+        previousSummary,
       });
       setSimResult(result);
       setPricingAdvice(result);
@@ -133,7 +142,7 @@ const PricingStrategistPage = () => {
           </div>
         </div>
 
-        <button onClick={() => { saveEntry({ recommendedPrice, hourlyValue, minPrice, premiumPrice }); setCalculated(true); }} disabled={!serviceDuration} className="w-full gradient-glow glow-shadow text-primary-foreground font-bold py-4 rounded-xl text-lg flex items-center justify-center gap-2 hover:scale-[1.02] transition-all disabled:opacity-50"><Sparkles size={22} />{t("pricing.calculate")}</button>
+        <button onClick={() => { if (isPremium) saveEntry({ recommendedPrice, hourlyValue, minPrice, premiumPrice }); setCalculated(true); }} disabled={!serviceDuration} className="w-full gradient-glow glow-shadow text-primary-foreground font-bold py-4 rounded-xl text-lg flex items-center justify-center gap-2 hover:scale-[1.02] transition-all disabled:opacity-50"><Sparkles size={22} />{t("pricing.calculate")}</button>
 
         {calculated && (
           <div className="animate-fade-in-up space-y-4">

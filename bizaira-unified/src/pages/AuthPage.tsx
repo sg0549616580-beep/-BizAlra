@@ -8,7 +8,7 @@ import { getSavedGuestAnswers, createGuestSession } from "@/lib/guest-session";
 import { safeSetSessionItem } from "@/lib/safe-storage";
 
 const DEEP_MIDNIGHT_BLUE = "#000810";
-const PEARL_WHITE = "#FAFAFA";
+const PEARL_WHITE = "#FFFFFF";
 const INPUT_BG = "#F9FAFB";
 
 const AuthPage = () => {
@@ -72,9 +72,8 @@ const AuthPage = () => {
 
   return (
     <div
-      className="flex justify-center items-center min-h-screen px-5 py-10"
+      className="flex justify-center items-center min-h-screen px-5 py-10 bg-white"
       dir={isHe ? "rtl" : "ltr"}
-      style={{ backgroundColor: PEARL_WHITE, backgroundImage: "radial-gradient(circle at 25% 25%, rgba(0,8,16,0.02) 0%, transparent 50%), radial-gradient(circle at 75% 75%, rgba(0,8,16,0.02) 0%, transparent 50%)" }}
     >
       <div className="w-full max-w-sm">
         {/* Logo */}
