@@ -38,18 +38,17 @@ const STYLES: { id: StyleId; he: string; en: string }[] = [
 ];
 
 const PRESET_COLORS = [
-  "#ffffff",
-  "#111111",
-  "#f5f0e8",
-  "#1a1a3e",
-  "#f5e0e0",
-  "#d4ddd0",
-  "#fef3c7",
-  "#dbeafe",
-  "#fce7f3",
-  "#d1fae5",
-  "#e0e7ff",
-  "#fde68a",
+  "#ffffff", "#f9fafb", "#f3f4f6", "#e5e7eb", "#d1d5db", "#9ca3af", "#6b7280", "#4b5563", "#374151", "#1f2937", "#111827", "#000000",
+  "#fef2f2", "#fecaca", "#fca5a5", "#f87171", "#ef4444", "#dc2626", "#b91c1c", "#991b1b", "#7f1d1d", "#450a0a",
+  "#fff7ed", "#fed7aa", "#fdba74", "#fb923c", "#f97316", "#ea580c", "#c2410c", "#9a3412", "#7c2d12", "#431407",
+  "#fefce8", "#fef08a", "#fde047", "#facc15", "#eab308", "#ca8a04", "#a16207", "#854d0e", "#713f12", "#422006",
+  "#f0fdf4", "#bbf7d0", "#86efac", "#4ade80", "#22c55e", "#16a34a", "#15803d", "#166534", "#14532d", "#052e16",
+  "#f0fdfa", "#99f6e4", "#5eead4", "#2dd4bf", "#14b8a6", "#0d9488", "#0f766e", "#115e59", "#134e4a", "#042f2e",
+  "#eff6ff", "#bfdbfe", "#93c5fd", "#60a5fa", "#3b82f6", "#2563eb", "#1d4ed8", "#1e40af", "#1e3a8a", "#172554",
+  "#eef2ff", "#c7d2fe", "#a5b4fc", "#818cf8", "#6366f1", "#4f46e5", "#4338ca", "#3730a3", "#312e81", "#1e1b4b",
+  "#faf5ff", "#e9d5ff", "#d8b4fe", "#c084fc", "#a855f7", "#9333ea", "#7e22ce", "#6b21a8", "#581c87", "#3b0764",
+  "#fdf2f8", "#fbcfe8", "#f9a8d4", "#f472b6", "#ec4899", "#db2777", "#be185d", "#9d174d", "#831843", "#500724",
+  "#fff1f2", "#fecdd3", "#fda4af", "#fb7185", "#f43f5e", "#e11d48", "#be123c", "#9f1239", "#881337", "#4c0519",
 ];
 
 const RATIOS = [
@@ -194,91 +193,91 @@ const ImageStudioPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white text-[#000B18]" dir={isHe ? "rtl" : "ltr"}>
-      <div className="mx-auto max-w-7xl px-6 py-8">
-        <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-          <div className="flex items-center gap-4">
+    <div className="min-h-screen bg-[#F5F5DC] text-[#001830]" dir={isHe ? "rtl" : "ltr"}>
+      <div className="mx-auto max-w-7xl px-6 py-6">
+        <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex items-center gap-3">
             <Link
               to="/create"
-              className="inline-flex h-11 w-11 items-center justify-center rounded-2xl border border-[#E5E7EB] bg-white text-[#000B18] transition hover:border-[#000B18]"
+              className="inline-flex h-10 w-10 items-center justify-center rounded-2xl border border-[#001830]/20 bg-white text-[#001830] transition hover:border-[#001830]"
             >
-              <BackArrow size={20} />
+              <BackArrow size={18} />
             </Link>
             <div>
-              <h1 className="text-3xl font-semibold tracking-tight text-[#000B18]">
+              <h1 className="text-xl font-semibold tracking-tight text-[#001830]">
                 {isHe ? "סטודיו תמונות" : "Image Studio"}
               </h1>
-              <p className="mt-2 text-sm leading-7 text-[#475569]">
-                {isHe ? "צור תמונות יוקרתיות עבור העסק שלך באמצעות AI" : "Create premium images for your business with AI."}
+              <p className="mt-1 text-xs leading-5 text-[#666]">
+                {isHe ? "צור תמונות יוקרתיות עם AI" : "Create premium images with AI"}
               </p>
             </div>
           </div>
-          <div className="rounded-3xl border border-[#E5E7EB] bg-white px-4 py-3 text-sm font-semibold text-[#000B18] shadow-sm">
-            {remaining} {isHe ? "פעולות נותרו" : "actions left"}
+          <div className="rounded-2xl border border-[#001830]/10 bg-white px-3 py-2 text-xs font-semibold text-[#001830] shadow-sm">
+            {remaining} {isHe ? "פעולות" : "actions left"}
           </div>
         </div>
 
         {alertMessage && (
-          <div className="mb-6 rounded-3xl border border-[#F8D7DA] bg-[#FEF2F2] px-5 py-4 text-sm text-[#991B1B] shadow-sm">
+          <div className="mb-5 rounded-2xl border border-[#F8D7DA] bg-[#FEF2F2] px-4 py-3 text-xs text-[#991B1B] shadow-sm">
             {alertMessage}
           </div>
         )}
 
-        <div className="grid gap-8 lg:grid-cols-[1.6fr_0.95fr]">
-          <div className="space-y-6">
-            <div className="rounded-[32px] border border-[#E5E7EB] bg-white p-6 shadow-[0_20px_40px_rgba(0,11,24,0.08)]">
-              <div className="mb-6 flex items-center justify-between gap-4">
+        <div className="grid gap-6 lg:grid-cols-[1.6fr_0.95fr]">
+          <div className="space-y-5">
+            <div className="rounded-[24px] border border-[#001830]/10 bg-white p-5 shadow-[0_10px_25px_rgba(0,24,48,0.06)]">
+              <div className="mb-4 flex items-center justify-between gap-3">
                 <div>
-                  <p className="text-xs uppercase tracking-[0.32em] text-[#64748B]">
+                  <p className="text-[10px] uppercase tracking-[0.24em] text-[#666]">
                     {isHe ? "תצוגה מקדימה" : "Preview"}
                   </p>
-                  <h2 className="mt-2 text-2xl font-semibold text-[#000B18]">
-                    {isHe ? "תצוגת תמונה חיה" : "Live image preview"}
+                  <h2 className="mt-1 text-lg font-semibold text-[#001830]">
+                    {isHe ? "תצוגת תמונה חיה" : "Live preview"}
                   </h2>
                 </div>
-                <span className="rounded-full bg-[#000B18] px-4 py-2 text-xs font-semibold text-[#F5F5DC]">
-                  {isPremium ? (isHe ? "מנוי פרימיום" : "Premium") : isHe ? "מנוי חינמי" : "Free Tier"}
+                <span className="rounded-full bg-[#001830] px-3 py-1.5 text-[9px] font-semibold text-[#F5F5DC]">
+                  {isPremium ? (isHe ? "פרימיום" : "Premium") : isHe ? "חינמי" : "Free"}
                 </span>
               </div>
 
-              <div className="min-h-[420px] overflow-hidden rounded-[28px] border border-[#E5E7EB] bg-[#F8F9FB] p-6 flex items-center justify-center">
+              <div className="min-h-[380px] overflow-hidden rounded-[20px] border border-[#001830]/10 bg-[#F9F9F6] p-4 flex items-center justify-center">
                 {results.length > 0 ? (
                   <img
                     src={results[activeResult]}
                     alt={`Generated ${activeResult + 1}`}
-                    className="max-h-[580px] w-full rounded-[24px] object-contain"
+                    className="max-h-[500px] w-full rounded-[18px] object-contain"
                   />
                 ) : uploadedImage ? (
-                  <div className="relative h-full w-full rounded-[24px] overflow-hidden">
+                  <div className="relative h-full w-full rounded-[18px] overflow-hidden">
                     <img src={uploadedImage} alt="Uploaded" className="h-full w-full object-contain" />
                     <button
                       type="button"
                       onClick={() => setUploadedImage(null)}
-                      className="absolute top-4 end-4 inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/90 text-[#000B18] shadow-sm transition hover:bg-white"
+                      className="absolute top-3 end-3 inline-flex h-8 w-8 items-center justify-center rounded-full bg-white/90 text-[#001830] shadow-sm transition hover:bg-white"
                     >
-                      <X size={18} />
+                      <X size={16} />
                     </button>
                   </div>
                 ) : (
                   <div className="text-center">
-                    <p className="text-lg font-semibold text-[#000B18] mb-2">
-                      {isHe ? "היצירה שלך תוצג כאן" : "Your creation will appear here"}
+                    <p className="text-sm font-semibold text-[#001830] mb-1">
+                      {isHe ? "התוצאה תוצג כאן" : "Your creation will appear here"}
                     </p>
-                    <p className="text-sm leading-7 text-[#64748B]">
-                      {isHe ? "הזן פרטים ולחץ על 'צור תמונות' כדי לראות תוצאה" : "Enter details and click Create Images to see the result."}
+                    <p className="text-xs leading-5 text-[#999]">
+                      {isHe ? "הוסף פרטים ולחץ 'צור תמונות'" : "Add details and click Create Images"}
                     </p>
                   </div>
                 )}
               </div>
 
               {results.length > 1 && (
-                <div className="mt-6 flex flex-wrap items-center gap-3">
+                <div className="mt-4 flex flex-wrap items-center gap-2">
                   {results.map((image, index) => (
                     <button
                       type="button"
                       key={image}
                       onClick={() => setActiveResult(index)}
-                      className={`h-16 w-16 overflow-hidden rounded-[18px] border ${activeResult === index ? "border-[#000B18] shadow-lg" : "border-[#E5E7EB]"}`}
+                      className={`h-12 w-12 overflow-hidden rounded-[12px] border ${activeResult === index ? "border-[#001830] shadow-lg" : "border-[#001830]/10"}`}
                     >
                       <img src={image} alt={`Variant ${index + 1}`} className="h-full w-full object-cover" />
                     </button>
@@ -286,17 +285,17 @@ const ImageStudioPage = () => {
                 </div>
               )}
 
-              <div className="mt-6 flex flex-col gap-3 sm:flex-row">
+              <div className="mt-4 flex flex-col gap-2 sm:flex-row">
                 <button
                   type="button"
                   disabled={isGenerating}
                   onClick={handleGenerate}
-                  className="inline-flex min-w-[180px] items-center justify-center rounded-full bg-[#000B18] px-6 py-4 text-sm font-semibold text-white transition hover:bg-[#001830] disabled:cursor-not-allowed disabled:opacity-50"
+                  className="inline-flex min-w-[160px] items-center justify-center rounded-2xl bg-[#001830] px-5 py-3 text-xs font-semibold text-[#F5F5DC] transition hover:bg-[#0D2E48] disabled:cursor-not-allowed disabled:opacity-50"
                 >
                   {isGenerating ? (
                     <span className="flex items-center gap-2">
-                      <Loader2 size={18} className="animate-spin" />
-                      {isHe ? "יוצר תמונה..." : "Generating image..."}
+                      <Loader2 size={14} className="animate-spin" />
+                      {isHe ? "יוצר..." : "Creating..."}
                     </span>
                   ) : (
                     <span>{isHe ? "צור תמונות" : "Create Images"}</span>
@@ -306,18 +305,18 @@ const ImageStudioPage = () => {
                   <button
                     type="button"
                     onClick={() => handleDownload(activeResult)}
-                    className="inline-flex min-w-[180px] items-center justify-center rounded-full border border-[#000B18] bg-white px-6 py-4 text-sm font-semibold text-[#000B18] transition hover:bg-[#000B18] hover:text-white"
+                    className="inline-flex min-w-[160px] items-center justify-center rounded-2xl border border-[#001830]/20 bg-white px-5 py-3 text-xs font-semibold text-[#001830] transition hover:bg-[#F9F9F6]"
                   >
-                    {isHe ? "הורד תמונה" : "Download Image"}
+                    {isHe ? "הורד" : "Download"}
                   </button>
                 )}
               </div>
             </div>
           </div>
 
-          <aside className="space-y-6">
-            <div className="rounded-[32px] border border-[#E5E7EB] bg-white p-6 shadow-[0_20px_40px_rgba(0,11,24,0.08)]">
-              <div className="flex gap-3 rounded-full bg-[#F8F9FB] p-1">
+          <aside className="space-y-5">
+            <div className="rounded-[24px] border border-[#001830]/10 bg-white p-5 shadow-[0_10px_25px_rgba(0,24,48,0.06)]">
+              <div className="flex gap-2 rounded-full bg-[#F9F9F6] p-1">
                 {([
                   { id: "type" as const, label: isHe ? "סוג" : "Type" },
                   { id: "style" as const, label: isHe ? "סגנון" : "Style" },
@@ -327,7 +326,7 @@ const ImageStudioPage = () => {
                     key={tab.id}
                     type="button"
                     onClick={() => setSidebarTab(tab.id)}
-                    className={`flex-1 rounded-full px-4 py-3 text-sm font-semibold transition ${sidebarTab === tab.id ? "bg-[#000B18] text-white" : "text-[#64748B] hover:bg-white"}`}
+                    className={`flex-1 rounded-full px-3 py-2 text-xs font-semibold transition ${sidebarTab === tab.id ? "bg-[#001830] text-[#F5F5DC]" : "text-[#666] hover:bg-white"}`}
                   >
                     {tab.label}
                   </button>
@@ -335,16 +334,16 @@ const ImageStudioPage = () => {
               </div>
 
               {sidebarTab === "type" && (
-                <div className="mt-6 space-y-5">
+                <div className="mt-4 space-y-4">
                   <div>
-                    <p className="text-sm font-semibold text-[#000B18] mb-3">{isHe ? "סוג תמונה" : "Image Type"}</p>
-                    <div className="grid grid-cols-2 gap-3">
+                    <p className="text-xs font-semibold text-[#001830] mb-2">{isHe ? "סוג תמונה" : "Image Type"}</p>
+                    <div className="grid grid-cols-2 gap-2">
                       {IMAGE_TYPES.map((item) => (
                         <button
                           key={item.id}
                           type="button"
                           onClick={() => setImageType(item.id)}
-                          className={`rounded-3xl border px-4 py-4 text-sm font-medium transition ${imageType === item.id ? "border-[#000B18] bg-[#000B18] text-white" : "border-[#E5E7EB] bg-white text-[#000B18] hover:border-[#000B18]"}`}
+                          className={`rounded-2xl border px-3 py-2.5 text-xs font-medium transition ${imageType === item.id ? "border-[#001830] bg-[#001830] text-[#F5F5DC]" : "border-[#001830]/10 bg-white text-[#001830] hover:border-[#001830]/30"}`}
                         >
                           {isHe ? item.he : item.en}
                         </button>
@@ -353,14 +352,14 @@ const ImageStudioPage = () => {
                   </div>
 
                   <div>
-                    <p className="text-sm font-semibold text-[#000B18] mb-3">{isHe ? "יחס תמונה" : "Aspect Ratio"}</p>
-                    <div className="grid grid-cols-2 gap-3">
+                    <p className="text-xs font-semibold text-[#001830] mb-2">{isHe ? "יחס תמונה" : "Aspect Ratio"}</p>
+                    <div className="grid grid-cols-2 gap-2">
                       {RATIOS.map((item) => (
                         <button
                           key={item.id}
                           type="button"
                           onClick={() => setRatio(item.id)}
-                          className={`rounded-3xl border px-4 py-4 text-sm font-medium transition ${ratio === item.id ? "border-[#000B18] bg-[#000B18] text-white" : "border-[#E5E7EB] bg-white text-[#000B18] hover:border-[#000B18]"}`}
+                          className={`rounded-2xl border px-3 py-2.5 text-xs font-medium transition ${ratio === item.id ? "border-[#001830] bg-[#001830] text-[#F5F5DC]" : "border-[#001830]/10 bg-white text-[#001830] hover:border-[#001830]/30"}`}
                         >
                           {item.label}
                         </button>
@@ -371,16 +370,16 @@ const ImageStudioPage = () => {
               )}
 
               {sidebarTab === "style" && (
-                <div className="mt-6 space-y-5">
+                <div className="mt-4 space-y-4">
                   <div>
-                    <p className="text-sm font-semibold text-[#000B18] mb-3">{isHe ? "סגנון עיצוב" : "Design Style"}</p>
-                    <div className="grid grid-cols-2 gap-3">
+                    <p className="text-xs font-semibold text-[#001830] mb-2">{isHe ? "סגנון עיצוב" : "Design Style"}</p>
+                    <div className="grid grid-cols-2 gap-2">
                       {STYLES.map((item) => (
                         <button
                           key={item.id}
                           type="button"
                           onClick={() => setStyle(item.id)}
-                          className={`rounded-3xl border px-4 py-4 text-sm font-medium transition ${style === item.id ? "border-[#000B18] bg-[#000B18] text-white" : "border-[#E5E7EB] bg-white text-[#000B18] hover:border-[#000B18]"}`}
+                          className={`rounded-2xl border px-3 py-2.5 text-xs font-medium transition ${style === item.id ? "border-[#001830] bg-[#001830] text-[#F5F5DC]" : "border-[#001830]/10 bg-white text-[#001830] hover:border-[#001830]/30"}`}
                         >
                           {isHe ? item.he : item.en}
                         </button>
@@ -389,8 +388,8 @@ const ImageStudioPage = () => {
                   </div>
 
                   <div>
-                    <p className="text-sm font-semibold text-[#000B18] mb-3">{isHe ? "צבע רקע" : "Background Color"}</p>
-                    <div className="grid grid-cols-6 gap-2 mb-4">
+                    <p className="text-xs font-semibold text-[#001830] mb-2">{isHe ? "צבע רקע" : "Background Color"}</p>
+                    <div className="grid grid-cols-10 gap-1 mb-3 max-h-[180px] overflow-y-auto pr-1 border border-[#001830]/10 rounded-2xl p-2 bg-[#F9F9F6]">
                       {PRESET_COLORS.map((color) => (
                         <button
                           key={color}
@@ -399,13 +398,13 @@ const ImageStudioPage = () => {
                             setBgColor(color);
                             setCustomColor(color);
                           }}
-                          className={`h-10 rounded-2xl border-2 transition ${bgColor === color ? "border-[#000B18] shadow-lg" : "border-[#E5E7EB]"}`}
+                          className={`aspect-square rounded-lg border-2 transition hover:scale-105 ${bgColor === color ? "border-[#001830] ring-2 ring-[#001830]/30 scale-105" : "border-[#001830]/10"}`}
                           style={{ backgroundColor: color }}
-                          aria-label={color}
+                          title={color}
                         />
                       ))}
                     </div>
-                    <div className="flex gap-3">
+                    <div className="flex gap-2 items-center">
                       <input
                         type="color"
                         value={customColor}
@@ -413,14 +412,14 @@ const ImageStudioPage = () => {
                           setCustomColor(e.target.value);
                           setBgColor(e.target.value);
                         }}
-                        className="h-11 w-16 rounded-3xl border border-[#E5E7EB] cursor-pointer"
+                        className="h-8 w-8 rounded-lg border border-[#001830]/10 cursor-pointer"
                       />
                       <input
                         type="text"
                         value={bgColor}
                         onChange={(e) => setBgColor(e.target.value)}
                         placeholder="#ffffff"
-                        className="flex-1 rounded-3xl border border-[#E5E7EB] bg-white px-4 py-3 text-sm text-[#000B18] placeholder:text-[#94a3b8] focus:border-[#000B18] focus:outline-none focus:ring-2 focus:ring-[#000B18]/10"
+                        className="flex-1 rounded-lg border border-[#001830]/10 bg-white px-3 py-1.5 text-xs text-[#001830] placeholder:text-[#ccc] focus:border-[#001830] focus:outline-none focus:ring-2 focus:ring-[#001830]/10"
                       />
                     </div>
                   </div>
@@ -428,15 +427,15 @@ const ImageStudioPage = () => {
               )}
 
               {sidebarTab === "details" && (
-                <div className="mt-6 space-y-5">
+                <div className="mt-4 space-y-3">
                   <div>
-                    <p className="text-sm font-semibold text-[#000B18] mb-3">{isHe ? "תיאור מפורט" : "Detailed Description"}</p>
+                    <p className="text-xs font-semibold text-[#001830] mb-2">{isHe ? "תיאור" : "Description"}</p>
                     <textarea
                       value={description}
                       onChange={(e) => setDescription(e.target.value)}
-                      placeholder={isHe ? "תאר את התמונה הרצויה..." : "Describe the desired image..."}
-                      rows={6}
-                      className="w-full rounded-[24px] border border-[#E5E7EB] bg-white px-4 py-4 text-sm text-[#000B18] placeholder:text-[#94a3b8] focus:border-[#000B18] focus:outline-none focus:ring-2 focus:ring-[#000B18]/10"
+                      placeholder={isHe ? "תאר את התמונה המבוקשת..." : "Describe the desired image..."}
+                      rows={5}
+                      className="w-full rounded-lg border border-[#001830]/10 bg-white px-3 py-2 text-xs text-[#001830] placeholder:text-[#ccc] focus:border-[#001830] focus:outline-none focus:ring-2 focus:ring-[#001830]/10"
                     />
                   </div>
                 </div>
@@ -446,10 +445,10 @@ const ImageStudioPage = () => {
             <button
               type="button"
               onClick={() => fileRef.current?.click()}
-              className="w-full rounded-3xl border border-[#E5E7EB] bg-white px-5 py-4 text-sm font-semibold text-[#000B18] transition hover:border-[#000B18] hover:bg-[#F8F9FB]"
+              className="w-full rounded-2xl border border-[#001830]/10 bg-white px-4 py-3 text-xs font-semibold text-[#001830] transition hover:border-[#001830]/30 hover:bg-[#F9F9F6]"
             >
-              <Upload size={18} />
-              <span className="ms-2">{isHe ? "העלה תמונת מקור (אופציונלי)" : "Upload source image (optional)"}</span>
+              <Upload size={16} className="inline-block me-1" />
+              <span>{isHe ? "העלה תמונה (אופ')" : "Upload image (optional)"}</span>
             </button>
             <input ref={fileRef} type="file" accept="image/*" onChange={handleUpload} className="hidden" />
           </aside>
@@ -458,40 +457,40 @@ const ImageStudioPage = () => {
 
       {showAuthGuard && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm px-4 py-6">
-          <div className="relative w-full max-w-xl rounded-[28px] border border-white/10 bg-[#001830] p-8 shadow-2xl">
+          <div className="relative w-full max-w-xl rounded-[24px] border border-[#F5F5DC]/20 bg-[#001830] p-6 shadow-2xl">
             <button
               onClick={() => setShowAuthGuard(false)}
-              className="absolute right-4 top-4 rounded-full border border-white/20 p-2 text-[#F5F5DC] transition hover:bg-white/10"
+              className="absolute right-4 top-4 rounded-full border border-[#F5F5DC]/20 p-1.5 text-[#F5F5DC] transition hover:bg-[#F5F5DC]/10"
               aria-label={isHe ? "סגור" : "Close"}
             >
-              <X size={18} />
+              <X size={16} />
             </button>
-            <div className="flex flex-col items-center gap-4 text-center">
-              <div className="flex h-16 w-16 items-center justify-center rounded-2xl border border-white/15 bg-white/5 text-[#F5F5DC]">
-                <ImageIcon size={28} />
+            <div className="flex flex-col items-center gap-3 text-center">
+              <div className="flex h-14 w-14 items-center justify-center rounded-2xl border border-[#F5F5DC]/20 bg-[#F5F5DC]/5 text-[#F5F5DC]">
+                <ImageIcon size={24} />
               </div>
-              <h2 className="text-2xl font-semibold text-[#F5F5DC]">
-                {isHe ? "סטודיו התמונות זמין למנויים" : "Image Studio is available for members"}
+              <h2 className="text-lg font-semibold text-[#F5F5DC]">
+                {isHe ? "סטודיו תמונות - דרוש חשבון" : "Image Studio requires account"}
               </h2>
-              <p className="max-w-md text-sm leading-7 text-[#F5F5DC]/90">
+              <p className="max-w-md text-xs leading-5 text-[#F5F5DC]/80">
                 {isHe
-                  ? "עדיין לא נרשמת למערכת. כדי להתחיל ליצור ולעצב תמונות עם בינה מלאכותית, יש להתחבר או ליצור חשבון."
-                  : "You haven't signed up yet. To start creating and designing images with AI, please log in or create an account."}
+                  ? "יש להתחבר ליצור תמונות עם בינה מלאכותית"
+                  : "Sign in to start creating images with AI"}
               </p>
-              <div className="mt-4 flex w-full flex-col gap-3 sm:flex-row sm:justify-center">
+              <div className="mt-3 flex w-full flex-col gap-2 sm:flex-row sm:justify-center">
                 <Link
                   to="/auth"
                   onClick={() => setShowAuthGuard(false)}
-                  className="inline-flex w-full items-center justify-center rounded-2xl bg-[#F5F5DC] px-5 py-3 text-sm font-semibold text-[#001830] transition hover:bg-[#fbf7e5] sm:w-auto"
+                  className="inline-flex w-full items-center justify-center rounded-xl bg-[#F5F5DC] px-4 py-2 text-xs font-semibold text-[#001830] transition hover:bg-[#fbf7e5] sm:w-auto"
                 >
-                  {isHe ? "ליצירת חשבון חדש" : "Create a new account"}
+                  {isHe ? "יצירת חשבון" : "Create account"}
                 </Link>
                 <Link
                   to="/auth"
                   onClick={() => setShowAuthGuard(false)}
-                  className="inline-flex w-full items-center justify-center rounded-2xl border border-white/20 bg-transparent px-5 py-3 text-sm font-semibold text-[#F5F5DC] transition hover:bg-white/10 sm:w-auto"
+                  className="inline-flex w-full items-center justify-center rounded-xl border border-[#F5F5DC]/20 bg-transparent px-4 py-2 text-xs font-semibold text-[#F5F5DC] transition hover:bg-[#F5F5DC]/10 sm:w-auto"
                 >
-                  {isHe ? "כבר יש לי חשבון" : "I already have an account"}
+                  {isHe ? "התחברות" : "Sign in"}
                 </Link>
               </div>
             </div>
@@ -500,22 +499,22 @@ const ImageStudioPage = () => {
       )}
 
       {isLocked && (
-        <div className="fixed inset-0 bg-white/90 backdrop-blur-sm flex items-center justify-center z-50">
-          <div className="bg-white rounded-[32px] p-8 shadow-2xl border border-[#E5E7EB] max-w-md mx-4 text-center">
-            <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-3xl bg-[#F8F9FB] text-[#000B18]">
-              <Lock size={28} />
+        <div className="fixed inset-0 bg-[#F5F5DC]/90 backdrop-blur-sm flex items-center justify-center z-50">
+          <div className="bg-white rounded-[24px] p-6 shadow-2xl border border-[#001830]/10 max-w-sm mx-4 text-center">
+            <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-[#F9F9F6] text-[#001830]">
+              <Lock size={24} />
             </div>
-            <h2 className="text-xl font-semibold text-[#000B18] mb-4">
-              {isHe ? "הגעת למגבלה החודשית" : "You've reached your monthly limit"}
+            <h2 className="text-lg font-semibold text-[#001830] mb-2">
+              {isHe ? "הגעת למגבלה" : "Monthly limit reached"}
             </h2>
-            <p className="text-sm leading-7 text-[#475569] mb-6">
-              {isHe ? "שדרג עכשיו כדי להמשיך ליצור תמונות ללא הגבלה" : "Upgrade now to continue creating unlimited images."}
+            <p className="text-xs leading-5 text-[#666] mb-4">
+              {isHe ? "שדרג לעיצוב ללא הגבלה" : "Upgrade for unlimited image creation"}
             </p>
             <Link
               to="/pricing"
-              className="inline-block rounded-full bg-[#000B18] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#001830]"
+              className="inline-block rounded-2xl bg-[#001830] px-5 py-2 text-xs font-semibold text-[#F5F5DC] transition hover:bg-[#0D2E48]"
             >
-              {isHe ? "לשדרג כעת" : "Upgrade now"}
+              {isHe ? "שדרוג" : "Upgrade"}
             </Link>
           </div>
         </div>
