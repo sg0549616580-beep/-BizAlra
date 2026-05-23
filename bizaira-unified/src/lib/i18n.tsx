@@ -541,7 +541,7 @@ const translations: Translations = {
   "faq.q1": { he: "מה זה BizAIra?", en: "What is BizAIra?" },
   "faq.a1": { he: "BizAIra היא פלטפורמת AI מתקדמת שמאפשרת לבעלי עסקים ליצור תוכן שיווקי מקצועי — תמונות מוצר, הודעות ועוד — בלחיצת כפתור.", en: "BizAIra is an advanced AI platform that enables business owners to create professional marketing content — product photos, messages and more — with the click of a button." },
   "faq.q2": { he: "כמה עולה השירות?", en: "How much does the service cost?" },
-  "faq.a2": { he: "יש גרסה חינמית עם 2 יצירות בחודש. מסלול Pro עולה ₪29/חודש ומסלול Business עולה ₪59/חודש — שימוש ללא הגבלה בכל הכלים, ללא סימני מים ובאיכות גבוהה.", en: "There's a free version with 2 creations per month. Pro plan costs $9/month and Business plan costs $19/month — unlimited use of all tools, no watermarks and high quality." },
+  "faq.a2": { he: "BizAIra מציעה מסלול התנסות הכולל 5 יצירות חינמיות בחודש. מעבר לכך, קיימים מסלולים מתקדמים בהתאמה אישית לצרכי העסק שלך.", en: "BizAIra offers a trial plan that includes 5 free creations per month. Beyond that, there are advanced plans customized to your business needs." },
   "faq.q3": { he: "האם אני צריך ידע טכני?", en: "Do I need technical knowledge?" },
   "faq.a3": { he: "בכלל לא! הממשק תוכנן לפשטות מקסימלית. רק מזינים פרטים, בוחרים סגנון, ולוחצים על ׳צור עם AI׳.", en: "Not at all! The interface is designed for maximum simplicity. Just enter details, choose a style, and click 'Create with AI'." },
   "faq.q4": { he: "איך מבטלים מנוי?", en: "How do I cancel my subscription?" },
