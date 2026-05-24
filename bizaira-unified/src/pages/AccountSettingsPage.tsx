@@ -81,57 +81,47 @@ const AccountSettingsPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#F5F5DC] to-white text-[#001830]" dir={isHe ? "rtl" : "ltr"}>
+    <div className="min-h-screen bg-[#F8F9FA] text-[#001830]" dir={isHe ? "rtl" : "ltr"}>
       <div className="mx-auto max-w-4xl px-6 py-10">
         {/* Header Section */}
-        <div className="mb-12 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-          <div className="flex-1">
-            <button
-              type="button"
-              onClick={() => navigate(-1)}
-              className="mb-4 inline-flex items-center gap-2 rounded-full border border-[#001830]/20 bg-white px-4 py-2 text-sm font-semibold text-[#001830] transition hover:bg-[#F5F5DC]"
-            >
-              <ArrowLeft size={18} />
-              {isHe ? "חזור" : "Back"}
-            </button>
-            <p className="text-xs font-medium uppercase tracking-widest text-[#001830]/60">
+        <div className="mb-12 flex flex-col gap-6">
+          <button
+            type="button"
+            onClick={() => navigate(-1)}
+            className="w-fit inline-flex items-center gap-2 rounded-full border border-[#000B18]/20 bg-white px-4 py-2 text-sm font-semibold text-[#001830] transition hover:bg-[#000B18] hover:text-white"
+          >
+            <ArrowLeft size={18} />
+            {isHe ? "חזור" : "Back"}
+          </button>
+          <div>
+            <h1 className="text-5xl font-black tracking-tight text-[#001830] mb-2">
               {isHe ? "אזור אישי" : "Personal Area"}
-            </p>
-            <h1 className="mt-3 text-3xl font-bold tracking-tight text-[#001830]">
-              {isHe ? "פרופיל שלי" : "My Profile"}
             </h1>
-            <p className="mt-2 text-sm leading-6 text-[#001830]/70">
-              {isGuest
-                ? isHe
-                  ? "אתה כרגע משתמש אורח. הוסף את הפרטים שלך כדי להרשם ולפתוח גישה מלאה"
-                  : "You are currently a guest user. Add your details to register and unlock full access"
-                : isHe
-                ? "נהל את פרטי המשתמש והעדפות המערכת שלך"
-                : "Manage your personal details and system preferences"}
+            <p className="text-sm font-light leading-6 text-[#001830]/70">
+              {isHe ? "ניהול פרטי החשבון והגדרות העסק שלך" : "Manage your account details and business settings"}
             </p>
-          </div>
-          <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
-            <button
-              type="button"
-              onClick={() => navigate(-1)}
-              className="rounded-full border-2 border-[#001830] bg-white px-6 py-3 text-sm font-semibold text-[#001830] transition hover:bg-[#001830] hover:text-white"
-            >
-              {isHe ? "ביטול" : "Cancel"}
-            </button>
-            <button
-              type="button"
-              onClick={handleSave}
-              disabled={saving || isGuest}
-              className="rounded-full bg-[#001830] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#001830]/90 disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              {saving ? (isHe ? "שומר..." : "Saving...") : isHe ? "שמור שינויים" : "Save Changes"}
-            </button>
-          </div>
+        </div>
+        <div className="mb-8 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-end">
+          <button
+            type="button"
+            onClick={() => navigate(-1)}
+            className="rounded-full border-2 border-[#000B18] bg-white px-6 py-3 text-sm font-semibold text-[#001830] transition hover:bg-[#000B18] hover:text-white"
+          >
+            {isHe ? "ביטול" : "Cancel"}
+          </button>
+          <button
+            type="button"
+            onClick={handleSave}
+            disabled={saving || isGuest}
+            className="rounded-full bg-[#000B18] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#00050D] disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            {saving ? (isHe ? "שומר..." : "Saving...") : isHe ? "שמור שינויים" : "Save Changes"}
+          </button>
         </div>
 
         <div className="space-y-8">
           {/* Personal Information Section */}
-          <section className="rounded-3xl border-2 border-[#001830]/10 bg-white p-8 shadow-lg shadow-[#001830]/5 backdrop-blur-sm">
+          <section className="rounded-3xl border-2 border-[#000B18]/10 bg-white p-8 shadow-lg shadow-[#000B18]/5 backdrop-blur-sm">
             <div className="mb-8">
               <p className="text-xs font-medium uppercase tracking-widest text-[#001830]/60">
                 {isHe ? "מידע אישי" : "Personal Information"}
@@ -151,7 +141,7 @@ const AccountSettingsPage = () => {
                   onChange={(e) => setFullName(e.target.value)}
                   placeholder={isHe ? "השם שלך" : "Your name"}
                   disabled={isGuest}
-                  className="w-full rounded-2xl border-2 border-[#001830]/10 bg-[#F5F5DC] px-4 py-3 text-sm text-[#001830] placeholder-[#001830]/40 transition focus:border-[#001830] focus:outline-none focus:ring-2 focus:ring-[#001830]/20 disabled:opacity-60 disabled:cursor-not-allowed"
+                  className="w-full rounded-2xl border-2 border-[#000B18]/10 bg-[#F8F9FA] px-4 py-3 text-sm text-[#001830] placeholder-[#001830]/40 transition focus:border-[#000B18] focus:outline-none focus:ring-2 focus:ring-[#000B18]/20 disabled:opacity-60 disabled:cursor-not-allowed"
                   dir={isHe ? "rtl" : "ltr"}
                 />
               </div>
@@ -162,7 +152,7 @@ const AccountSettingsPage = () => {
                 <input
                   value={email}
                   disabled
-                  className="w-full rounded-2xl border-2 border-[#001830]/10 bg-[#F5F5DC] px-4 py-3 text-sm text-[#001830]/60 focus:border-[#001830] focus:outline-none focus:ring-2 focus:ring-[#001830]/20"
+                  className="w-full rounded-2xl border-2 border-[#000B18]/10 bg-[#F8F9FA] px-4 py-3 text-sm text-[#001830]/60 focus:border-[#000B18] focus:outline-none focus:ring-2 focus:ring-[#000B18]/20"
                   dir="ltr"
                 />
                 <p className="mt-1 text-xs text-[#001830]/50">{isHe ? "לא ניתן לשנות אחרי הרישום" : "Cannot be changed after registration"}</p>
@@ -173,11 +163,12 @@ const AccountSettingsPage = () => {
                 </label>
                 <input
                   value={phone}
-                  disabled
-                  className="w-full rounded-2xl border-2 border-[#001830]/10 bg-[#F5F5DC] px-4 py-3 text-sm text-[#001830]/60 focus:border-[#001830] focus:outline-none focus:ring-2 focus:ring-[#001830]/20"
+                  onChange={(e) => setPhone(e.target.value)}
+                  placeholder={isHe ? "מספר הטלפון שלך" : "Your phone number"}
+                  disabled={isGuest}
+                  className="w-full rounded-2xl border-2 border-[#000B18]/10 bg-[#F8F9FA] px-4 py-3 text-sm text-[#001830] placeholder-[#001830]/40 transition focus:border-[#000B18] focus:outline-none focus:ring-2 focus:ring-[#000B18]/20 disabled:opacity-60 disabled:cursor-not-allowed"
                   dir="ltr"
                 />
-                <p className="mt-1 text-xs text-[#001830]/50">{isHe ? "לא ניתן לשנות אחרי הרישום" : "Cannot be changed after registration"}</p>
               </div>
               <div>
                 <label className="mb-2 block text-sm font-semibold text-[#001830]">
@@ -189,7 +180,7 @@ const AccountSettingsPage = () => {
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder={isHe ? "הזן סיסמה חדשה (אופציונלי)" : "Enter new password (optional)"}
                   disabled={isGuest}
-                  className="w-full rounded-2xl border-2 border-[#001830]/10 bg-[#F5F5DC] px-4 py-3 text-sm text-[#001830] placeholder-[#001830]/40 transition focus:border-[#001830] focus:outline-none focus:ring-2 focus:ring-[#001830]/20 disabled:opacity-60 disabled:cursor-not-allowed"
+                  className="w-full rounded-2xl border-2 border-[#000B18]/10 bg-[#F8F9FA] px-4 py-3 text-sm text-[#001830] placeholder-[#001830]/40 transition focus:border-[#000B18] focus:outline-none focus:ring-2 focus:ring-[#000B18]/20 disabled:opacity-60 disabled:cursor-not-allowed"
                   dir="ltr"
                 />
               </div>
@@ -198,7 +189,7 @@ const AccountSettingsPage = () => {
 
           {/* Onboarding Answers Section */}
           {profile && (
-            <section className="rounded-3xl border-2 border-[#001830]/10 bg-white p-8 shadow-lg shadow-[#001830]/5 backdrop-blur-sm">
+            <section className="rounded-3xl border-2 border-[#000B18]/10 bg-white p-8 shadow-lg shadow-[#000B18]/5 backdrop-blur-sm">
               <div className="mb-8">
                 <p className="text-xs font-medium uppercase tracking-widest text-[#001830]/60">
                   {isHe ? "פרופיל העסק" : "Business Profile"}
@@ -210,7 +201,7 @@ const AccountSettingsPage = () => {
 
               <div className="grid gap-6 lg:grid-cols-2">
                 {profile?.business_type && (
-                  <div className="rounded-2xl border-2 border-[#001830]/10 bg-[#F5F5DC] p-4">
+                  <div className={`rounded-2xl border-2 border-[#000B18]/10 bg-[#F8F9FA] p-4 ${isGuest ? 'opacity-60' : ''}`}>
                     <div className="mb-2 flex items-center gap-2">
                       <Building2 size={18} className="text-[#001830]/60" />
                       <label className="text-xs font-semibold uppercase tracking-widest text-[#001830]/60">
@@ -222,7 +213,7 @@ const AccountSettingsPage = () => {
                 )}
 
                 {profile?.target_audience && (
-                  <div className="rounded-2xl border-2 border-[#001830]/10 bg-[#F5F5DC] p-4">
+                  <div className={`rounded-2xl border-2 border-[#000B18]/10 bg-[#F8F9FA] p-4 ${isGuest ? 'opacity-60' : ''}`}>
                     <div className="mb-2 flex items-center gap-2">
                       <Target size={18} className="text-[#001830]/60" />
                       <label className="text-xs font-semibold uppercase tracking-widest text-[#001830]/60">
@@ -234,7 +225,7 @@ const AccountSettingsPage = () => {
                 )}
 
                 {profile?.business_goals && (
-                  <div className="lg:col-span-2 rounded-2xl border-2 border-[#001830]/10 bg-[#F5F5DC] p-4">
+                  <div className={`lg:col-span-2 rounded-2xl border-2 border-[#000B18]/10 bg-[#F8F9FA] p-4 ${isGuest ? 'opacity-60' : ''}`}>
                     <div className="mb-2 flex items-center gap-2">
                       <Goal size={18} className="text-[#001830]/60" />
                       <label className="text-xs font-semibold uppercase tracking-widest text-[#001830]/60">
@@ -249,7 +240,7 @@ const AccountSettingsPage = () => {
           )}
 
           {/* System Preferences Section */}
-          <section className="rounded-3xl border-2 border-[#001830]/10 bg-white p-8 shadow-lg shadow-[#001830]/5 backdrop-blur-sm">
+          <section className="rounded-3xl border-2 border-[#000B18]/10 bg-white p-8 shadow-lg shadow-[#000B18]/5 backdrop-blur-sm">
             <div className="mb-8">
               <p className="text-xs font-medium uppercase tracking-widest text-[#001830]/60">
                 {isHe ? "הגדרות" : "Settings"}
@@ -267,7 +258,8 @@ const AccountSettingsPage = () => {
                 <select
                   value={language}
                   onChange={(e) => setLanguage(e.target.value)}
-                  className="w-full rounded-2xl border-2 border-[#001830]/10 bg-[#F5F5DC] px-4 py-3 text-sm text-[#001830] transition focus:border-[#001830] focus:outline-none focus:ring-2 focus:ring-[#001830]/20"
+                  disabled={isGuest}
+                  className="w-full rounded-2xl border-2 border-[#000B18]/10 bg-[#F8F9FA] px-4 py-3 text-sm text-[#001830] transition focus:border-[#000B18] focus:outline-none focus:ring-2 focus:ring-[#000B18]/20 disabled:opacity-60 disabled:cursor-not-allowed"
                   dir={isHe ? "rtl" : "ltr"}
                 >
                   <option value="he">{isHe ? "עברית" : "Hebrew"}</option>
@@ -279,7 +271,7 @@ const AccountSettingsPage = () => {
 
           {/* Guest State Info */}
           {isGuest && (
-            <div className="rounded-3xl border-2 border-[#001830]/20 bg-[#F5F5DC] p-6">
+            <div className="rounded-3xl border-2 border-[#000B18]/20 bg-[#F8F9FA] p-6">
               <div className="flex gap-4">
                 <div className="flex-shrink-0">
                   <Lock className="h-5 w-5 text-[#001830]" />

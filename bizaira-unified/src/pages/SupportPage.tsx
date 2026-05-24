@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import { useI18n } from "@/lib/i18n";
 import { useAuth } from "@/hooks/useAuth";
@@ -25,117 +25,83 @@ const SupportPage = () => {
     const lowerQuery = query.toLowerCase().trim();
     const normalizedQuery = query.trim();
 
+    const contains = (terms: string[]) => terms.some((term) => lowerQuery.includes(term));
+
+    // Guest status queries
+    if (contains(["אורח", "מצב אורח", "האם אני אורח", "אני במצב אורח", "guest", "guest mode"])) {
+      return {
+        title: isHe ? "סטטוס חשבון" : "Account Status",
+        content: isHe
+          ? "כן, כרגע את/ה מחובר/ת במצב אורח. כדי לשמור את הנתונים ולעדכן פרטים, מומלץ לבצע הרשמה קצרה במערכת. זה ייתן לך גישה מלאה לכל הכלים וההיסטוריה שלך."
+          : "Yes, you are currently logged in as a guest. To save your data and update your profile, we recommend completing a quick registration. This will give you full access to all tools and your history.",
+      };
+    }
+
     // General greetings
-    if (lowerQuery === "היי" || lowerQuery === "שלום" || lowerQuery === "מה קורה" || lowerQuery === "היי!" || lowerQuery === "שלום!") {
+    if (contains(["היי", "שלום", "מה קורה", "מה נשמע", "מה שלומך", "היי!", "שלום!", "hello", "hi"])) {
       return {
         title: isHe ? "ברוכים הבאים" : "Welcome",
         content: isHe
-          ? "היי! במה אני יכול לעזור לך היום?"
-          : "Hey! How can I help you today?",
+          ? "היי! במה אני יכול לעזור לך היום במרכז הניהול העסקי?"
+          : "Hey! How can I help you today with your business management center?",
       };
     }
 
-    // Platform features and how it works
+    // Platform features, how it works and BizAIra overview
     if (
-      lowerQuery.includes("פיצ'רים") ||
-      lowerQuery.includes("features") ||
-      lowerQuery.includes("איך זה עובד") ||
-      lowerQuery.includes("how does it work") ||
-      lowerQuery.includes("bizaira") ||
-      lowerQuery.includes("כלים") ||
-      lowerQuery.includes("tools") ||
-      lowerQuery.includes("יוצרים") ||
-      lowerQuery.includes("create")
+      contains([
+        "פיצ'רים",
+        "איך זה עובד",
+        "איך עובד",
+        "איך משתמשים",
+        "מה זה",
+        "מה BizAIra",
+        "bizaira",
+        "ביזאירה",
+        "כלים",
+        "יצירת תוכן",
+        "תמונות מוצר",
+        "ניתוח עסקי",
+        "ניהול זמן",
+        "AI",
+        "features",
+        "how it works",
+      ])
     ) {
       return {
-        title: isHe ? "אודות BizAIra" : "About BizAIra",
+        title: isHe ? "על BizAIra" : "About BizAIra",
         content: isHe
-          ? "BizAIra היא פלטפורמת AI מתקדמת לבעלי עסקים. אנחנו מציעים כלים חכמים ליצירת תוכן שיווקי, תמונות מוצר, ניתוחי עסקים וניהול זמן — הכול בלחיצת כפתור. ניתן להתחיל בחינם עם 5 יצירות בחודש."
-          : "BizAIra is an advanced AI platform for business owners. We offer smart tools for creating marketing content, product images, business analytics, and time management — all with one click. Start free with 5 creations per month.",
+          ? "BizAIra היא פלטפורמת AI עסקית חכמה שמאגדת כלים ליצירת תוכן שיווקי, יצירת תמונות מוצר מדויקות, ניתוח עסקי וניהול זמן. העבודה קלה: אתה כותב שאלה או בקשה, והמערכת יוצרת עבורך פתרונות מוכנים לשימוש. ניתן להתחיל בחינם עם 5 יצירות בחודש, ולהתקדם למסלולים מותאמים לעסק שלך כאשר תרצה."
+          : "BizAIra is a smart business AI platform that brings together tools for creating marketing content, generating precise product images, performing business analytics, and managing time. It works simply: you type a request or question, and the system creates ready-to-use solutions for you. You can start free with 5 creations per month and upgrade to tailored plans when you're ready.",
       };
     }
 
-    // Email queries
-    if (
-      (isHe && lowerQuery.includes("אימייל")) ||
-      lowerQuery.includes("email") ||
-      (isHe && lowerQuery.includes("דואר"))
-    ) {
-      if (user?.email) {
-        return {
-          title: isHe ? "כתובת הדואר שלך" : "Your Email",
-          content: isHe
-            ? `אתה מחובר עם: <strong>${user.email}</strong>`
-            : `You are logged in with: <strong>${user.email}</strong>`,
-        };
-      }
-      return {
-        title: isHe ? "כתובת אימייל" : "Email Address",
-        content: isHe
-          ? "כדי לראות את כתובת האימייל שלך, אנא התחבר לחשבונך."
-          : "To view your email address, please log in to your account.",
-      };
-    }
-
-    // Account/Profile questions
-    if (
-      (isHe && (lowerQuery.includes("פרטים") || lowerQuery.includes("חשבון") || lowerQuery.includes("פרופיל"))) ||
-      lowerQuery.includes("account") ||
-      lowerQuery.includes("profile") ||
-      lowerQuery.includes("details")
-    ) {
-      if (profile?.full_name) {
-        return {
-          title: isHe ? "פרופיל משתמש" : "User Profile",
-          content: isHe
-            ? `שלום <strong>${profile.full_name}</strong>! פרטי הפרופיל שלך כולל את כל מידע החשבון וההגדרות האישיות שלך.`
-            : `Hello <strong>${profile.full_name}</strong>! Your profile contains all your account information and personal settings.`,
-        };
-      }
-      return {
-        title: isHe ? "פרופיל משתמש" : "User Profile",
-        content: isHe
-          ? "כדי לראות את פרטי הפרופיל שלך, אנא התחבר לחשבונך."
-          : "To view your profile details, please log in to your account.",
-      };
-    }
-
-    // Pricing questions
-    if (
-      (isHe && (lowerQuery.includes("מחיר") || lowerQuery.includes("עלות") || lowerQuery.includes("תכנית"))) ||
-      lowerQuery.includes("price") ||
-      lowerQuery.includes("cost") ||
-      lowerQuery.includes("plan")
-    ) {
-      return {
-        title: isHe ? "תכניות ותמחור" : "Plans & Pricing",
-        content: isHe
-          ? "אנחנו מציעים תכנית התנסות חינמית עם 5 יצירות בחודש. לעסקים הרוצים עוד, יש לנו מסלולים מתקדמים בהתאמה אישית לצרכי העסק שלך."
-          : "We offer a free trial plan with 5 creations per month. For businesses wanting more, we have advanced plans customized to your needs.",
-      };
-    }
-
-    // Help/Support
-    if (
-      (isHe && (lowerQuery.includes("עזרה") || lowerQuery.includes("בעיה") || lowerQuery.includes("תקלה"))) ||
-      lowerQuery.includes("help") ||
-      lowerQuery.includes("issue") ||
-      lowerQuery.includes("problem")
-    ) {
+    // Help/Support specific queries
+    if (contains(["עזרה", "בעיה", "תקלה", "שגיאה", "לא עובד", "help", "issue", "problem", "bug", "error"])) {
       return {
         title: isHe ? "תמיכה וסיוע" : "Support & Assistance",
         content: isHe
-          ? "אנחנו כאן בשביל לעזור! אם יש לך שאלה כלשהי או חווית בעיה, נשמח לתמוך בך. אתה יכול לצפות בשאלות הנפוצות שלנו למעלה או לפנות אלינו ישירות."
-          : "We're here to help! If you have any questions or experienced an issue, we're happy to support you. You can check our FAQ above or reach out directly.",
+          ? "אני כאן כדי לעזור! תאר לי בדיוק מה קרה או מה השאלה שלך, ואספק לך תשובה מותאמת ומעודכנת. אם תרצה, אוכל גם להציג לך שלבים פשוטים כדי להתחיל בעבודה עם BizAIra או לפתור את בעיתך במהירות."
+          : "I'm here to help! Tell me exactly what happened or what you need, and I'll provide you with a tailored and up-to-date solution. If you'd like, I can also walk you through simple steps to get started with BizAIra or resolve your issue quickly.",
       };
     }
 
-    // Generic encouraging response
+    // Pricing and plans
+    if (contains(["מחיר", "מחירים", "תכנית", "תכניות", "עלות", "כמה עולה", "subscription", "plan", "pricing", "cost"])) {
+      return {
+        title: isHe ? "תכניות ותמחור" : "Plans & Pricing",
+        content: isHe
+          ? "אנחנו מציעים תכניות גמישות המתאימות לכל סוג עסק. התחל בחינם עם 5 יצירות בחודש, והתקדם לתכנית Pro או Enterprise כשתרצה יותר. כל תכנית כוללת גישה לכל הכלים החכמים שלנו - יצירת תוכן, תמונות מוצר, ניתוח עסקי וניהול זמן."
+          : "We offer flexible plans designed for every type of business. Start free with 5 creations per month and upgrade to Pro or Enterprise when you need more. Each plan includes access to all our smart tools - content creation, product images, business analytics, and time management.",
+      };
+    }
+
+    // Generic intelligent response for other questions
     return {
-      title: isHe ? "תשובה חכמה" : "Smart Response",
+      title: isHe ? "תשובה מותאמת" : "Tailored Answer",
       content: isHe
-        ? `כל עוד אתה חדש בפלטפורמה או מחפש עזרה, אנחנו כאן בשביל לך. השאלה שלך על "<strong>${normalizedQuery}</strong>" מעניינת, וגם קיימות אפשרויות נוספות בתפריט העזרה שלנו.`
-        : `Whether you're new to the platform or looking for help, we're here for you. Your question about "<strong>${normalizedQuery}</strong>" is important, and there are also additional options in our help menu.`,
+        ? `נשמע כמו שאלה חשובה. לגבי "<strong>${normalizedQuery}</strong>" - אני כאן כדי לתת לך הנחיות חכמות ומעשיות. אם תרצה, אוכל להרחיב ולהסביר איך BizAIra יכולה לעזור לך בתחום הזה.`
+        : `That sounds like an important question. Regarding "<strong>${normalizedQuery}</strong>" - I'm here to provide you with smart and practical guidance. If you'd like, I can expand and explain how BizAIra can help you in this area.`,
     };
   };
 
@@ -145,7 +111,6 @@ const SupportPage = () => {
 
     setSearchQuery(nextQuery);
     setSubmittedQuery(nextQuery);
-    setOpenFaq(null);
     setIsLoading(true);
 
     // Simulate AI processing delay
@@ -154,14 +119,6 @@ const SupportPage = () => {
       setIsLoading(false);
     }, 400);
   };
-
-  const normalizedQuery = searchQuery.trim().toLowerCase();
-  const filteredFaqs = normalizedQuery
-    ? faqs.filter((faq) => {
-        const content = `${faq.q} ${faq.a}`.toLowerCase();
-        return content.includes(normalizedQuery);
-      })
-    : faqs;
 
   return (
     <div className="min-h-screen bg-[#F8F9FA] px-5 pt-10 pb-28" dir={isHe ? "rtl" : "ltr"}>
@@ -179,7 +136,7 @@ const SupportPage = () => {
         </div>
 
         <section className="mb-8 space-y-4">
-          <div className="rounded-[32px] border border-[#000B18] bg-white p-6 shadow-[0_24px_60px_rgba(0,11,24,0.08)]">
+          <div className="rounded-[32px] bg-white p-6 shadow-[0_24px_60px_rgba(0,11,24,0.08)]">
             <div className="mb-5">
               <p className="text-xs font-medium uppercase tracking-widest text-[#001830]/60">
                 {isHe ? "עוזר חכם AI" : "Smart AI Assistant"}
@@ -205,7 +162,7 @@ const SupportPage = () => {
               <button
                 type="button"
                 disabled={!searchQuery.trim() || isLoading}
-                className="inline-flex min-w-[140px] items-center justify-center rounded-full bg-[#001830] px-5 py-4 text-sm font-semibold uppercase tracking-[0.08em] text-white transition hover:bg-[#001830]/90 disabled:opacity-60 disabled:cursor-not-allowed"
+                className="inline-flex min-w-[140px] items-center justify-center rounded-full bg-[#000B18] px-5 py-4 text-sm font-semibold uppercase tracking-[0.08em] text-white transition hover:bg-[#000B18]/90 disabled:opacity-60 disabled:cursor-not-allowed"
                 onClick={handleSearch}
               >
                 {isLoading ? (isHe ? "מעבד..." : "Processing...") : isHe ? "חפש" : "Search"}
@@ -220,12 +177,12 @@ const SupportPage = () => {
         {/* AI Response Section */}
         {aiResponse && (
           <section className="mb-8">
-            <div className="rounded-[28px] border border-[#000B18] bg-white p-6 shadow-[0_12px_30px_rgba(0,11,24,0.08)]">
-              <h3 className="text-sm font-bold uppercase tracking-widest text-[#001830] mb-3">
+            <div className="rounded-[28px] bg-[#F7F8FA] p-6 shadow-[0_12px_24px_rgba(0,11,24,0.07)]">
+              <h3 className="text-sm font-semibold uppercase tracking-[0.22em] text-[#001830] mb-3">
                 {aiResponse.title}
               </h3>
               <p
-                className="text-sm leading-7 text-[#0F172A]"
+                className="text-sm leading-6 text-[#001830] whitespace-pre-line"
                 dangerouslySetInnerHTML={{ __html: aiResponse.content }}
               />
             </div>
@@ -240,52 +197,42 @@ const SupportPage = () => {
             </p>
           </div>
 
-          {submittedQuery && filteredFaqs.length === 0 ? (
-            <div className="rounded-[28px] border border-[#000B18] bg-white p-12 text-center">
-              <p className="text-sm font-semibold text-[#001830]">
-                {isHe
-                  ? "לא נמצאו תוצאות מתאימות ל-FAQ. אנא פנה אלינו לעזרה ישירה."
-                  : "No matching FAQ results found. Please contact us for direct assistance."}
-              </p>
-            </div>
-          ) : (
-            filteredFaqs.map((faq, i) => {
-              const isOpen = openFaq === i;
-              return (
-                <div
-                  key={i}
-                  className={`overflow-hidden rounded-[28px] border border-[#000B18] transition-all duration-300 ${
-                    isOpen
-                      ? "bg-[#001830] shadow-[0_16px_40px_rgba(0,11,24,0.12)]"
-                      : "bg-white shadow-[0_8px_24px_rgba(0,11,24,0.06)] hover:shadow-[0_12px_32px_rgba(0,11,24,0.08)]"
+          {faqs.map((faq, i) => {
+            const isOpen = openFaq === i;
+            return (
+              <div
+                key={i}
+                className={`overflow-hidden rounded-[28px] transition-all duration-300 ${
+                  isOpen
+                    ? "bg-[#000B18] shadow-[0_16px_40px_rgba(0,11,24,0.12)]"
+                    : "bg-white shadow-[0_8px_24px_rgba(0,11,24,0.06)] hover:shadow-[0_12px_32px_rgba(0,11,24,0.08)]"
+                }`}
+              >
+                <button
+                  onClick={() => setOpenFaq(isOpen ? null : i)}
+                  className={`group w-full flex items-center justify-between px-6 py-5 text-start transition-colors duration-200 ${
+                    isOpen ? "text-white" : "hover:text-white hover:bg-[#000B18]/5"
                   }`}
                 >
-                  <button
-                    onClick={() => setOpenFaq(isOpen ? null : i)}
-                    className={`group w-full flex items-center justify-between px-6 py-5 text-start transition-colors duration-200 ${
-                      isOpen ? "text-white" : "hover:text-white hover:bg-[#001830]/5"
+                  <span className={`text-sm font-semibold transition-colors duration-200 ${isOpen ? "text-white" : "text-[#001830]"}`}>
+                    {faq.q}
+                  </span>
+                  <div
+                    className={`flex h-10 w-10 items-center justify-center rounded-2xl transition-all duration-200 flex-shrink-0 ${
+                      isOpen ? "bg-white/20 text-white" : "bg-[#F8F9FA] text-[#001830] group-hover:bg-[#000B18] group-hover:text-white"
                     }`}
                   >
-                    <span className={`text-sm font-semibold transition-colors duration-200 ${isOpen ? "text-white" : "text-[#001830]"}`}>
-                      {faq.q}
-                    </span>
-                    <div
-                      className={`flex h-10 w-10 items-center justify-center rounded-2xl transition-all duration-200 flex-shrink-0 ${
-                        isOpen ? "bg-white/20 text-white" : "bg-[#F8F9FA] text-[#001830] group-hover:bg-[#001830] group-hover:text-white"
-                      }`}
-                    >
-                      {isOpen ? <ChevronUp size={18} /> : <ChevronDown size={18} />}
-                    </div>
-                  </button>
-                  {isOpen && (
-                    <div className="border-t border-white/10 px-6 py-5 bg-[#001830]">
-                      <p className="text-sm leading-8 text-white/90">{faq.a}</p>
-                    </div>
-                  )}
-                </div>
-              );
-            })
-          )}
+                    {isOpen ? <ChevronUp size={18} /> : <ChevronDown size={18} />}
+                  </div>
+                </button>
+                {isOpen && (
+                  <div className="border-t border-white/10 px-6 py-5 bg-[#000B18]">
+                    <p className="text-sm leading-8 text-white/90">{faq.a}</p>
+                  </div>
+                )}
+              </div>
+            );
+          })}
         </section>
       </div>
     </div>
