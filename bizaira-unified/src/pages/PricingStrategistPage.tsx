@@ -96,7 +96,7 @@ const PricingStrategistPage = () => {
   };
 
   return (
-    <div className="min-h-screen pb-24">
+    <div className="min-h-screen pb-24" dir={isHe ? "rtl" : "ltr"}>
       <div className="sticky top-0 z-40 glass-card border-b border-border/40 px-4 py-3">
         <div className="flex items-center justify-between max-w-3xl mx-auto">
           <div className="flex items-center gap-3">
@@ -117,22 +117,22 @@ const PricingStrategistPage = () => {
       <div className="max-w-3xl mx-auto px-4 pt-6 space-y-5">
         <div className="glass-card rounded-xl p-4 space-y-3">
           <div className="flex items-center gap-2 mb-1"><Calculator size={16} className="text-foreground" /><span className="text-sm font-bold text-foreground">{t("pricing.calculator")}</span></div>
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <Field label={t("pricing.duration")} icon={<Clock size={12} />} value={serviceDuration} onChange={setServiceDuration} suffix={isHe ? "דק׳" : "min"} placeholder={isHe ? "לדוגמה: 60" : "e.g. 60"} />
             <Field label={t("pricing.materials")} icon={<DollarSign size={12} />} value={materialCost} onChange={setMaterialCost} suffix="₪" placeholder={isHe ? "לדוגמה: 50" : "e.g. 50"} />
             <Field label={t("pricing.prepTime")} icon={<Clock size={12} />} value={prepTime} onChange={setPrepTime} suffix={isHe ? "דק׳" : "min"} placeholder={isHe ? "לדוגמה: 30" : "e.g. 30"} />
           </div>
           <div>
             <label className="text-xs font-semibold text-foreground mb-2.5 flex items-center gap-1"><TrendingUp size={12} />{isHe ? "רמת מאמץ" : "Difficulty Effort"}</label>
-            <div className="flex gap-2">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
               {(["easy", "medium", "hard"] as const).map(level => (
                 <button
                   key={level}
                   onClick={() => setDifficulty(level)}
                   className={`flex-1 px-3 py-2 rounded-lg text-xs font-semibold transition-all ${
                     difficulty === level
-                      ? "gradient-glow text-primary-foreground"
-                      : "glass-card text-foreground hover:border-primary/50"
+                      ? "bg-[#001830] text-[#F5F5DC] border-none"
+                      : "bg-white text-[#0A192F] border border-[#E2E8F0] hover:bg-[#F8FAFC] hover:text-[#0A192F]"
                   }`}
                 >
                   {isHe ? (level === "easy" ? "קל" : level === "medium" ? "בינוני" : "קשה") : (level === "easy" ? "Easy" : level === "medium" ? "Medium" : "Hard")}
@@ -154,7 +154,7 @@ const PricingStrategistPage = () => {
                 ))}
               </div>
             )}
-            <div className="grid grid-cols-3 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-3">
               <PriceCard label={t("pricing.minPrice")} price={minPrice} sublabel={t("pricing.notRecommended")} variant="warning" />
               <PriceCard label={t("pricing.recommended")} price={recommendedPrice} sublabel={t("pricing.recommendedLabel")} variant="primary" />
               <PriceCard label={t("pricing.premium")} price={premiumPrice} sublabel={t("pricing.highPositioning")} variant="gold" />

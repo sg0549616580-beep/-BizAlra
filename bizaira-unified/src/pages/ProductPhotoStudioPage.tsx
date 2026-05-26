@@ -229,7 +229,7 @@ const ProductPhotoStudioPage = () => {
   }
 
   return (
-    <div className="min-h-screen pb-24">
+    <div className="min-h-screen pb-24" dir={isHe ? "rtl" : "ltr"}>
       {/* Header */}
       <div className="sticky top-0 z-40 glass-card border-b border-border/40 px-4 py-3">
         <div className="flex items-center justify-between max-w-lg mx-auto">
@@ -272,12 +272,12 @@ const ProductPhotoStudioPage = () => {
                   <button
                     key={pt.id}
                     onClick={() => setProductType(pt.id)}
-                    className={`glass-card rounded-2xl p-4 flex flex-col items-center gap-2 transition-all hover:scale-[1.03] ${productType === pt.id ? "ring-2 ring-primary glow-shadow" : ""}`}
+                    className={`rounded-2xl p-4 flex flex-col items-center gap-2 transition-all ${productType === pt.id ? "bg-[#001830] text-[#F5F5DC] shadow-lg" : "bg-white border border-[#E2E8F0] text-[#0A192F] hover:shadow-sm"}`}
                   >
-                    <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${productType === pt.id ? "gradient-glow" : "bg-muted"}`}>
-                      <Icon size={20} className={productType === pt.id ? "text-primary-foreground" : "text-muted-foreground"} />
+                    <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${productType === pt.id ? "bg-[#F5F5DC]/10" : "bg-muted"}`}>
+                      <Icon size={20} className={productType === pt.id ? "text-[#F5F5DC]" : "text-muted-foreground"} />
                     </div>
-                    <span className="text-sm font-bold text-foreground">{isHe ? pt.he : pt.en}</span>
+                    <span className="text-sm font-bold text-inherit">{isHe ? pt.he : pt.en}</span>
                   </button>
                 );
               })}
@@ -331,7 +331,7 @@ const ProductPhotoStudioPage = () => {
               <label className="text-xs font-bold text-foreground">{isHe ? "סגנון עיצוב" : "Design Style"}</label>
               <div className="grid grid-cols-3 gap-1.5">
                 {DESIGN_STYLES.map(s => (
-                  <button key={s.id} onClick={() => setDesignStyle(s.id)} className={`px-2 py-2 rounded-lg text-xs font-medium transition-all ${designStyle === s.id ? "gradient-glow text-primary-foreground" : "bg-muted text-muted-foreground hover:text-foreground"}`}>
+                  <button key={s.id} onClick={() => setDesignStyle(s.id)} className={`px-2 py-2 rounded-lg text-xs font-medium transition-all ${designStyle === s.id ? "bg-[#001830] text-[#F5F5DC] border-none" : "bg-white border border-[#E2E8F0] text-[#0A192F] hover:bg-[#F8FAFC] hover:text-[#0A192F]"}`}>
                     {isHe ? s.he : s.en}
                   </button>
                 ))}
@@ -374,7 +374,7 @@ const ProductPhotoStudioPage = () => {
                 </label>
                 <div className="space-y-1.5">
                   {LOGO_IDEAS.map((idea, i) => (
-                    <button key={i} onClick={() => setSelectedLogoIdea(i)} className={`w-full text-start px-3 py-2.5 rounded-lg text-sm transition-all ${selectedLogoIdea === i ? "gradient-glow text-primary-foreground" : "bg-muted text-muted-foreground hover:text-foreground"}`}>
+                    <button key={i} onClick={() => setSelectedLogoIdea(i)} className={`w-full text-start px-3 py-2.5 rounded-lg text-sm transition-all ${selectedLogoIdea === i ? "bg-[#001830] text-[#F5F5DC] border-none" : "bg-white border border-[#E2E8F0] text-[#0A192F] hover:bg-[#F8FAFC] hover:text-[#0A192F]"}`}>
                       {isHe ? idea.he : idea.en}
                     </button>
                   ))}
@@ -391,7 +391,7 @@ const ProductPhotoStudioPage = () => {
                   </label>
                   <div className="space-y-1.5">
                     {PROFILE_POSES.map((pose, i) => (
-                      <button key={i} onClick={() => setSelectedPose(i)} className={`w-full text-start px-3 py-2.5 rounded-lg text-sm transition-all ${selectedPose === i ? "gradient-glow text-primary-foreground" : "bg-muted text-muted-foreground hover:text-foreground"}`}>
+                      <button key={i} onClick={() => setSelectedPose(i)} className={`w-full text-start px-3 py-2.5 rounded-lg text-sm transition-all ${selectedPose === i ? "bg-[#001830] text-[#F5F5DC] border-none" : "bg-white border border-[#E2E8F0] text-[#0A192F] hover:bg-[#F8FAFC] hover:text-[#0A192F]"}`}>
                         {isHe ? pose.he : pose.en}
                       </button>
                     ))}
@@ -442,7 +442,7 @@ const ProductPhotoStudioPage = () => {
                     <label className="text-[10px] text-muted-foreground flex items-center gap-1"><Sparkles size={10} />{isHe ? "תגית" : "Badge"}</label>
                     <div className="flex flex-wrap gap-1.5">
                       {(isHe ? ["חדש!", "מבצע", "הנמכר ביותר", "מהדורה מוגבלת"] : ["New!", "Sale", "Best Seller", "Limited"]).map(b => (
-                        <button key={b} onClick={() => setTextOverlay(p => ({ ...p, badge: p.badge === b ? "" : b }))} className={`px-2 py-1 rounded-lg text-[10px] font-medium transition-all ${textOverlay.badge === b ? "gradient-glow text-primary-foreground" : "bg-muted text-muted-foreground"}`}>{b}</button>
+                        <button key={b} onClick={() => setTextOverlay(p => ({ ...p, badge: p.badge === b ? "" : b }))} className={`px-2 py-1 rounded-lg text-[10px] font-medium transition-all ${textOverlay.badge === b ? "bg-[#001830] text-[#F5F5DC] border-none" : "bg-white border border-[#E2E8F0] text-[#0A192F]"}`}>{b}</button>
                       ))}
                     </div>
                   </div>

@@ -132,7 +132,7 @@ const AIMessagesPage = () => {
   };
 
   return (
-    <div className="min-h-screen pb-24 flex flex-col">
+    <div className="min-h-screen pb-24 flex flex-col" dir={isHe ? "rtl" : "ltr"}>
       <div className="sticky top-0 z-40 glass-card border-b border-border/40 px-4 py-3">
         <div className="flex items-center justify-between max-w-4xl mx-auto">
           <div className="flex items-center gap-3">
@@ -148,12 +148,16 @@ const AIMessagesPage = () => {
 
       <div className="max-w-4xl mx-auto w-full px-4 pt-6 flex flex-col lg:flex-row gap-6">
         {/* Input */}
-        <div className="lg:w-[340px] space-y-4">
+        <div className="lg:w-[360px] w-full space-y-4 min-w-0">
           <div className="glass-card rounded-xl p-4 space-y-3">
             <label className="text-xs font-bold text-foreground">{isHe ? "סוג הודעה" : "Message Type"}</label>
             <div className="grid grid-cols-2 gap-1.5">
               {PURPOSES.map(p => (
-                <button key={p.id} onClick={() => setPurpose(p.id)} className={`px-2 py-1.5 rounded-lg text-xs font-medium transition-all ${purpose === p.id ? "gradient-glow text-primary-foreground" : "bg-muted text-muted-foreground hover:text-foreground"}`}>
+                <button
+                  key={p.id}
+                  onClick={() => setPurpose(p.id)}
+                  className={`px-2 py-1.5 rounded-lg text-xs font-medium transition-all focus:outline-none focus:ring-2 focus:ring-[#0A192F]/40 focus:ring-offset-2 ${purpose === p.id ? "bg-[#001830] text-[#F5F5DC] border-none" : "bg-white text-[#0A192F] border border-[#E2E8F0] hover:bg-[#0A192F] hover:text-white"}`}
+                >
                   {isHe ? p.he : p.en}
                 </button>
               ))}
@@ -164,7 +168,11 @@ const AIMessagesPage = () => {
             <label className="text-xs font-bold text-foreground">{isHe ? "סגנון ניסוח" : "Tone"}</label>
             <div className="flex flex-wrap gap-1.5">
               {TONES.map(tn => (
-                <button key={tn.id} onClick={() => setTone(tn.id)} className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${tone === tn.id ? "gradient-glow text-primary-foreground" : "bg-muted text-muted-foreground hover:text-foreground"}`}>
+                <button
+                  key={tn.id}
+                  onClick={() => setTone(tn.id)}
+                  className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all focus:outline-none focus:ring-2 focus:ring-[#0A192F]/40 focus:ring-offset-2 ${tone === tn.id ? "bg-[#001830] text-[#F5F5DC] border-none" : "bg-white text-[#0A192F] border border-[#E2E8F0] hover:bg-[#0A192F] hover:text-white"}`}
+                >
                   {isHe ? tn.he : tn.en}
                 </button>
               ))}
@@ -178,7 +186,7 @@ const AIMessagesPage = () => {
 
           <div className="glass-card rounded-xl p-4 space-y-3">
             <label className="text-xs font-bold text-foreground">{isHe ? "פרטים לכלול" : "Details to Include"}</label>
-            <textarea value={details} onChange={e => setDetails(e.target.value)} placeholder={isHe ? "מבצע, תאריך, פרטים מיוחדים..." : "Promotions, dates, special details..."} rows={3} className="w-full bg-background/50 border border-border/50 rounded-lg px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground resize-none focus:outline-none focus:ring-2 focus:ring-ring/50" />
+            <textarea value={details} onChange={e => setDetails(e.target.value)} placeholder={isHe ? "מבצע, תאריך, פרטים מיוחדים..." : "Promotions, dates, special details..."} rows={4} className="w-full min-h-[140px] bg-background/50 border border-border/50 rounded-lg px-3 py-3 text-sm leading-relaxed text-foreground placeholder:text-muted-foreground resize-none focus:outline-none focus:ring-2 focus:ring-ring/50" />
           </div>
 
           <button onClick={() => handleGenerate()} disabled={isGenerating} className="w-full gradient-glow glow-shadow text-primary-foreground font-bold py-3.5 rounded-xl flex items-center justify-center gap-2 hover:scale-[1.02] transition-all disabled:opacity-50">

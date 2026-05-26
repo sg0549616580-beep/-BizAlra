@@ -47,26 +47,26 @@ const DashboardPage = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-white text-[#000B18]" dir="rtl">
+    <div className="min-h-screen bg-[#F8FAFC]" dir="rtl" style={{ fontFamily: "'Assistant', 'Rubik', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" }}>
       <main className="mx-auto max-w-7xl px-6 py-10">
         <section className="text-center">
           <div className="mx-auto max-w-4xl">
-            <h1 className="mx-auto max-w-full whitespace-nowrap text-[clamp(1.5rem,2.2vw,2rem)] font-semibold tracking-tight text-[#000B18]">
+            <h1 className="font-light text-3xl md:text-4xl text-[#0A192F] tracking-tight">
               ברוכים הבאים למרכז הניהול העסקי שלך
             </h1>
-            <p className="mt-4 text-sm leading-7 text-[#475569]">
-              בחר את הפעולה הבאה כדי להתקדם במהירות ובסטייל.
+            <p className="font-light text-sm md:text-base text-[#64748B] mt-3 opacity-90">
+              בחר מסלול חכם, התחבר או צור חשבון לניהול עסקי מקצועי.
             </p>
             <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
               <button
                 onClick={() => navigate("/auth?mode=login")}
-                className="min-w-[160px] rounded-3xl bg-[#000B18] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#000B18]/90"
+                className="min-w-[160px] rounded-3xl bg-[#0A192F] px-6 py-3 text-sm font-light text-white transition hover:bg-[#0A192F]/90"
               >
                 התחברות
               </button>
               <button
                 onClick={() => navigate("/auth?mode=register")}
-                className="min-w-[160px] rounded-3xl bg-[#000B18] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#000B18]/90"
+                className="min-w-[160px] rounded-3xl bg-[#0A192F] px-6 py-3 text-sm font-light text-white transition hover:bg-[#0A192F]/90"
               >
                 הרשמה
               </button>
@@ -80,24 +80,24 @@ const DashboardPage = () => {
               key={card.id}
               type="button"
               onClick={() => navigate(card.path)}
-              className={`group flex h-[18rem] w-full flex-col justify-between overflow-hidden rounded-[24px] border bg-white p-4 text-right transition-all duration-300 ${card.featured ? "border-[#000B18] shadow-[0_16px_40px_rgba(0,11,24,0.12)]" : "border-[#E2E8F0] shadow-[0_10px_25px_rgba(0,11,24,0.06)]"} hover:border-transparent hover:bg-[#000B18] hover:text-white`}
+              className={`group flex h-[18rem] w-full flex-col justify-between overflow-hidden rounded-[24px] bg-white border border-[#E2E8F0] p-6 text-right transition-all duration-300 ${card.featured ? "shadow-[0_16px_40px_rgba(10,25,47,0.08)]" : "shadow-[0_8px_20px_rgba(10,25,47,0.04)]"} hover:border-[#0A192F] hover:bg-[#0A192F] hover:text-white`}
             >
               <div className="space-y-4">
                 {card.featured && (
-                  <span className="inline-flex rounded-full bg-[#000B18] px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.26em] text-white">
+                  <span className="inline-flex rounded-full bg-[#0A192F] px-3 py-1 text-[11px] font-light uppercase tracking-[0.26em] text-white">
                     הכי מומלץ
                   </span>
                 )}
-                <div className="space-y-4">
-                  <h2 className="text-xl font-semibold transition-colors duration-300 group-hover:text-white">
+                <div className="space-y-3">
+                  <h2 className="font-normal text-lg text-[#0A192F] transition-colors duration-300 group-hover:text-white">
                     {card.title}
                   </h2>
-                  <p className="text-sm leading-7 text-[#475569] transition-colors duration-300 group-hover:text-white/90">
+                  <p className="font-light text-xs md:text-sm text-[#64748B] leading-relaxed transition-colors duration-300 group-hover:text-white/85">
                     {card.desc}
                   </p>
                 </div>
               </div>
-              <div className="inline-flex w-full items-center justify-center rounded-full border border-[#000B18] px-4 py-3 text-sm font-semibold text-[#000B18] transition-all duration-300 group-hover:border-transparent group-hover:bg-white/10 group-hover:text-white">
+              <div className="inline-flex w-full items-center justify-center rounded-full border border-[#0A192F] px-4 py-3 text-sm font-light text-[#0A192F] transition-all duration-300 group-hover:border-transparent group-hover:bg-white/15 group-hover:text-white">
                 פתח
               </div>
             </button>

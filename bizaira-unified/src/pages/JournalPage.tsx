@@ -344,7 +344,7 @@ const JournalPage = () => {
               onClick={() => setView(v)}
               className={`flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-semibold transition-all ${
                 view === v
-                  ? "gradient-glow text-primary-foreground shadow-md"
+                  ? "bg-[#001830] text-[#F5F5DC] border border-transparent shadow-md"
                   : "bg-muted/60 text-muted-foreground hover:bg-muted"
               }`}
             >
@@ -512,7 +512,7 @@ const JournalPage = () => {
                   <div className="flex items-center justify-between mb-3">
                     <div className="flex items-center gap-2">
                       <div className={`w-9 h-9 rounded-xl flex items-center justify-center text-sm font-extrabold ${
-                        isCurrentDay ? "gradient-glow text-primary-foreground" : "bg-muted text-foreground"
+                        isCurrentDay ? "bg-[#001830] text-[#F5F5DC] shadow-sm" : "bg-muted text-foreground"
                       }`}>
                         {format(day, "d")}
                       </div>
@@ -650,7 +650,7 @@ const JournalPage = () => {
                   className={`aspect-square p-1 text-center rounded-xl transition-all ${
                     isCurrentMonth
                       ? isToday
-                        ? "gradient-glow text-primary-foreground"
+                        ? "bg-[#001830] text-[#F5F5DC]"
                         : hasTasks
                           ? "bg-primary/10 text-primary hover:bg-primary/20"
                           : "hover:bg-muted text-foreground"
@@ -707,7 +707,7 @@ const JournalPage = () => {
                   onClick={() => setForm(f => ({ ...f, type: id }))}
                   className={`flex-1 py-2.5 rounded-xl text-sm font-semibold transition-all border ${
                     form.type === id
-                      ? "gradient-glow text-primary-foreground border-transparent shadow-md"
+                      ? "bg-[#001830] text-[#F5F5DC] border-transparent shadow-md"
                       : "bg-muted/60 text-muted-foreground border-transparent hover:bg-muted"
                   }`}
                 >

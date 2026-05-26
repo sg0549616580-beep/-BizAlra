@@ -109,7 +109,7 @@ const TimeOptimizerPage = () => {
   };
 
   return (
-    <div className="min-h-screen pb-24">
+    <div className="min-h-screen pb-24" dir={isHe ? "rtl" : "ltr"}>
       <div className="sticky top-0 z-40 glass-card border-b border-border/40 px-4 py-3">
         <div className="flex items-center justify-between max-w-5xl mx-auto">
           <div className="flex items-center gap-3">
@@ -139,7 +139,7 @@ const TimeOptimizerPage = () => {
             </div>
 
             <div className="glass-card rounded-xl p-5 space-y-4">
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="text-xs font-semibold text-foreground mb-1.5 flex items-center gap-1"><Clock size={12} />{isHe ? "שעות עבודה בשבוע" : "Weekly Work Hours"}</label>
                   <input type="number" value={weeklyHours} onChange={e => setWeeklyHours(e.target.value)} placeholder={isHe ? "לדוגמה: 40" : "e.g. 40"} className="w-full bg-background/50 border border-border/50 rounded-lg px-3 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring/50" />
@@ -172,7 +172,7 @@ const TimeOptimizerPage = () => {
         ) : (
           <div className="space-y-5 animate-fade-in-up">
             {/* Stats cards with better visual hierarchy */}
-            <div className="grid grid-cols-3 gap-3">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
               <div className="glass-card rounded-2xl p-4 text-center hover:scale-[1.02] transition-all">
                 <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-2">
                   <Clock size={20} className="text-primary" />

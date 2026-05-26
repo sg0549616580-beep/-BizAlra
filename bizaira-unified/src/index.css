@@ -133,3 +133,49 @@ body {
   background-color: #fff;
   color: var(--brand);
 }
+
+/* Global active/selected state override for clickable UI elements */
+button[data-active="true"],
+button[aria-selected="true"],
+button[aria-pressed="true"],
+button[data-state="active"],
+[role="tab"][aria-selected="true"],
+[role="button"][aria-pressed="true"],
+[data-active="true"],
+[data-state="active"],
+[aria-selected="true"],
+[aria-pressed="true"] {
+  background: #001830 !important;
+  color: #F5F5DC !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+}
+
+button[data-active="true"] svg,
+button[aria-selected="true"] svg,
+button[aria-pressed="true"] svg,
+button[data-state="active"] svg,
+[role="tab"][aria-selected="true"] svg,
+[role="button"][aria-pressed="true"] svg,
+[data-active="true"] svg,
+[data-state="active"] svg,
+[aria-selected="true"] svg,
+[aria-pressed="true"] svg {
+  color: #F5F5DC !important;
+  fill: #F5F5DC !important;
+  stroke: #F5F5DC !important;
+}
+
+/* Explicit helper class for solid selected card/button state */
+.selected-solid {
+  background: #001830 !important;
+  color: #F5F5DC !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+}
+
+.selected-solid svg {
+  color: #F5F5DC !important;
+  fill: #F5F5DC !important;
+  stroke: #F5F5DC !important;
+}

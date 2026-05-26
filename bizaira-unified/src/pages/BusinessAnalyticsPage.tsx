@@ -165,7 +165,7 @@ const BusinessAnalyticsPage = () => {
   const proFeatures = [t("analytics.forecast"), t("analytics.simulations"), t("analytics.multiYear"), t("analytics.breakeven")];
 
   return (
-    <div className="min-h-screen pb-24">
+    <div className="min-h-screen pb-24" dir={isHe ? "rtl" : "ltr"}>
       <div className="sticky top-0 z-40 glass-card border-b border-border/40 px-4 py-3">
         <div className="flex items-center justify-between max-w-4xl mx-auto">
           <div className="flex items-center gap-3">
@@ -197,7 +197,7 @@ const BusinessAnalyticsPage = () => {
 
             {/* Business data */}
             <div className="glass-card rounded-xl p-5 space-y-4">
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="text-xs font-semibold text-foreground mb-1.5 flex items-center gap-1"><DollarSign size={12} />{t("analytics.monthlyRevenue")}</label>
                   <input type="number" value={monthlyRevenue} onChange={e => setMonthlyRevenue(e.target.value)} placeholder={t("analytics.monthlyRevenue.ph")} className="w-full bg-background/50 border border-border/50 rounded-lg px-3 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring/50" />
@@ -206,7 +206,7 @@ const BusinessAnalyticsPage = () => {
                   <label className="text-xs font-semibold text-foreground mb-1.5 flex items-center gap-1"><TrendingDown size={12} />{t("analytics.monthlyExpenses")}</label>
                   <input type="number" value={monthlyExpenses} onChange={e => setMonthlyExpenses(e.target.value)} placeholder={t("analytics.monthlyExpenses.ph")} className="w-full bg-background/50 border border-border/50 rounded-lg px-3 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring/50" />
                 </div>
-                <div className="col-span-2">
+                <div>
                   <label className="text-xs font-semibold text-foreground mb-1.5 flex items-center gap-1"><Users size={12} />{t("analytics.newClients")}</label>
                   <input type="number" value={newClientsCount} onChange={e => setNewClientsCount(e.target.value)} placeholder={t("analytics.newClients.ph")} className="w-full bg-background/50 border border-border/50 rounded-lg px-3 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring/50" />
                 </div>
@@ -246,7 +246,7 @@ const BusinessAnalyticsPage = () => {
         ) : (
           <div className="space-y-5 animate-fade-in-up">
             {/* Metrics — no "close rate" */}
-            <div className="grid grid-cols-3 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-3">
               {[
                 { label: t("analytics.table.revenue"), value: `${currency}${revenue.toLocaleString()}`, icon: DollarSign, up: true },
                 { label: t("analytics.reportNetProfit"), value: `${currency}${profit.toLocaleString()}`, icon: TrendingUp, up: profit > 0 },
@@ -291,7 +291,7 @@ const BusinessAnalyticsPage = () => {
                 { id: "monthly" as const, icon: BarChart3, label: t("analytics.tabs.monthly") },
                 { id: "ask" as const, icon: MessageSquare, label: t("analytics.tabs.ask") },
               ]).map(tab => (
-                <button key={tab.id} onClick={() => setActiveTab(tab.id)} className={`flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-lg text-xs font-bold transition-all ${activeTab === tab.id ? "gradient-glow text-primary-foreground" : "text-muted-foreground hover:text-foreground"}`}>
+                <button key={tab.id} onClick={() => setActiveTab(tab.id)} className={`flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-lg text-xs font-bold transition-all ${activeTab === tab.id ? "bg-[#001830] text-[#F5F5DC] border-transparent shadow-sm" : "bg-white text-[#0A192F] border border-[#E2E8F0] hover:bg-[#F8FAFC] hover:text-[#0A192F]"}`}>
                   <tab.icon size={14} />{tab.label}
                 </button>
               ))}

@@ -69,19 +69,19 @@ const HomePage = () => {
 
   return (
     <div
-      className="min-h-screen pb-24 px-4 sm:px-6 md:px-8 bg-white"
+      className="min-h-screen pb-24 px-4 sm:px-6 md:px-8 bg-[#F8FAFC]"
       dir={isHe ? "rtl" : "ltr"}
     >
       {/* Clean Header with Login Button */}
       <div className="pt-12 pb-12 max-w-5xl mx-auto flex flex-col gap-4 items-center text-center">
         <div className="w-full">
           <h1
-            className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight leading-tight mb-4"
-            style={{ color: DEEP_MIDNIGHT_BLUE, fontFamily: "Inter, system-ui, sans-serif", fontWeight: 700, letterSpacing: "-0.03em" }}
+            className="font-light text-3xl md:text-4xl text-[#0A192F] tracking-tight"
+            style={{ color: "#0A192F", fontFamily: "'Assistant', 'Rubik', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" }}
           >
             {isHe ? "ברוכים הבאים למרכז הניהול העסקי שלך" : "Welcome to your business management hub"}
           </h1>
-          <div className="mx-auto max-w-2xl text-sm text-[#334155]">
+          <div className="mx-auto max-w-2xl text-sm font-light text-[#64748B] mt-3">
             {isHe ? "בחר מסלול חכם, התחבר או צור חשבון כדי להתחיל לנהל את העסק שלך בקלות ובסטייל." : "Choose a smart path, log in or sign up to start managing your business easily and elegantly."}
           </div>
         </div>
@@ -113,19 +113,19 @@ const HomePage = () => {
                 key={feature.id}
                 type="button"
                 onClick={() => navigate(feature.path)}
-                className={`group flex h-[20rem] w-full flex-col justify-between overflow-hidden rounded-2xl border border-[#DEE2E6] bg-transparent p-4 ${isHe ? "text-right" : "text-left"} transition-all duration-300 ease-in-out hover:bg-[#000B18]`}
+                className={`group flex h-[20rem] w-full flex-col justify-between overflow-hidden rounded-2xl border border-[#E2E8F0] bg-white p-6 ${isHe ? "text-right" : "text-left"} transition-all duration-300 ease-in-out hover:bg-[#0A192F]`}
               >
                 <div className="flex items-start gap-4">
                   <div className="space-y-2">
-                    <h3 className="text-xl font-semibold tracking-tight text-[#001830] transition-all duration-300 group-hover:text-white">
+                    <h3 className="font-normal text-lg text-[#0A192F] transition-all duration-300 group-hover:text-white">
                       {feature.title}
                     </h3>
-                    <p className="max-w-2xl text-sm leading-6 text-slate-600 transition-all duration-300 group-hover:text-white/90">
+                    <p className="max-w-2xl font-light text-sm text-[#64748B] leading-relaxed transition-all duration-300 group-hover:text-white/85">
                       {feature.desc}
                     </p>
                   </div>
                 </div>
-                <div className="mt-6 text-sm font-semibold text-slate-500 transition-all duration-300 group-hover:text-white/90">
+                <div className="mt-6 text-sm font-light text-[#64748B] transition-all duration-300 group-hover:text-white/90">
                   {isHe ? "פתח" : "Open"}
                 </div>
               </button>
