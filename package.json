@@ -1,0 +1,11 @@
+{
+  "name": "bizalra",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "npm run dev --prefix bizaira-unified",
+    "build": "npm run build --prefix bizaira-unified",
+    "preview": "npm run preview --prefix bizaira-unified"
+  }
+}
