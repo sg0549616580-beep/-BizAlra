@@ -4,7 +4,6 @@ import { GoogleOAuthProvider } from "@react-oauth/google";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import AppLayout from "@/components/AppLayout";
 import CookieConsentPopup from "@/components/CookieConsentPopup";
-import AccessibilityWidget from "@/components/AccessibilityWidget";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -166,7 +165,6 @@ const App = () => {
             </AuthProvider>
           </I18nProvider>
         </TooltipProvider>
-        <AccessibilityWidget />
       </QueryClientProvider>
     </GoogleOAuthProvider>
   );

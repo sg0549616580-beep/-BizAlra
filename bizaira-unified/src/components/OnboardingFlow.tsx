@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { ArrowLeft, Check, ShoppingBag, Utensils, Star, Home, Monitor, Briefcase, Heart, GraduationCap, MoreHorizontal, Users, Baby, User, UserCheck, Building, PartyPopper, Globe, TrendingUp, Megaphone, Share2, Award, Clock, UserPlus, ChevronRight } from "lucide-react";
+import { ArrowLeft, ChevronRight } from "lucide-react";
 import { useI18n } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 import { saveGuestOnboardingAnswers } from "@/lib/guest-session";
@@ -8,19 +8,19 @@ interface OnboardingFlowProps {
   onComplete: (mode: "guest" | "auth") => void;
 }
 
-type Step = "greeting" | "language" | "business" | "business-info" | "audience" | "audience-info" | "goal";
+type Step =
+  | "greeting"
+  | "language"
+  | "business"
+  | "business-info"
+  | "audience"
+  | "audience-info"
+  | "goal";
 
 type LangOption = {
   value: "en" | "he";
   labelKey: string;
 };
-
-const colorNavy = "#001830";
-const colorCream = "#F5F5DC";
-const colorLight = "#F5F5F5";
-const colorBorder = "#D9D9D9";
-const colorNeutral = "#1E293B";
-const colorMuted = "#475569";
 
 const languageOptions: LangOption[] = [
   { value: "en", labelKey: "onboarding.languages.english" },
@@ -40,40 +40,40 @@ const OnboardingFlow = ({ onComplete }: OnboardingFlowProps) => {
 
   const businessTypes = useMemo(
     () => [
-      { label: t("onboarding.business.fashion"), Icon: ShoppingBag },
-      { label: t("onboarding.business.food"), Icon: Utensils },
-      { label: t("onboarding.business.beauty"), Icon: Star },
-      { label: t("onboarding.business.realEstate"), Icon: Home },
-      { label: t("onboarding.business.digital"), Icon: Monitor },
-      { label: t("onboarding.business.services"), Icon: Briefcase },
-      { label: t("onboarding.business.health"), Icon: Heart },
-      { label: t("onboarding.business.education"), Icon: GraduationCap },
-      { label: t("onboarding.business.other"), Icon: MoreHorizontal },
+      { label: t("onboarding.business.fashion") },
+      { label: t("onboarding.business.food") },
+      { label: t("onboarding.business.beauty") },
+      { label: t("onboarding.business.realEstate") },
+      { label: t("onboarding.business.digital") },
+      { label: t("onboarding.business.services") },
+      { label: t("onboarding.business.health") },
+      { label: t("onboarding.business.education") },
+      { label: t("onboarding.business.other") },
     ],
     [t]
   );
 
   const audiences = useMemo(
     () => [
-      { label: t("onboarding.audience.teens"), Icon: Baby },
-      { label: t("onboarding.audience.adults"), Icon: User },
-      { label: t("onboarding.audience.women"), Icon: Users },
-      { label: t("onboarding.audience.men"), Icon: UserCheck },
-      { label: t("onboarding.audience.businesses"), Icon: Building },
-      { label: t("onboarding.audience.parents"), Icon: PartyPopper },
-      { label: t("onboarding.audience.general"), Icon: Globe },
+      { label: t("onboarding.audience.teens") },
+      { label: t("onboarding.audience.adults") },
+      { label: t("onboarding.audience.women") },
+      { label: t("onboarding.audience.men") },
+      { label: t("onboarding.audience.businesses") },
+      { label: t("onboarding.audience.parents") },
+      { label: t("onboarding.audience.general") },
     ],
     [t]
   );
 
   const goals = useMemo(
     () => [
-      { label: t("onboarding.goal.sales"), Icon: TrendingUp },
-      { label: t("onboarding.goal.exposure"), Icon: Megaphone },
-      { label: t("onboarding.goal.social"), Icon: Share2 },
-      { label: t("onboarding.goal.branding"), Icon: Award },
-      { label: t("onboarding.goal.time"), Icon: Clock },
-      { label: t("onboarding.goal.clients"), Icon: UserPlus },
+      { label: t("onboarding.goal.sales") },
+      { label: t("onboarding.goal.exposure") },
+      { label: t("onboarding.goal.social") },
+      { label: t("onboarding.goal.branding") },
+      { label: t("onboarding.goal.time") },
+      { label: t("onboarding.goal.clients") },
     ],
     [t]
   );
@@ -107,53 +107,90 @@ const OnboardingFlow = ({ onComplete }: OnboardingFlowProps) => {
     }
   }, [step]);
 
-  const textAlignClass = isHe ? "text-right" : "text-left";
   const direction = isHe ? "rtl" : "ltr";
 
+  const isNextDisabled =
+    (step === "language" && !selectedLanguage) ||
+    (step === "business" && !businessType) ||
+    (step === "audience" && !audience) ||
+    (step === "goal" && !goal);
+
+  const goBack = () => {
+    if (step === "business") setStep("language");
+    if (step === "business-info") setStep("business");
+    if (step === "audience") setStep("business-info");
+    if (step === "audience-info") setStep("audience");
+    if (step === "goal") setStep("audience");
+  };
+
+  const goNext = () => {
+    if (step === "language" && selectedLanguage) setStep("business");
+    if (step === "business" && businessType) setStep("business-info");
+    if (step === "business-info") setStep("audience");
+    if (step === "audience" && audience) setStep("audience-info");
+    if (step === "audience-info") setStep("goal");
+    if (step === "goal" && goal) {
+      saveGuestOnboardingAnswers({ business_type: businessType, target_audience: audience, business_goals: goal });
+      onComplete("auth");
+    }
+  };
+
+  const sectionTitle = (() => {
+    if (step === "language") return t("onboarding.language.title");
+    if (step === "business") return t("onboarding.business.title");
+    if (step === "audience") return t("onboarding.audience.title");
+    if (step === "goal") return t("onboarding.goal.title");
+    return "";
+  })();
+
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center px-4 py-8 bg-slate-950/10" dir={direction}>
-        <div className="w-full max-w-4xl rounded-[32px] border border-slate-200/40 bg-white/95 p-8 shadow-[0_32px_80px_rgba(15,23,42,0.14)] backdrop-blur-md">
-        {step === "greeting" && (
-          <section className={cn("flex flex-col items-center justify-center gap-8", textAlignClass)}>
-            <div className="max-w-2xl">
-              <h1 className="text-4xl font-semibold tracking-[-0.03em] text-slate-950" style={{ fontFamily: "'Playfair Display', serif" }}>
-                {t("onboarding.greeting.title")}
-              </h1>
-              <p className="mt-5 text-base leading-7 text-slate-600" style={{ fontFamily: "'Inter', sans-serif" }}>
+    <div className="fixed inset-0 z-[100] flex items-center justify-center bg-[#F3F4F6] px-4 py-10" dir={direction}>
+      <div className="w-full max-w-3xl rounded-[28px] border border-[#D9D9D9] bg-white p-10 shadow-sm">
+        {step === "greeting" ? (
+          <div className="space-y-10 text-center">
+            <div className="space-y-4">
+              <p className="text-xs uppercase tracking-[0.32em] text-[#6B7280]">
                 {t("onboarding.greeting.subtitle")}
               </p>
+              <h1 className="text-4xl font-semibold tracking-tight text-[#001830]">
+                {t("onboarding.greeting.title")}
+              </h1>
+              <p className="mx-auto max-w-2xl text-base leading-8 text-[#4B5563]">
+                {t("onboarding.greeting.description") || t("onboarding.greeting.subtitle")}
+              </p>
             </div>
-
             <button
               type="button"
               onClick={() => setStep("language")}
-              className="inline-flex items-center justify-center rounded-[18px] bg-[#001830] px-8 py-4 text-base font-semibold text-white shadow-[0_12px_30px_rgba(0,24,48,0.23)] transition-all duration-300 ease-in-out hover:-translate-y-0.5 hover:bg-[#001830]"
+              className="inline-flex items-center justify-center gap-2 rounded-full bg-[#001830] px-8 py-3 text-base font-semibold text-white transition-colors hover:bg-[#001830]"
             >
-              {t("onboarding.greeting.button")}
-              <ChevronRight size={18} className="ml-2" />
+              <span>{t("onboarding.greeting.button")}</span>
+              <ChevronRight size={18} />
             </button>
-          </section>
-        )}
-
-        {step !== "greeting" && (
-          <div className="space-y-6">
-            {(step !== "business-info" && step !== "audience-info") && (
-              <StepHeader
-                num={stepNumber}
-                total={4}
-                stepLabel={t("onboarding.stepCounter", { num: stepNumber, total: 4 })}
-                title={
-                  step === "language"
-                    ? t("onboarding.language.title")
-                    : step === "business"
-                    ? t("onboarding.business.title")
-                    : step === "audience"
-                    ? t("onboarding.audience.title")
-                    : t("onboarding.goal.title")
-                }
-                isHe={isHe}
-              />
-            )}
+          </div>
+        ) : (
+          <div className="space-y-8">
+            <div className="space-y-4">
+              <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                <div className="space-y-2">
+                  <p className="text-xs uppercase tracking-[0.28em] text-[#6B7280]">
+                    {t("onboarding.stepCounter", { num: stepNumber, total: 4 })}
+                  </p>
+                  <h2 className="text-3xl font-semibold text-[#001830]">{sectionTitle}</h2>
+                </div>
+                <div className="flex h-1 w-full gap-2 overflow-hidden rounded-full bg-[#E5E7EB] sm:w-56">
+                  {Array.from({ length: 4 }, (_, index) => (
+                    <span
+                      key={index}
+                      className={cn(
+                        "h-full rounded-full transition-all duration-300",
+                        index < stepNumber ? "w-full bg-[#001830]" : "w-full bg-[#E5E7EB]"
+                      )}
+                    />
+                  ))}
+                </div>
+              </div>
+            </div>
 
             {step === "language" && (
               <div className="grid gap-4 sm:grid-cols-2">
@@ -165,10 +202,10 @@ const OnboardingFlow = ({ onComplete }: OnboardingFlowProps) => {
                       type="button"
                       onClick={() => handleLanguageSelect(option)}
                       className={cn(
-                        "flex min-h-[96px] items-center justify-center rounded-xl border px-4 py-3 text-center text-lg font-semibold transition-colors duration-200 ease-in-out",
+                        "min-h-[96px] rounded-[24px] border px-6 py-5 text-base font-semibold transition-colors duration-200",
                         selected
                           ? "border-transparent bg-[#001830] text-white"
-                          : "border-slate-200 bg-white text-slate-950"
+                          : "border-[#D9D9D9] bg-white text-[#001830] hover:border-[#9CA3AF]"
                       )}
                     >
                       {t(option.labelKey)}
@@ -179,156 +216,102 @@ const OnboardingFlow = ({ onComplete }: OnboardingFlowProps) => {
             )}
 
             {step === "business" && (
-              <div className="space-y-6">
-                <div className="grid gap-3 sm:grid-cols-3">
-                  {businessTypes.map(({ label, Icon }) => {
-                    const selected = businessType === label;
-                    return (
-                      <button
-                        key={label}
-                        type="button"
-                        onClick={() => setBusinessType(label)}
-                        className={cn(
-                          "flex min-h-[96px] items-center gap-3 rounded-xl border px-4 py-3 text-left text-sm font-semibold transition-colors duration-200 ease-in-out",
-                          selected
-                            ? "border-transparent bg-[#001830] text-white"
-                            : "border-slate-200 bg-white text-slate-950"
-                        )}
-                      >
-                        <div
-                          className={cn(
-                            "flex h-10 w-10 items-center justify-center rounded-xl border transition-colors duration-200 ease-in-out",
-                            selected
-                              ? "border-transparent bg-white/10 text-white"
-                              : "border-slate-200 bg-white text-slate-900"
-                          )}
-                        >
-                          <Icon size={18} strokeWidth={1.6} />
-                        </div>
-                        <span className={isHe ? "flex-1 text-right" : "flex-1 text-left"}>{label}</span>
-                      </button>
-                    );
-                  })}
-                </div>
+              <div className="grid gap-4 sm:grid-cols-3">
+                {businessTypes.map(({ label }) => {
+                  const selected = businessType === label;
+                  return (
+                    <button
+                      key={label}
+                      type="button"
+                      onClick={() => setBusinessType(label)}
+                      className={cn(
+                        "min-h-[96px] rounded-[24px] border px-6 py-5 text-base font-semibold transition-colors duration-200",
+                        selected
+                          ? "border-transparent bg-[#001830] text-white"
+                          : "border-[#D9D9D9] bg-white text-[#001830] hover:border-[#9CA3AF]"
+                      )}
+                    >
+                      {label}
+                    </button>
+                  );
+                })}
               </div>
             )}
 
             {step === "business-info" && (
-              <div className={cn("rounded-[28px] border border-slate-200/80 bg-slate-50/80 p-8 text-center", textAlignClass)}>
-                <div className="mx-auto mb-8 grid h-20 w-20 place-items-center rounded-full bg-[#001830]/10 text-[#001830]">
-                  <Check size={34} strokeWidth={2.5} />
-                </div>
-                <h2 className="text-3xl font-semibold text-slate-950" style={{ fontFamily: isHe ? "var(--font-heebo)" : "'Playfair Display', serif" }}>
-                  {t("onboarding.businessInfo.perfect")}
-                </h2>
-                <p className="mx-auto mt-6 max-w-2xl text-base leading-7 text-slate-600" style={{ fontFamily: "'Inter', sans-serif" }}>
+              <div className="rounded-[24px] border border-[#E5E7EB] bg-[#F8FAFC] p-8 text-center">
+                <p className="text-sm uppercase tracking-[0.28em] text-[#6B7280]">{t("onboarding.businessInfo.title")}</p>
+                <h3 className="mt-4 text-3xl font-semibold text-[#001830]">{t("onboarding.businessInfo.perfect")}</h3>
+                <p className="mx-auto mt-6 max-w-2xl text-base leading-8 text-[#4B5563]">
                   {t("onboarding.businessInfo.confirmationDescription").replace("{{businessType}}", businessType)}
                 </p>
               </div>
             )}
 
             {step === "audience" && (
-              <div className="space-y-6">
-                <div className="grid gap-3 sm:grid-cols-2">
-                  {audiences.map(({ label, Icon }) => {
-                    const selected = audience === label;
-                    return (
-                      <button
-                        key={label}
-                        type="button"
-                        onClick={() => setAudience(label)}
-                        className={cn(
-                          "flex min-h-[96px] items-center gap-3 rounded-xl border px-4 py-3 text-base font-semibold transition-colors duration-200 ease-in-out",
-                          selected
-                            ? "border-transparent bg-[#001830] text-white"
-                            : "border-slate-200 bg-white text-slate-950"
-                        )}
-                        style={{ justifyContent: isHe ? "flex-end" : "flex-start" }}
-                      >
-                        <div
-                          className={cn(
-                            "flex h-10 w-10 items-center justify-center rounded-xl border transition-colors duration-200 ease-in-out",
-                            selected
-                              ? "border-transparent bg-white/10 text-white"
-                              : "border-slate-200 bg-white text-slate-900"
-                          )}
-                        >
-                          <Icon size={18} strokeWidth={1.6} />
-                        </div>
-                        <span className={isHe ? "flex-1 text-right" : "flex-1 text-left"}>{label}</span>
-                      </button>
-                    );
-                  })}
-                </div>
+              <div className="grid gap-4 sm:grid-cols-2">
+                {audiences.map(({ label }) => {
+                  const selected = audience === label;
+                  return (
+                    <button
+                      key={label}
+                      type="button"
+                      onClick={() => setAudience(label)}
+                      className={cn(
+                        "min-h-[96px] rounded-[24px] border px-6 py-5 text-base font-semibold transition-colors duration-200",
+                        selected
+                          ? "border-transparent bg-[#001830] text-white"
+                          : "border-[#D9D9D9] bg-white text-[#001830] hover:border-[#9CA3AF]"
+                      )}
+                    >
+                      {label}
+                    </button>
+                  );
+                })}
               </div>
             )}
 
             {step === "audience-info" && (
-              <div className={cn("rounded-[28px] border border-slate-200/80 bg-slate-50/80 p-8 text-center", textAlignClass)}>
-                <div className="mx-auto mb-8 grid h-20 w-20 place-items-center rounded-full bg-[#001830]/10 text-[#001830]">
-                  <Check size={34} strokeWidth={2.5} />
-                </div>
-                <h2 className="text-3xl font-semibold text-slate-950" style={{ fontFamily: isHe ? "var(--font-heebo)" : "'Playfair Display', serif" }}>
-                  {t("onboarding.audienceInfo.excellent")}
-                </h2>
-                <p className="mx-auto mt-6 max-w-2xl text-base leading-7 text-slate-600" style={{ fontFamily: "'Inter', sans-serif" }}>
+              <div className="rounded-[24px] border border-[#E5E7EB] bg-[#F8FAFC] p-8 text-center">
+                <p className="text-sm uppercase tracking-[0.28em] text-[#6B7280]">{t("onboarding.audienceInfo.title")}</p>
+                <h3 className="mt-4 text-3xl font-semibold text-[#001830]">{t("onboarding.audienceInfo.excellent")}</h3>
+                <p className="mx-auto mt-6 max-w-2xl text-base leading-8 text-[#4B5563]">
                   {t("onboarding.audienceInfo.description").replace("{{audience}}", audience)}
                 </p>
               </div>
             )}
 
             {step === "goal" && (
-              <div className="space-y-6">
-                <div className="grid gap-3 sm:grid-cols-2">
-                  {goals.map(({ label, Icon }) => {
-                    const selected = goal === label;
-                    return (
-                      <button
-                        key={label}
-                        type="button"
-                        onClick={() => setGoal(label)}
-                        className={cn(
-                          "flex min-h-[96px] items-center gap-3 rounded-xl border px-4 py-3 text-base font-semibold transition-colors duration-200 ease-in-out",
-                          selected
-                            ? "border-transparent bg-[#001830] text-white"
-                            : "border-slate-200 bg-white text-slate-950"
-                        )}
-                        style={{ justifyContent: isHe ? "flex-end" : "flex-start" }}
-                      >
-                        <div
-                          className={cn(
-                            "flex h-10 w-10 items-center justify-center rounded-xl border transition-colors duration-200 ease-in-out",
-                            selected
-                              ? "border-transparent bg-white/10 text-white"
-                              : "border-slate-200 bg-white text-slate-900"
-                          )}
-                        >
-                          <Icon size={18} strokeWidth={1.6} />
-                        </div>
-                        <span className={isHe ? "flex-1 text-right" : "flex-1 text-left"}>{label}</span>
-                      </button>
-                    );
-                  })}
-                </div>
+              <div className="grid gap-4 sm:grid-cols-2">
+                {goals.map(({ label }) => {
+                  const selected = goal === label;
+                  return (
+                    <button
+                      key={label}
+                      type="button"
+                      onClick={() => setGoal(label)}
+                      className={cn(
+                        "min-h-[96px] rounded-[24px] border px-6 py-5 text-base font-semibold transition-colors duration-200",
+                        selected
+                          ? "border-transparent bg-[#001830] text-white"
+                          : "border-[#D9D9D9] bg-white text-[#001830] hover:border-[#9CA3AF]"
+                      )}
+                    >
+                      {label}
+                    </button>
+                  );
+                })}
               </div>
             )}
 
-            <div className="mt-6 flex flex-col gap-3 border-t border-slate-200/50 pt-6 sm:flex-row sm:items-center sm:justify-between">
-              <div className={cn("text-sm text-slate-600", isHe ? "text-right" : "text-left")}>
-                {t("onboarding.stepCounter", { num: stepNumber, total: 4 })}
-              </div>
+            <div className="mt-6 flex flex-col gap-3 border-t border-[#E5E7EB] pt-6 sm:flex-row sm:items-center sm:justify-between">
+              <div className="text-sm text-[#6B7280]">{t("onboarding.stepCounter", { num: stepNumber, total: 4 })}</div>
               <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
                 {step !== "language" && (
                   <button
                     type="button"
-                    onClick={() => {
-                      if (step === "business") setStep("language");
-                      if (step === "business-info") setStep("business");
-                      if (step === "audience") setStep("business-info");
-                      if (step === "audience-info") setStep("audience");
-                      if (step === "goal") setStep("audience");
-                    }}
-                    className="inline-flex items-center justify-center rounded-[18px] border border-slate-200 bg-slate-100 px-5 py-3 text-sm font-semibold text-slate-900 transition-all duration-300 ease-in-out hover:border-transparent hover:bg-slate-200"
+                    onClick={goBack}
+                    className="inline-flex items-center justify-center rounded-full border border-[#D9D9D9] bg-white px-7 py-3 text-sm font-semibold text-[#001830] transition hover:bg-[#F8FAFC]"
                   >
                     <ArrowLeft size={18} className={isHe ? "rotate-180" : ""} />
                     <span className="ml-2">{t("onboarding.back")}</span>
@@ -336,31 +319,13 @@ const OnboardingFlow = ({ onComplete }: OnboardingFlowProps) => {
                 )}
                 <button
                   type="button"
-                  onClick={() => {
-                    if (step === "language" && selectedLanguage) setStep("business");
-                    if (step === "business" && businessType) setStep("business-info");
-                    if (step === "business-info") setStep("audience");
-                    if (step === "audience" && audience) setStep("audience-info");
-                    if (step === "audience-info") setStep("goal");
-                    if (step === "goal" && goal) {
-                      saveGuestOnboardingAnswers({ business_type: businessType, target_audience: audience, business_goals: goal });
-                      onComplete("auth");
-                    }
-                  }}
-                  disabled={
-                    (step === "language" && !selectedLanguage) ||
-                    (step === "business" && !businessType) ||
-                    (step === "audience" && !audience) ||
-                    (step === "goal" && !goal)
-                  }
+                  onClick={goNext}
+                  disabled={isNextDisabled}
                   className={cn(
-                    "inline-flex items-center justify-center rounded-[18px] px-7 py-3 text-sm font-semibold transition-all duration-300 ease-in-out",
-                    (step === "language" && !selectedLanguage) ||
-                    (step === "business" && !businessType) ||
-                    (step === "audience" && !audience) ||
-                    (step === "goal" && !goal)
-                      ? "cursor-not-allowed bg-slate-300 text-slate-500"
-                      : "bg-[#001830] text-white shadow-[0_14px_32px_rgba(0,24,48,0.24)] hover:bg-[#001830]"
+                    "inline-flex items-center justify-center rounded-full px-7 py-3 text-sm font-semibold transition-all duration-200",
+                    isNextDisabled
+                      ? "bg-[#E5E7EB] text-[#9CA3AF] cursor-not-allowed"
+                      : "bg-[#001830] text-white hover:bg-[#001830]"
                   )}
                 >
                   {step === "goal" ? t("onboarding.finish") : t("onboarding.page.continue")}
@@ -381,18 +346,14 @@ const StepHeader = ({ num, total, stepLabel, title, isHe }: { num: number; total
         <span
           key={i}
           className={cn(
-            "h-1 flex-1 rounded-full transition-colors duration-300",
-            i < num ? "bg-[#001830]" : "bg-slate-200"
+            "h-1 flex-1 rounded-full transition-colors duration-200",
+            i < num ? "bg-[#001830]" : "bg-[#E5E7EB]"
           )}
         />
       ))}
     </div>
-    <p className={cn("text-xs uppercase tracking-[0.28em] text-slate-500", isHe ? "text-right" : "text-left")}>
-      {stepLabel}
-    </p>
-    <h2 className={cn("mt-3 text-3xl font-semibold text-slate-950", isHe ? "text-right" : "text-left")} style={{ fontFamily: isHe ? "var(--font-heebo)" : "'Playfair Display', serif" }}>
-      {title}
-    </h2>
+    <p className={cn("text-xs uppercase tracking-[0.28em] text-[#6B7280]", isHe ? "text-right" : "text-left")}>{stepLabel}</p>
+    <h2 className={cn("mt-3 text-3xl font-semibold text-[#001830]", isHe ? "text-right" : "text-left")}>{title}</h2>
   </div>
 );
 

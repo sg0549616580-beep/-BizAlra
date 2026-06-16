@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { ArrowRight, BarChart3, Sparkles } from "lucide-react";
+import { ArrowRight, BarChart3 } from "lucide-react";
 import BottomNav from "@/components/BottomNav";
 import CookieConsentPopup from "@/components/CookieConsentPopup";
 import { useI18n } from "@/lib/i18n";
@@ -33,11 +33,6 @@ const HomePage = () => {
       title: isHe ? "ניתוח פיננסי מהיר" : "Quick Financial Analysis",
       description: isHe ? "היכנס לניתוח עסקי וצפה בתובנות עיקריות" : "Open business analysis and review the key insights",
       path: "/create/analytics",
-    },
-    {
-      title: isHe ? "יצירת קמפיין שיווקי" : "Create a Marketing Campaign",
-      description: isHe ? "התחל ביצירת תוכן ושיווק בסטודיו התמונות" : "Start content and marketing creation in the studio",
-      path: "/create/image-studio",
     },
   ];
 
@@ -79,7 +74,7 @@ const HomePage = () => {
         <section className="luxury-card">
           <h2 className="mb-4 text-xl font-bold text-[#000F21] md:text-2xl">{isHe ? "פעולות מהירות" : "Quick Actions"}</h2>
           <div className="space-y-0">
-            {quickActions.map((action, index) => (
+            {quickActions.map((action) => (
               <button
                 key={action.title}
                 type="button"
@@ -88,7 +83,7 @@ const HomePage = () => {
               >
                 <div className="flex items-start gap-4">
                   <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#001830]/10 text-[#001830]">
-                    {index === 0 ? <BarChart3 size={20} /> : <Sparkles size={20} />}
+                    <BarChart3 size={20} />
                   </div>
                   <div>
                     <h3 className="text-lg font-bold text-[#001830]">{action.title}</h3>
