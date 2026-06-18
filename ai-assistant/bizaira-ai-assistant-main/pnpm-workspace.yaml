@@ -1,10 +1,10 @@
 packages:
   - artifacts/*
   - lib/*
-  - lib/integrations/*
   - scripts
 
 autoInstallPeers: false
+strictPeerDependencies: false
 
 catalog:
   '@replit/vite-plugin-cartographer': ^0.5.1
